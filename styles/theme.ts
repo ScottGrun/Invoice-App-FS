@@ -50,9 +50,9 @@ export const theme = {
 	// Using REM for breakpoints to maintain a nicer UI
 	//  when changing zoom levels
 	QUERIES: {
-		phoneAndUp: `(min - width: ${BREAKPOINTS.phone / 16}rem)`,
-		tabletAndUp: `(min - width: ${BREAKPOINTS.tablet / 16}rem)`,
-		laptopAndUp: `(min - width: ${BREAKPOINTS.laptop / 16}rem)`,
-		xlAndUp: `(min - width: ${BREAKPOINTS.xl / 16}rem)`,
+		phoneAndUp: `(min-width: ${BREAKPOINTS.phone / 16}rem)`,
+		tabletAndUp: `(min-width: ${BREAKPOINTS.tablet / 16}rem)`,
+		laptopAndUp: `(min-width: ${BREAKPOINTS.laptop / 16}rem)`,
+		xlAndUp: `(min-width: ${BREAKPOINTS.xl / 16}rem)`,
 	},
 };

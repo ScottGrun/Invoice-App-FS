@@ -11,10 +11,12 @@ interface Props {
 	className?: string;
 }
 
-export const Sidebar = (props: Props) => {
+export const Sidebar = ({ className }: Props) => {
 	return (
-		<Wrapper>
-			<Image src={logoSrc} alt="" />
+		<Wrapper className={className}>
+			<LogoWrapper>
+				<Image src={logoSrc} layout="fill" alt="" />
+			</LogoWrapper>
 			<StyledThemeSwitcher />
 			<Divider />
 			<ProfileImg />
@@ -32,15 +34,45 @@ const Wrapper = styled.aside`
 	padding-right: 32px;
 
 	background-color: ${(p) => p.theme.COLORS.dark[5]};
+
+	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
+		flex-flow: column;
+		min-height: 100vh;
+		width: 103px;
+		padding-right: 0;
+		padding-bottom: 24px;
+		border-radius: 0px 35px 20px 0px;
+	}
+`;
+
+const LogoWrapper = styled.div`
+	position: relative;
+	width: 72px;
+	height: 72px;
+
+	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
+		width: 103px;
+		height: 103px;
+	}
 `;
 
 const StyledThemeSwitcher = styled(ThemeSwitcher)`
 	margin-left: auto;
+
+	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
+		margin-left: revert;
+		margin-top: auto;
+	}
 `;
 
 const Divider = styled.div`
 	height: 100%;
-	width: 1px;
+	width: 2px;
 
 	background-color: ${(p) => p.theme.COLORS.dark[6]};
+
+	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
+		height: 2px;
+		width: 100%;
+	}
 `;
