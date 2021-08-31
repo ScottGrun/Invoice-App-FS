@@ -35,7 +35,6 @@
             "patterns": ["@/features/*/*"]
           }
         ],
-        "linebreak-style": ["error", "windows"],
         "react/prop-types": "off",
 
         "import/order": [
