@@ -26,7 +26,7 @@ export const Dropdown = ({ children, className }: Props) => {
 				<DropdownButton
 					arrow={<Image id="chevron" src={iconChevronDownSrc} alt="Arrow facing up" />}
 				>
-					Filter by status
+					Filter&nbsp;<span id="extra-text">by status</span>
 				</DropdownButton>
 				<PopOver>
 					<ListboxList>{children}</ListboxList>
@@ -38,7 +38,8 @@ export const Dropdown = ({ children, className }: Props) => {
 
 const PopOver = styled(ListboxPopover)`
 	&[data-reach-listbox-popover] {
-		width: 192px !important;
+		margin: 0 auto;
+		margin-left: -39px;
 		margin-top: 23px;
 		padding: 24px;
 		border-radius: 8px;
@@ -60,7 +61,13 @@ const DropdownButton = styled(ListboxButton)`
 
 	span {
 		height: 10px;
-		margin-left: 16px;
+		margin-left: 12px;
+	}
+
+	#extra-text {
+		display: none;
+		height: auto;
+		margin: 0;
 	}
 
 	&[data-reach-listbox-button][aria-expanded='true'] {
