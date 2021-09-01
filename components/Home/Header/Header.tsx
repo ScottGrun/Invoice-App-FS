@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Button } from '@/components/Button/Button';
 import { Dropdown } from '@/components/Dropdown/Dropdown';
 import { DropdownOption } from '@/components/Dropdown/DropdownOption';
-import { bodyTextStyle, h2TextStyle } from '@/styles/typography';
+import { bodyTextStyle, h1TextStyle, h2TextStyle } from '@/styles/typography';
 interface Props {
 	invoiceCount: number;
 }
@@ -47,6 +47,10 @@ export const Header = ({ invoiceCount }: Props) => {
 const Wrapper = styled.header`
 	display: flex;
 	gap: 18px;
+	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+		align-items: center;
+		gap: 40px;
+	}
 `;
 
 const HeadingWrapper = styled.div`
@@ -56,16 +60,26 @@ const HeadingWrapper = styled.div`
 
 const Heading = styled.h1`
 	${h2TextStyle};
+	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+		${h1TextStyle};
+	}
 `;
 
 const SubHeading = styled.p`
 	${bodyTextStyle};
 	margin-top: 4px;
 	color: ${(p) => p.theme.COLORS.grey[1]};
+	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+		margin-top: 8px;
+	}
 `;
 
 const StyledDropdown = styled(Dropdown)`
 	margin-top: 15px;
+
+	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+		margin: 0px;
+	}
 `;
 
 const NewInvoiceButton = styled(Button)`

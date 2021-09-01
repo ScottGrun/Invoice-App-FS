@@ -56,7 +56,6 @@ const ErrorHeading = styled.h2`
 
 const ErrorMessage = styled.p`
 	max-width: 201px;
-	margin: 0 8px;
 	margin-top: 24px;
 
 	font-family: ${(p) => p.theme.FONT_FAMILY.body};
@@ -66,4 +65,8 @@ const ErrorMessage = styled.p`
 	text-align: center;
 	letter-spacing: -0.25px;
 	color: ${(p) => p.theme.COLORS.grey[1]};
+
+	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+		max-width: 221px;
+	}
 `;

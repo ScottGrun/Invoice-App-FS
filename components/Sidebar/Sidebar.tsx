@@ -24,7 +24,7 @@ export const Sidebar = ({ className }: Props) => {
 	);
 };
 
-const Wrapper = styled.aside`
+const Wrapper = styled.div`
 	display: flex;
 	align-items: center;
 	gap: 24px;
