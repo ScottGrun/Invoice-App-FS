@@ -25,11 +25,13 @@ export const theme = {
 			1: '#888EB0',
 			2: '#DFE3FA',
 			3: '#F8F8FB',
+			4: '#F9FAFE',
 		},
 		warning: {
 			1: '#EC5757',
 			2: '#FF9797',
 		},
+		white: '#fff',
 	},
 	FONT_FAMILY: {
 		header: "'Spartan', sans-serif",

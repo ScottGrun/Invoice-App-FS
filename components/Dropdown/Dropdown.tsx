@@ -76,4 +76,10 @@ const DropdownButton = styled(ListboxButton)`
 			transform: rotate(180deg);
 		}
 	}
+
+	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+		#extra-text {
+			display: revert;
+		}
+	}
 `;

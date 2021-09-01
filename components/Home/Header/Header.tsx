@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { Button } from '@/components/Button/Button';
 import { Dropdown } from '@/components/Dropdown/Dropdown';
 import { DropdownOption } from '@/components/Dropdown/DropdownOption';
 import { bodyTextStyle, h1TextStyle, h2TextStyle } from '@/styles/typography';
@@ -25,7 +26,7 @@ export const Header = ({ invoiceCount }: Props) => {
 				<Heading>Invoices</Heading>
 				<SubHeading>{getInvoiceCountText(invoiceCount)}</SubHeading>
 			</HeadingWrapper>
-			<Dropdown>
+			<StyledDropdown>
 				<DropdownOption value="Draft" label="Draft">
 					Draft
 				</DropdownOption>
@@ -35,18 +36,21 @@ export const Header = ({ invoiceCount }: Props) => {
 				<DropdownOption value="Paid" label="Paid">
 					Paid
 				</DropdownOption>
-			</Dropdown>
+			</StyledDropdown>
+			<NewInvoiceButton icon="plus">
+				New&nbsp;<span>Invoice</span>
+			</NewInvoiceButton>
 		</Wrapper>
 	);
 };
 
 const Wrapper = styled.header`
 	display: flex;
-	align-items: center;
 	gap: 18px;
 `;
 
 const HeadingWrapper = styled.div`
+	margin-top: 2px;
 	margin-right: auto;
 `;
 
@@ -58,4 +62,20 @@ const SubHeading = styled.p`
 	${bodyTextStyle};
 	margin-top: 4px;
 	color: ${(p) => p.theme.COLORS.grey[1]};
+`;
+
+const StyledDropdown = styled(Dropdown)`
+	margin-top: 15px;
+`;
+
+const NewInvoiceButton = styled(Button)`
+	span {
+		display: none;
+	}
+
+	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+		span {
+			display: revert;
+		}
+	}
 `;
