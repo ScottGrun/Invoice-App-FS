@@ -1,9 +1,8 @@
 import { NextPage } from 'next';
 import styled from 'styled-components';
 
-import { Sidebar } from 'components/Sidebar/Sidebar';
-
 import { Header } from '@/components/Home';
+import { Sidebar } from '@/components/Sidebar/Sidebar';
 
 const Home: NextPage = () => {
 	return (
