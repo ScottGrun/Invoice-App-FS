@@ -24,7 +24,7 @@ export const Sidebar = ({ className }: Props) => {
 	);
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.aside`
 	display: flex;
 	align-items: center;
 	gap: 24px;
@@ -34,6 +34,10 @@ const Wrapper = styled.div`
 	padding-right: 32px;
 
 	background-color: ${(p) => p.theme.COLORS.dark[5]};
+
+	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+		height: 80px;
+	}
 
 	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
 		flex-flow: column;
@@ -49,6 +53,11 @@ const LogoWrapper = styled.div`
 	position: relative;
 	width: 72px;
 	height: 72px;
+
+	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+		width: 80px;
+		height: 80px;
+	}
 
 	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
 		width: 103px;

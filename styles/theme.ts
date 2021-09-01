@@ -26,6 +26,16 @@ export const theme = {
 			2: '#DFE3FA',
 			3: '#F8F8FB',
 			4: '#F9FAFE',
+			5: '#858BB2',
+			6: '#F3F3F5',
+		},
+		success: {
+			1: '#33D69F',
+			2: '#F3FCF9',
+		},
+		caution: {
+			1: '#FF8F00',
+			2: '#FFF8F0',
 		},
 		warning: {
 			1: '#EC5757',

@@ -6,7 +6,7 @@ import iconPlusSrc from '@/public/icons/icon-plus.svg';
 import { theme } from '@/styles/theme';
 import { h4TextStyle } from '@/styles/typography';
 
-type ColorVariantsType = {
+export type ColorVariantsType = {
 	[key: string]: {
 		[key: string]: string;
 	};
