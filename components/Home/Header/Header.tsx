@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Button } from '@/components/Button/Button';
 import { Dropdown } from '@/components/Dropdown/Dropdown';
 import { DropdownOption } from '@/components/Dropdown/DropdownOption';
-import { bodyTextStyle, h1TextStyle, h2TextStyle } from '@/styles/typography';
+import { bodyTextStyle, h2TextStyle } from '@/styles/typography';
 interface Props {
 	invoiceCount: number;
 }
