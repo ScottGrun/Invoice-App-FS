@@ -44,7 +44,6 @@ footer, header, hgroup, main, menu, nav, section {
 }
 body {
   line-height: 1;
-  overflow: hidden;
   background-color:#F8F8FB;
   color: #0C0E16;
 }

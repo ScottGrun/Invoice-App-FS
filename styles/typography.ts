@@ -63,3 +63,16 @@ export const detailValueTextStyle = css`
 	line-height: 20px;
 	letter-spacing: -0.3125px;
 `;
+
+export const tableFooterTotalTextStyle = css`
+	${headerBaseStyles};
+	font-size: ${20 / 16}rem;
+	line-height: 32px;
+	letter-spacing: -0.416667px;
+
+	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+		font-size: ${24 / 16}rem;
+		line-height: 32px;
+		letter-spacing: -0.5px;
+	}
+`;

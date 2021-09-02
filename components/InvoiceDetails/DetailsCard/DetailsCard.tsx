@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import DetailField from '../DetailField/DetailField';
+import { ItemsTable } from '../ItemsTable/ItemsTable';
+import { MobileItemsTable } from '../MobileItemsTable/MobileItemsTable';
 
 import { body2TextStyle, bodyTextStyle, h4TextStyle } from '@/styles/typography';
 
@@ -39,6 +41,7 @@ export const DetailsCard = ({ className }: Props) => {
 					</address>
 				</BillTo>
 			</MetaData>
+			<MobileTable />
 		</Wrapper>
 	);
 };
@@ -114,4 +117,8 @@ const ClientEmail = styled(DetailField)`
 `;
 const BillTo = styled(DetailField)`
 	grid-area: bill-to;
+`;
+
+const MobileTable = styled(ItemsTable)`
+	margin-top: 40px;
 `;
