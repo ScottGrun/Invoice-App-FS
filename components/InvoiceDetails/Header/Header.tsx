@@ -7,11 +7,12 @@ import { bodyTextStyle } from '@/styles/typography';
 
 interface Props {
 	status: '';
+	className?: string;
 }
 
-export const Header = ({ status }: Props) => {
+export const Header = ({ status, className }: Props) => {
 	return (
-		<Wrapper>
+		<Wrapper className={className}>
 			<StatusLabel>Status</StatusLabel>
 			<StyledStatusBadge status="Pending" />
 			<ButtonContainer>
@@ -26,7 +27,6 @@ export const Header = ({ status }: Props) => {
 const Wrapper = styled.header`
 	display: flex;
 	align-items: center;
-	margin-top: 32px;
 	padding: 0 24px;
 	width: 100%;
 	height: 91px;

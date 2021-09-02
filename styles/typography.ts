@@ -54,3 +54,12 @@ export const body2TextStyle = css`
 	line-height: 18px;
 	letter-spacing: -0.229167px;
 `;
+
+// Invoice Details
+
+export const detailValueTextStyle = css`
+	${headerBaseStyles};
+	font-size: ${15 / 16}rem;
+	line-height: 20px;
+	letter-spacing: -0.3125px;
+`;
