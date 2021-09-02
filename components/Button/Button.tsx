@@ -30,7 +30,7 @@ const colorVariants: ColorVariantsType = {
 	},
 	warning: {
 		background: theme.COLORS.warning[1],
-		backgroundHover: theme.COLORS.dark[2],
+		backgroundHover: theme.COLORS.warning[2],
 		text: theme.COLORS.white,
 	},
 };
