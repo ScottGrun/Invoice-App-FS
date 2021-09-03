@@ -1,6 +1,6 @@
 // Constants
 export const BREAKPOINTS = {
-	phone: 375,
+	phone: 500,
 	tablet: 768,
 	laptop: 1110,
 	xl: 1440,

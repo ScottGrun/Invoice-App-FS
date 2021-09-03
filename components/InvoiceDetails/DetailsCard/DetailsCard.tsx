@@ -5,6 +5,8 @@ import DetailField from '../DetailField/DetailField';
 import { ItemsTable } from '../ItemsTable/ItemsTable';
 import { MobileItemsTable } from '../MobileItemsTable/MobileItemsTable';
 
+import { Size, useWindowSize } from '@/hooks/useWindowSize';
+import { BREAKPOINTS } from '@/styles/theme';
 import { body2TextStyle, bodyTextStyle, h4TextStyle } from '@/styles/typography';
 
 interface Props {
@@ -12,6 +14,8 @@ interface Props {
 }
 
 export const DetailsCard = ({ className }: Props) => {
+	const size: Size = useWindowSize();
+
 	return (
 		<Wrapper className={className}>
 			<MetaData>
@@ -41,7 +45,7 @@ export const DetailsCard = ({ className }: Props) => {
 					</address>
 				</BillTo>
 			</MetaData>
-			<MobileTable />
+			{size?.width > BREAKPOINTS.phone ? <LargeTable /> : <MobileTable />}
 		</Wrapper>
 	);
 };
@@ -119,6 +123,10 @@ const BillTo = styled(DetailField)`
 	grid-area: bill-to;
 `;
 
-const MobileTable = styled(ItemsTable)`
+const LargeTable = styled(ItemsTable)`
+	margin-top: 40px;
+`;
+
+const MobileTable = styled(MobileItemsTable)`
 	margin-top: 40px;
 `;
