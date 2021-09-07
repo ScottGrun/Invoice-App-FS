@@ -28,6 +28,7 @@ export const theme = {
 			4: '#F9FAFE',
 			5: '#858BB2',
 			6: '#F3F3F5',
+			7: '#777F98',
 		},
 		success: {
 			1: '#33D69F',
@@ -54,6 +55,8 @@ export const theme = {
 		h4: `${12 / 16}rem`,
 		body: `${12 / 16}rem`,
 		body2: `${11 / 16}rem`,
+		formH1: `${24 / 16}rem`,
+		formItemListH1: `${18 / 16}rem`,
 	},
 	WEIGHTS: {
 		medium: 500,

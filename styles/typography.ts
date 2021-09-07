@@ -76,3 +76,19 @@ export const tableFooterTotalTextStyle = css`
 		letter-spacing: -0.5px;
 	}
 `;
+
+// Form
+
+export const formHeaderTextStyle = css`
+	${headerBaseStyles};
+	font-size: ${(p) => p.theme.FONT_SIZES.formH1};
+	line-height: 32px;
+	letter-spacing: -0.5px;
+`;
+
+export const itemlistHeaderTextStyle = css`
+	${headerBaseStyles};
+	font-size: ${(p) => p.theme.FONT_SIZES.formItemListH1};
+	line-height: 32px;
+	letter-spacing: -0.375px;
+`;

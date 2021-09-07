@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
 
+import 'react-datepicker/dist/react-datepicker.css';
 import GlobalStyle from '../styles/globalStyle';
 import { theme } from '../styles/theme';
 

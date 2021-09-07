@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
   }
   /* Only using * omits pseudo elements so specifically include these  */
   * , *:before, *:after {
-    box-sizing: inherit;
+  box-sizing: border-box;
   }
 
 html, body, div, span, applet, object, iframe,
@@ -70,6 +70,21 @@ a{
 
 button{
   border: none;
+}
+
+/* Custom Scrollbar */
+
+::-webkit-scrollbar {
+  width: 8px;               /* width of the entire scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;  
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #DFE3FA;    /* color of the scroll thumb */
+  border-radius: 4px;
 }
 
 `;

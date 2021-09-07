@@ -2,6 +2,7 @@ import { NextPage } from 'next';
 import styled from 'styled-components';
 
 import { Button } from '@/components/Button/Button';
+import { Form } from '@/components/Form/Form';
 import { DetailsCard } from '@/components/InvoiceDetails/DetailsCard/DetailsCard';
 import { Header } from '@/components/InvoiceDetails/Header/Header';
 import { PageLink } from '@/components/PageLink/PageLink';
@@ -9,18 +10,21 @@ import PageLayout from '@/layouts/PageLayout';
 
 const InvoiceDetails: NextPage = () => {
 	return (
-		<PageLayout>
-			<PageLink href="/" icon="back">
-				Go back
-			</PageLink>
-			<DetailsHeader />
-			<InvoiceDetailsCard />
-			<MobileButtonsContainer>
-				<Button variant="secondary">Edit</Button>
-				<Button variant="warning">Delete</Button>
-				<Button variant="primary">Mark As Paid</Button>
-			</MobileButtonsContainer>
-		</PageLayout>
+		<>
+			<Form />
+			<PageLayout>
+				<PageLink href="/" icon="back">
+					Go back
+				</PageLink>
+				<DetailsHeader />
+				<InvoiceDetailsCard />
+				<MobileButtonsContainer>
+					<Button variant="secondary">Edit</Button>
+					<Button variant="warning">Delete</Button>
+					<Button variant="primary">Mark As Paid</Button>
+				</MobileButtonsContainer>
+			</PageLayout>
+		</>
 	);
 };
 
