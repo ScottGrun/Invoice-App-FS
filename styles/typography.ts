@@ -92,3 +92,10 @@ export const itemlistHeaderTextStyle = css`
 	line-height: 32px;
 	letter-spacing: -0.375px;
 `;
+
+export const errorMessageTextStyle = css`
+	font-size: ${(p) => p.theme.FONT_SIZES.formError};
+	font-weight: ${(p) => p.theme.WEIGHTS.semiBold};
+	line-height: 15px;
+	letter-spacing: -0.208333px;
+`;

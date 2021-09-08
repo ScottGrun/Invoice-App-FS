@@ -1,21 +1,22 @@
 import React from 'react';
-import { useController, useFormContext, useFormState } from 'react-hook-form';
+import { useFormContext, useFormState } from 'react-hook-form';
 import styled from 'styled-components';
 
 import { Error } from './Error';
 
 import { bodyTextStyle, h4TextStyle } from '@/styles/typography';
 
-export const FormField = ({ name, style, className, label, type, control }) => {
-	const { field, fieldState } = useController({ name, control });
+export const FormField = ({ className, style, label, name, ...inputProps }) => {
+	const { register, control } = useFormContext(); // retrieve all hook methods
+	const { errors } = useFormState({ control });
 
 	return (
-		<Label className={className} style={style} hasError={fieldState.invalid}>
+		<Label className={className} style={style} hasError={errors[name] !== undefined}>
 			<InputHeader>
 				<span>{label}</span>
-				<Error>{fieldState.error?.message}</Error>
+				{errors[name] && <Error>{errors[name].message}</Error>}
 			</InputHeader>
-			<Input {...field} type={type} hasError={fieldState.invalid} />
+			<Input {...register(name)} {...inputProps} hasError={errors[name] !== undefined} />
 		</Label>
 	);
 };

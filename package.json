@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.8.0",
     "@reach/dialog": "^0.16.0",
     "@reach/listbox": "^0.16.1",
     "@reach/visually-hidden": "^0.16.0",

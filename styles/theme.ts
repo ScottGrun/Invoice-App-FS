@@ -57,9 +57,11 @@ export const theme = {
 		body2: `${11 / 16}rem`,
 		formH1: `${24 / 16}rem`,
 		formItemListH1: `${18 / 16}rem`,
+		formError: `${10 / 16}rem`,
 	},
 	WEIGHTS: {
 		medium: 500,
+		semiBold: 600,
 		bold: 700,
 	},
 	// Using REM for breakpoints to maintain a nicer UI

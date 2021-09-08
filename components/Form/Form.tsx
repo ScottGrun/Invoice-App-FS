@@ -1,11 +1,12 @@
-import { DialogOverlay, DialogContent } from '@reach/dialog';
+import { yupResolver } from '@hookform/resolvers/yup';
+import DialogContent, { DialogOverlay } from '@reach/dialog';
 import VisuallyHidden from '@reach/visually-hidden';
 import Image from 'next/image';
-import React from 'react';
-import { useFieldArray, useForm } from 'react-hook-form';
+import React, { useState } from 'react';
+import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import '@reach/dialog/styles.css';
-import * as Yup from 'yup';
+import * as yup from 'yup';
 
 import { Button } from '../Button/Button';
 
@@ -16,6 +17,31 @@ import { ItemField } from './ItemField';
 
 import iconChevronLeftSrc from '@/public/icons/icon-arrow-left.svg';
 import { formHeaderTextStyle, h4TextStyle, itemlistHeaderTextStyle } from '@/styles/typography';
+
+const formSchema = yup.object().shape({
+	userStreetAddress: yup.string().required('Required'),
+	userCity: yup.string().required('Required'),
+	userPostCode: yup.string().required('Required'),
+	userCountry: yup.string().required('Required'),
+	clientName: yup.string().required('Required'),
+	clientEmail: yup.string().email('Must be a valid email').required('Required'),
+	clientStreetAddress: yup.string().required('Required'),
+	clientCity: yup.string().required('Required'),
+	clientPostCode: yup.string().required('Required'),
+	clientCountry: yup.string().required('Required'),
+	invoiceDate: yup.date().required('Required'),
+	invoiceDueDate: yup.date().required('Required'),
+	items: yup
+		.array()
+		.of(
+			yup.object().shape({
+				name: yup.string().required('A name is required.'),
+				quantity: yup.number().required('A number of items is required.'),
+				price: yup.number(),
+			})
+		)
+		.required('At least 1 item is required'),
+});
 
 const initalValues = {
 	userStreetAddress: '',
@@ -46,136 +72,124 @@ const initalValues = {
 	],
 };
 
-export const Form = (props) => {
-	const close = () => setShowDialog(false);
-	const [showDialog, setShowDialog] = React.useState(true);
-	const { register, handleSubmit, control } = useForm({
+export const Form = () => {
+	const [showDialog, setShowDialog] = useState(true);
+	const methods = useForm({
 		defaultValues: initalValues,
+		resolver: yupResolver(formSchema),
+		mode: 'onChange',
 	});
 	const { fields, append, remove } = useFieldArray({
-		control,
+		control: methods.control,
 		name: 'items',
 	});
 
+	// Functions
+	const close = () => setShowDialog(false);
+	const submitFormData = (data) => console.log(data);
+
 	return (
 		<DialogOverlay isOpen={showDialog} onDismiss={close}>
-			<StyledDialogContent isOpen={showDialog} onDismiss={close}>
-				<StyledForm>
-					<BackButton onClick={close}>
-						<Image src={iconChevronLeftSrc} alt="" />
-						<span>Go back</span>
-						<VisuallyHidden>Go back</VisuallyHidden>
-					</BackButton>
-					<FormHeader>
-						Edit <span>#</span>XM9141
-					</FormHeader>
-					<InnerWrapper>
-						{/* Bill From */}
-						<FormSection label="Bill From">
-							<FormField
-								type="text"
-								label="Street Address"
-								name="userStreetAddress"
-								register={register}
-							/>
-							<Row>
-								<FormField
-									style={{ minWidth: '140px', flex: 1 }}
-									type="text"
-									label="City"
-									name="userCity"
-									register={register}
-								/>
-								<FormField
-									style={{ minWidth: '140px', flex: 1 }}
-									type="text"
-									label="Post Code"
-									name="userPostCode"
-									register={register}
-								/>
-								<FormField
-									style={{ minWidth: '152px', flex: 1 }}
-									type="text"
-									label="Country"
-									name="userCountry"
-									register={register}
-								/>
-							</Row>
-						</FormSection>
-						{/* Bill To */}
-						<FormSection label="Bill To">
-							<FormField type="text" label="Client's Name" name="clientName" register={register} />
-							<FormField
-								type="email"
-								label="Client's Email"
-								name="clientEmail"
-								register={register}
-							/>
-							<FormField
-								type="text"
-								label="Street Address"
-								name="clienttreetAddress"
-								register={register}
-							/>
-							<Row>
-								<FormField
-									style={{ minWidth: '140px', flex: 1 }}
-									type="text"
-									label="City"
-									name="clientCity"
-									register={register}
-								/>
-								<FormField
-									style={{ minWidth: '140px', flex: 1 }}
-									type="text"
-									label="Post Code"
-									name="clientPostCode"
-									register={register}
-								/>
-								<FormField
-									style={{ minWidth: '152px', flex: 1 }}
-									type="text"
-									label="Country"
-									name="clientCountry"
-									register={register}
-								/>
-							</Row>
+			<StyledDialogContent isOpen={showDialog} onDismiss={close} aria-label="Invoice Editor Modal">
+				<FormProvider {...methods}>
+					<StyledForm onSubmit={methods.handleSubmit(submitFormData)}>
+						<BackButton onClick={close}>
+							<Image src={iconChevronLeftSrc} alt="" />
+							<span>Go back</span>
+							<VisuallyHidden>Go back</VisuallyHidden>
+						</BackButton>
+						<FormHeader>
+							Edit <span>#</span>XM9141
+						</FormHeader>
+						<InnerWrapper>
+							{/* Bill From */}
+							<FormSection label="Bill From">
+								<FormField type="text" label="Street Address" name="userStreetAddress" />
+								<Row>
+									<FormField
+										style={{ minWidth: '140px', flex: 1 }}
+										type="text"
+										label="City"
+										name="userCity"
+										control={methods.control}
+									/>
+									<FormField
+										style={{ minWidth: '140px', flex: 1 }}
+										type="text"
+										label="Post Code"
+										name="userPostCode"
+										control={methods.control}
+									/>
+									<FormField
+										style={{ minWidth: '152px', flex: 1 }}
+										type="text"
+										label="Country"
+										name="userCountry"
+										control={methods.control}
+									/>
+								</Row>
+							</FormSection>
+							{/* Bill To */}
+							<FormSection label="Bill To">
+								<FormField type="text" label="Client's Name" name="clientName" />
+								<FormField type="email" label="Client's Email" name="clientEmail" />
+								<FormField type="text" label="Street Address" name="clientStreetAddress" />
+								<Row>
+									<FormField
+										style={{ minWidth: '140px', flex: 1 }}
+										type="text"
+										label="City"
+										name="clientCity"
+										control={methods.control}
+									/>
+									<FormField
+										style={{ minWidth: '140px', flex: 1 }}
+										type="text"
+										label="Post Code"
+										name="clientPostCode"
+										control={methods.control}
+									/>
+									<FormField
+										style={{ minWidth: '152px', flex: 1 }}
+										type="text"
+										label="Country"
+										name="clientCountry"
+										control={methods.control}
+									/>
+								</Row>
 
-							{/* <DateField name="invoiceDate" label="Invoice Date" control={control} />
+								{/* <DateField name="invoiceDate" label="Invoice Date" control={control} />
 							<DateField name="invoiceDueDate" label="Invoice Due Date" control={control} /> */}
-							<FormField
-								type="text"
-								label="Project Description"
-								name="projectDescription"
-								register={register}
-							/>
-						</FormSection>
-						<ItemsListHeader>Item List</ItemsListHeader>
-						<ItemsFieldList>
-							{fields.map((item, itemIndex) => (
-								<ItemField
-									key={item.id}
-									idx={itemIndex}
-									register={register}
-									control={control}
-									total={item.total}
-									remove={remove}
+								<FormField
+									type="text"
+									label="Project Description"
+									name="projectDescription"
+									control={methods.control}
 								/>
-							))}
-							<AddItemButton
-								variant="secondary"
-								onClick={() => append({ name: '', quantity: 0, price: 0, total: 0 })}
-							>
-								+ Add New Item
-							</AddItemButton>
-						</ItemsFieldList>
-					</InnerWrapper>
-					<FormButtonsContainer>
-						<Button variant="secondary">Cancel</Button>
-						<SaveDraftButton variant="tertiary">Save as Draft</SaveDraftButton>
-						<Button variant="primary">Save Changes</Button>
-					</FormButtonsContainer>
-				</StyledForm>
+							</FormSection>
+							<ItemsListHeader>Item List</ItemsListHeader>
+							{/* <ItemsFieldList>
+								{fields.map((item, itemIndex) => (
+									<ItemField key={item.id} idx={itemIndex} total={item.total} remove={remove} />
+								))}
+								<AddItemButton
+									variant="secondary"
+									type="button"
+									onClick={() => append({ name: '', quantity: 0, price: 0, total: 0 })}
+								>
+									+ Add New Item
+								</AddItemButton>
+							</ItemsFieldList> */}
+						</InnerWrapper>
+						<FormButtonsContainer>
+							<Button variant="secondary">Cancel</Button>
+							<SaveDraftButton variant="tertiary">Save as Draft</SaveDraftButton>
+							<Button type="submit" variant="primary">
+								Save Changes
+							</Button>
+						</FormButtonsContainer>
+					</StyledForm>
+				</FormProvider>
 			</StyledDialogContent>
 		</DialogOverlay>
 	);
@@ -229,8 +243,7 @@ const FormHeader = styled.h2`
 `;
 
 // Form
-
-const StyledForm = styled.form`
+const StyledForm = styled.form<{ isOpen: boolean; onDismiss: boolean }>`
 	position: relative;
 	height: 100%;
 	display: flex;

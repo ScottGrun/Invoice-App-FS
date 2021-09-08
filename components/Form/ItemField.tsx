@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import CurrencyInput from 'react-currency-input-field';
-import { Controller } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import styled from 'styled-components';
 
 import { FormField } from './FormField';
 
 import { bodyTextStyle, h4TextStyle } from '@/styles/typography';
 
-export const ItemField = ({ idx, control, register, total, remove }) => {
+export const ItemField = ({ idx, total, remove }) => {
+	const { register, control } = useFormContext();
+
 	return (
 		<Wrapper>
 			<ItemName label="Item Name" name={`items[${idx}].name`} register={register} />
@@ -56,6 +58,7 @@ const Wrapper = styled.fieldset`
 	}
 `;
 
+// Item Name Field
 const ItemName = styled(FormField)`
 	min-width: 309px;
 	width: 100%;
@@ -65,6 +68,8 @@ const ItemName = styled(FormField)`
 		margin-right: 16px;
 	}
 `;
+
+// Quanity Field
 const Quantity = styled(FormField)`
 	max-width: 64px;
 
@@ -76,6 +81,11 @@ const Quantity = styled(FormField)`
 	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
 		margin-right: 16px;
 		width: 46px;
+
+		span {
+			text-align: center;
+		}
+
 		input {
 			text-align: center;
 			padding: 0;
@@ -83,6 +93,7 @@ const Quantity = styled(FormField)`
 	}
 `;
 
+// Price Field
 const PriceWrapper = styled.div`
 	${bodyTextStyle};
 	display: flex;
@@ -104,7 +115,7 @@ const Price = styled(CurrencyInput)`
 	border: solid 2px ${(p) => p.theme.COLORS.grey[2]};
 `;
 
-// Custom Total made to look like inputs
+// Total Display (styled to look like field)
 const TotalWrapper = styled.div`
 	${bodyTextStyle};
 	display: flex;
@@ -119,6 +130,7 @@ const TotalWrapper = styled.div`
 		max-width: 45px;
 	}
 `;
+
 const TotalPrice = styled.p`
 	${h4TextStyle};
 	display: flex;
@@ -126,6 +138,7 @@ const TotalPrice = styled.p`
 	height: 48px;
 `;
 
+// Delete Item button
 const DeleteButton = styled.button`
 	height: 48px;
 	align-self: flex-end;
