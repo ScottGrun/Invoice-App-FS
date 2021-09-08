@@ -1,8 +1,8 @@
-import Dialog, { DialogOverlay, DialogContent } from '@reach/dialog';
+import { DialogOverlay, DialogContent } from '@reach/dialog';
 import VisuallyHidden from '@reach/visually-hidden';
 import Image from 'next/image';
 import React from 'react';
-import { FormProvider, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import '@reach/dialog/styles.css';
 import * as Yup from 'yup';
@@ -60,110 +60,116 @@ export const Form = (props) => {
 	return (
 		<DialogOverlay isOpen={showDialog} onDismiss={close}>
 			<StyledDialogContent isOpen={showDialog} onDismiss={close}>
-				<BackButton onClick={close}>
-					<Image src={iconChevronLeftSrc} alt="" />
-					<span>Go back</span>
-					<VisuallyHidden>Go back</VisuallyHidden>
-				</BackButton>
-				<FormHeader>
-					Edit <span>#</span>XM9141
-				</FormHeader>
 				<StyledForm>
-					{/* Bill From */}
-					<FormSection label="Bill From">
-						<FormField
-							type="text"
-							label="Street Address"
-							name="userStreetAddress"
-							register={register}
-						/>
-						<Row>
+					<BackButton onClick={close}>
+						<Image src={iconChevronLeftSrc} alt="" />
+						<span>Go back</span>
+						<VisuallyHidden>Go back</VisuallyHidden>
+					</BackButton>
+					<FormHeader>
+						Edit <span>#</span>XM9141
+					</FormHeader>
+					<InnerWrapper>
+						{/* Bill From */}
+						<FormSection label="Bill From">
 							<FormField
-								style={{ minWidth: '140px', flex: 1 }}
 								type="text"
-								label="City"
-								name="userCity"
+								label="Street Address"
+								name="userStreetAddress"
+								register={register}
+							/>
+							<Row>
+								<FormField
+									style={{ minWidth: '140px', flex: 1 }}
+									type="text"
+									label="City"
+									name="userCity"
+									register={register}
+								/>
+								<FormField
+									style={{ minWidth: '140px', flex: 1 }}
+									type="text"
+									label="Post Code"
+									name="userPostCode"
+									register={register}
+								/>
+								<FormField
+									style={{ minWidth: '152px', flex: 1 }}
+									type="text"
+									label="Country"
+									name="userCountry"
+									register={register}
+								/>
+							</Row>
+						</FormSection>
+						{/* Bill To */}
+						<FormSection label="Bill To">
+							<FormField type="text" label="Client's Name" name="clientName" register={register} />
+							<FormField
+								type="email"
+								label="Client's Email"
+								name="clientEmail"
 								register={register}
 							/>
 							<FormField
-								style={{ minWidth: '140px', flex: 1 }}
 								type="text"
-								label="Post Code"
-								name="userPostCode"
+								label="Street Address"
+								name="clienttreetAddress"
 								register={register}
 							/>
-							<FormField
-								style={{ minWidth: '152px', flex: 1 }}
-								type="text"
-								label="Country"
-								name="userCountry"
-								register={register}
-							/>
-						</Row>
-					</FormSection>
-					{/* Bill To */}
-					<FormSection label="Bill To">
-						<FormField type="text" label="Client's Name" name="clientName" register={register} />
-						<FormField type="email" label="Client's Email" name="clientEmail" register={register} />
-						<FormField
-							type="text"
-							label="Street Address"
-							name="clienttreetAddress"
-							register={register}
-						/>
-						<Row>
-							<FormField
-								style={{ minWidth: '140px', flex: 1 }}
-								type="text"
-								label="City"
-								name="clientCity"
-								register={register}
-							/>
-							<FormField
-								style={{ minWidth: '140px', flex: 1 }}
-								type="text"
-								label="Post Code"
-								name="clientPostCode"
-								register={register}
-							/>
-							<FormField
-								style={{ minWidth: '152px', flex: 1 }}
-								type="text"
-								label="Country"
-								name="clientCountry"
-								register={register}
-							/>
-						</Row>
+							<Row>
+								<FormField
+									style={{ minWidth: '140px', flex: 1 }}
+									type="text"
+									label="City"
+									name="clientCity"
+									register={register}
+								/>
+								<FormField
+									style={{ minWidth: '140px', flex: 1 }}
+									type="text"
+									label="Post Code"
+									name="clientPostCode"
+									register={register}
+								/>
+								<FormField
+									style={{ minWidth: '152px', flex: 1 }}
+									type="text"
+									label="Country"
+									name="clientCountry"
+									register={register}
+								/>
+							</Row>
 
-						{/* <DateField name="invoiceDate" label="Invoice Date" control={control} />
+							{/* <DateField name="invoiceDate" label="Invoice Date" control={control} />
 							<DateField name="invoiceDueDate" label="Invoice Due Date" control={control} /> */}
-						<FormField
-							type="text"
-							label="Project Description"
-							name="projectDescription"
-							register={register}
-						/>
-					</FormSection>
-					<ItemsListHeader>Item List</ItemsListHeader>
-					<ItemsFieldList>
-						{fields.map((item, itemIndex) => (
-							<ItemField
-								key={item.id}
-								idx={itemIndex}
+							<FormField
+								type="text"
+								label="Project Description"
+								name="projectDescription"
 								register={register}
-								control={control}
-								total={item.total}
-								remove={remove}
 							/>
-						))}
-						<AddItemButton
-							variant="secondary"
-							onClick={() => append({ name: '', quantity: 0, price: 0, total: 0 })}
-						>
-							+ Add New Item
-						</AddItemButton>
-					</ItemsFieldList>
-
+						</FormSection>
+						<ItemsListHeader>Item List</ItemsListHeader>
+						<ItemsFieldList>
+							{fields.map((item, itemIndex) => (
+								<ItemField
+									key={item.id}
+									idx={itemIndex}
+									register={register}
+									control={control}
+									total={item.total}
+									remove={remove}
+								/>
+							))}
+							<AddItemButton
+								variant="secondary"
+								onClick={() => append({ name: '', quantity: 0, price: 0, total: 0 })}
+							>
+								+ Add New Item
+							</AddItemButton>
+						</ItemsFieldList>
+					</InnerWrapper>
 					<FormButtonsContainer>
 						<Button variant="secondary">Cancel</Button>
 						<SaveDraftButton variant="tertiary">Save as Draft</SaveDraftButton>
@@ -176,8 +182,6 @@ export const Form = (props) => {
 };
 
 const StyledDialogContent = styled(DialogContent)`
-	display: flex;
-	flex-flow: column;
 	margin: 0;
 	padding: 0;
 	padding-left: 24px;
@@ -188,12 +192,12 @@ const StyledDialogContent = styled(DialogContent)`
 	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
 		width: 616px;
 		padding-left: 56px;
-		padding-top: 0px;
 	}
 
 	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
 		width: 719px;
 		padding-left: 159px;
+		padding-top: 0px;
 	}
 `;
 
@@ -214,13 +218,13 @@ const BackButton = styled.button`
 
 const FormHeader = styled.h2`
 	${formHeaderTextStyle};
-	margin-top: 24px;
+	padding-top: 24px;
 	span {
 		color: ${(p) => p.theme.COLORS.grey[1]};
 	}
 
 	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
-		margin-top: 56px;
+		padding-top: 56px;
 	}
 `;
 
@@ -228,12 +232,22 @@ const FormHeader = styled.h2`
 
 const StyledForm = styled.form`
 	position: relative;
-	overflow-y: scroll !important;
 	height: 100%;
-	padding-right: 8px;
+	display: flex;
+	flex-flow: column;
+	padding: 0;
 
 	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
 		width: 528px;
+	}
+`;
+
+const InnerWrapper = styled.div`
+	height: 100%;
+	width: 100%;
+	overflow: scroll !important;
+	padding-right: 8px;
+	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
 		padding-right: 16px;
 	}
 `;
@@ -265,6 +279,11 @@ const FormButtonsContainer = styled.div`
 	justify-content: flex-end;
 	gap: 8px;
 	margin-top: 24px;
+
+	padding-right: 8px;
+	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+		padding-right: 16px;
+	}
 `;
 
 const AddItemButton = styled(Button)``;

@@ -26,7 +26,7 @@ const Label = styled.label`
 const Input = styled.input`
 	${h4TextStyle};
 	height: 48px;
-	padding: 0 20px;
+	padding-left: 20px;
 	border-radius: 4px;
 	border: solid 2px ${(p) => p.theme.COLORS.grey[2]};
 	width: 100%;

@@ -12,7 +12,22 @@ export const ItemField = ({ idx, control, register, total, remove }) => {
 		<Wrapper>
 			<ItemName label="Item Name" name={`items[${idx}].name`} register={register} />
 			<Quantity label="Qty" name={`items[${idx}].quantity`} register={register} />
-			<Price label="Price" name={`items[${idx}].price`} register={register} />
+			<PriceWrapper>
+				<span>Price</span>
+				<Controller
+					control={control}
+					name={`items[${idx}].price`}
+					render={({ field }) => (
+						<Price
+							allowNegativeValue={false}
+							decimalScale={2}
+							intlConfig={{ locale: 'en-US', currency: 'GBP' }}
+							onValueChange={(e) => field.onChange(e)}
+							value={field.value}
+						/>
+					)}
+				/>
+			</PriceWrapper>
 			<TotalWrapper>
 				<span>Total</span>
 				<TotalPrice>1012</TotalPrice>
@@ -67,10 +82,26 @@ const Quantity = styled(FormField)`
 		}
 	}
 `;
-const Price = styled(FormField)`
+
+const PriceWrapper = styled.div`
+	${bodyTextStyle};
+	display: flex;
+	flex-flow: column;
+	color: ${(p) => p.theme.COLORS.primary[3]};
 	max-width: 100px;
+	span {
+		margin-bottom: 10px;
+	}
+`;
+
+const Price = styled(CurrencyInput)`
+	${h4TextStyle};
+	text-align: center;
+	padding: 0 10px;
 	margin-right: 16px;
-	overflow: hidden;
+	height: 48px;
+	border-radius: 4px;
+	border: solid 2px ${(p) => p.theme.COLORS.grey[2]};
 `;
 
 // Custom Total made to look like inputs
