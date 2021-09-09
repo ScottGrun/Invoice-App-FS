@@ -48,16 +48,17 @@ export const Button = ({
 	onClick,
 	variant = 'primary',
 	className,
+	type,
 }: ButtonProps) => {
 	return icon ? (
-		<IconButton onClick={onClick} variant={variant} className={className}>
+		<IconButton type={type} onClick={onClick} variant={variant} className={className}>
 			<IconWrapper>
 				<Image src={iconPlusSrc} alt="" />
 			</IconWrapper>
 			{children}
 		</IconButton>
 	) : (
-		<TextButton onClick={onClick} variant={variant} className={className}>
+		<TextButton type={type} onClick={onClick} variant={variant} className={className}>
 			{children}
 		</TextButton>
 	);

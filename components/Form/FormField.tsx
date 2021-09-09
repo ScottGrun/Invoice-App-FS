@@ -1,12 +1,13 @@
 import React from 'react';
-import { useController, useFormContext, useFormState } from 'react-hook-form';
+import { useController, useFormContext } from 'react-hook-form';
 import styled from 'styled-components';
 
 import { Error } from './Error';
 
 import { bodyTextStyle, h4TextStyle } from '@/styles/typography';
 
-export const FormField = ({ name, style, className, label, type, control }) => {
+export const FormField = ({ name, style, className, label, type }) => {
+	const { control } = useFormContext();
 	const { field, fieldState } = useController({ name, control });
 
 	return (

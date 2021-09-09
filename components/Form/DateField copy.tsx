@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React, { forwardRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
-import { Controller } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import styled, { createGlobalStyle } from 'styled-components';
 
 import iconChevronLeftSrc from '@/public/icons/icon-arrow-left.svg';
@@ -9,27 +9,29 @@ import iconChevronRightSrc from '@/public/icons/icon-arrow-right.svg';
 import iconCalendarSrc from '@/public/icons/icon-calendar.svg';
 import { bodyTextStyle, h4TextStyle } from '@/styles/typography';
 
-export const DateField = ({ label, control, name, ...props }) => {
+export const DateField = ({ label, name, style }) => {
 	const [calendarOpen, setCalendarOpen] = useState(false);
+	const { control } = useFormContext();
 
 	return (
 		<>
 			<Controller
+				style={style}
 				control={control}
-				name="ReactDatepicker"
+				name={name}
 				render={({ field }) => (
 					<DatePicker
-						{...field}
-						{...props}
 						closeOnScroll={() => true}
-						selected={field.value}
 						onChange={(e) => field.onChange(e)}
+						selected={field.value}
 						className="red-border"
 						showPopperArrow={false}
 						dateFormat="d MMM yyyy"
 						calendarClassName="calender-wrapper"
 						dayClassName={() => 'custom-day'}
-						customInput={<CustomDateInput calendarOpen={calendarOpen} label={label} />}
+						customInput={
+							<CustomDateInput type="button" calendarOpen={calendarOpen} label={label} />
+						}
 						onCalendarOpen={() => setCalendarOpen(true)}
 						onCalendarClose={() => setCalendarOpen(false)}
 						renderCustomHeader={({ monthDate, decreaseMonth, increaseMonth }) => (
@@ -61,7 +63,7 @@ export const DateField = ({ label, control, name, ...props }) => {
 const CustomDateInput = forwardRef(({ value, onClick, label, calendarOpen }, ref) => (
 	<CustomInputWrapper>
 		<span>{label}</span>
-		<CustomInput calendarOpen={calendarOpen} onClick={onClick} ref={ref}>
+		<CustomInput type="button" calendarOpen={calendarOpen} onClick={onClick} ref={ref}>
 			{value}
 			<Image src={iconCalendarSrc} alt="" />
 		</CustomInput>
@@ -177,5 +179,8 @@ const DatePickerStyles = createGlobalStyle`
 
       box-shadow: 0px 10px 20px rgba(72, 84, 159, 0.25);
     }
-    
+    .react-datepicker__tab-loop{
+		
+			background-color: red;
+		}
 `;

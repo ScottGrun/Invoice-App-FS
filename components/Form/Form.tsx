@@ -10,7 +10,7 @@ import * as yup from 'yup';
 
 import { Button } from '../Button/Button';
 
-import { DateField } from './DateField';
+import { DateField } from './DateField/DateField';
 import { FormField } from './FormField';
 import { FormSection } from './FormSection';
 import { ItemField } from './ItemField';
@@ -77,7 +77,7 @@ export const Form = () => {
 	const methods = useForm({
 		defaultValues: initalValues,
 		resolver: yupResolver(formSchema),
-		mode: 'onChange',
+		mode: 'onSubmit',
 	});
 	const { fields, append, remove } = useFieldArray({
 		control: methods.control,
@@ -111,21 +111,18 @@ export const Form = () => {
 										type="text"
 										label="City"
 										name="userCity"
-										control={methods.control}
 									/>
 									<FormField
 										style={{ minWidth: '140px', flex: 1 }}
 										type="text"
 										label="Post Code"
 										name="userPostCode"
-										control={methods.control}
 									/>
 									<FormField
 										style={{ minWidth: '152px', flex: 1 }}
 										type="text"
 										label="Country"
 										name="userCountry"
-										control={methods.control}
 									/>
 								</Row>
 							</FormSection>
@@ -140,31 +137,38 @@ export const Form = () => {
 										type="text"
 										label="City"
 										name="clientCity"
-										control={methods.control}
 									/>
 									<FormField
 										style={{ minWidth: '140px', flex: 1 }}
 										type="text"
 										label="Post Code"
 										name="clientPostCode"
-										control={methods.control}
 									/>
 									<FormField
 										style={{ minWidth: '152px', flex: 1 }}
 										type="text"
 										label="Country"
 										name="clientCountry"
-										control={methods.control}
+									/>
+								</Row>
+								<Row>
+									<DateField
+										style={{ minWidth: '152px', flex: 1 }}
+										name="invoiceDate"
+										label="Invoice Date"
+									/>
+									<DateField
+										style={{ minWidth: '152px', flex: 1 }}
+										name="invoiceDueDate"
+										label="Invoice Due Date"
 									/>
 								</Row>
 
-								{/* <DateField name="invoiceDate" label="Invoice Date" control={control} />
-							<DateField name="invoiceDueDate" label="Invoice Due Date" control={control} /> */}
 								<FormField
+									style={{ minWidth: '152px', flex: 1 }}
 									type="text"
-									label="Project Description"
-									name="projectDescription"
-									control={methods.control}
+									label="Country"
+									name="clientCountry"
 								/>
 							</FormSection>
 							<ItemsListHeader>Item List</ItemsListHeader>
@@ -182,7 +186,9 @@ export const Form = () => {
 							</ItemsFieldList> */}
 						</InnerWrapper>
 						<FormButtonsContainer>
-							<Button variant="secondary">Cancel</Button>
+							<Button type="button" variant="secondary">
+								Cancel
+							</Button>
 							<SaveDraftButton variant="tertiary">Save as Draft</SaveDraftButton>
 							<Button type="submit" variant="primary">
 								Save Changes

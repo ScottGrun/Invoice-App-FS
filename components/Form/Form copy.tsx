@@ -10,11 +10,11 @@ import * as yup from 'yup';
 
 import { Button } from '../Button/Button';
 
-import { DateField } from './DateField';
 import { FormField } from './FormField';
 import { FormSection } from './FormSection';
 import { ItemField } from './ItemField';
 
+import { DateField } from '@/components/Form/DateField/DateField';
 import iconChevronLeftSrc from '@/public/icons/icon-arrow-left.svg';
 import { formHeaderTextStyle, h4TextStyle, itemlistHeaderTextStyle } from '@/styles/typography';
 
