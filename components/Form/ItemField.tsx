@@ -1,6 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CurrencyInput from 'react-currency-input-field';
-import { Controller, useFormContext } from 'react-hook-form';
+import {
+	Controller,
+	FieldValues,
+	RegisterOptions,
+	useFormContext,
+	UseFormRegister,
+} from 'react-hook-form';
 import styled from 'styled-components';
 
 import { FormField } from './FormField';
@@ -9,6 +15,7 @@ import { bodyTextStyle, h4TextStyle } from '@/styles/typography';
 
 export const ItemField = ({ idx, total, remove }) => {
 	const { register, control } = useFormContext();
+	console.log(idx);
 
 	return (
 		<Wrapper>
@@ -34,7 +41,7 @@ export const ItemField = ({ idx, total, remove }) => {
 				<span>Total</span>
 				<TotalPrice>1012</TotalPrice>
 			</TotalWrapper>
-			<DeleteButton>
+			<DeleteButton type="button" onClick={() => remove(idx)}>
 				<svg width="13" height="16" xmlns="http://www.w3.org/2000/svg">
 					<path
 						d="M11.583 3.556v10.666c0 .982-.795 1.778-1.777 1.778H2.694a1.777 1.777 0 01-1.777-1.778V3.556h10.666zM8.473 0l.888.889h3.111v1.778H.028V.889h3.11L4.029 0h4.444z"
@@ -59,7 +66,7 @@ const Wrapper = styled.fieldset`
 `;
 
 // Item Name Field
-const ItemName = styled(FormField)`
+const ItemName = styled(FormField)<{ register: UseFormRegister<FieldValues> }>`
 	min-width: 309px;
 	width: 100%;
 	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
@@ -70,7 +77,7 @@ const ItemName = styled(FormField)`
 `;
 
 // Quanity Field
-const Quantity = styled(FormField)`
+const Quantity = styled(FormField)<{ register: UseFormRegister<FieldValues> }>`
 	max-width: 64px;
 
 	input {

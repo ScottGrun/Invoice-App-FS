@@ -1,24 +1,19 @@
-import Image from 'next/image';
 import React, { forwardRef, useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { Controller, useFormContext } from 'react-hook-form';
 import styled, { createGlobalStyle } from 'styled-components';
 
-import { CustomCalendarHeader } from './CustomCalendarHeader';
-import { CustomDateInput } from './CustomDateInput';
+import { CalendarHeader } from './CalendarHeader';
+import { CalendarInput } from './CalendarInput';
 
-import iconChevronLeftSrc from '@/public/icons/icon-arrow-left.svg';
-import iconChevronRightSrc from '@/public/icons/icon-arrow-right.svg';
-import iconCalendarSrc from '@/public/icons/icon-calendar.svg';
-import { bodyTextStyle, h4TextStyle } from '@/styles/typography';
-interface Props {}
+import { h4TextStyle } from '@/styles/typography';
 
-export const DateField = ({ label, name, style }) => {
+export const DateField = ({ style, label, name }) => {
 	const [calendarOpen, setCalendarOpen] = useState(false);
 	const { control } = useFormContext();
 
 	return (
-		<Wrapper>
+		<Wrapper style={style}>
 			<Controller
 				name={name}
 				control={control}
@@ -31,8 +26,14 @@ export const DateField = ({ label, name, style }) => {
 						dateFormat="d MMM yyyy"
 						calendarClassName="custom-calendar"
 						dayClassName={() => 'custom-day'}
-						customInput={<CustomDateInput calendarOpen={calendarOpen} label={label} />}
-						renderCustomHeader={<CustomCalendarHeader />}
+						customInput={<CalendarInput calendarOpen={calendarOpen} label={label} />}
+						renderCustomHeader={({ monthDate, decreaseMonth, increaseMonth }) => (
+							<CalendarHeader
+								monthDate={monthDate}
+								decreaseMonth={decreaseMonth}
+								increaseMonth={increaseMonth}
+							/>
+						)}
 					/>
 				)}
 			/>
@@ -53,6 +54,7 @@ const DatePickerStyles = createGlobalStyle`
      border: none;
      border-radius: 8px;
      box-shadow: 0px 10px 20px rgba(72, 84, 159, 0.25);
+		 
 }
 
 .custom-day{
@@ -78,4 +80,14 @@ const DatePickerStyles = createGlobalStyle`
       color: ${(p) => p.theme.COLORS.dark[1]};
       opacity: 0.08;
      }
+
+		 .react-datepicker__day-names{
+     display: none;
+}
+
+ .react-datepicker__header{
+     background-color: white;
+     padding: 0;
+     border: none;
+}
 `;

@@ -5,11 +5,16 @@ import styled from 'styled-components';
 import iconCalendarSrc from '@/public/icons/icon-calendar.svg';
 import { bodyTextStyle, h4TextStyle } from '@/styles/typography';
 
-interface Props {}
+interface Props {
+	calendarOpen: boolean;
+	label: string;
+	onClick: () => void;
+	onChange: () => void;
+}
 
 // eslint-disable-next-line react/display-name
-export const CustomDateInput = forwardRef(
-	({ value, onClick, onChange, label, calendarOpen }, ref) => (
+export const CalendarInput = forwardRef(
+	({ style, value, onClick, onChange, label, calendarOpen }, ref) => (
 		<CustomInputWrapper>
 			<Label>
 				<span>{label}</span>
@@ -59,6 +64,7 @@ const CustomInput = styled.input`
 	height: 100%;
 	border-radius: 4px;
 	border: solid 2px ${(p) => (p.hasError ? p.theme.COLORS.warning[1] : p.theme.COLORS.grey[2])};
+	width: 100%;
 	&:hover {
 		cursor: pointer;
 		border: solid 2px ${(p) => p.theme.COLORS.primary[1]};

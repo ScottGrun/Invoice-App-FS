@@ -151,39 +151,34 @@ export const Form = () => {
 										name="clientCountry"
 									/>
 								</Row>
+							</FormSection>
+
+							<FormSection label="Invoice Details">
 								<Row>
-									<DateField
-										style={{ minWidth: '152px', flex: 1 }}
-										name="invoiceDate"
-										label="Invoice Date"
-									/>
-									<DateField
-										style={{ minWidth: '152px', flex: 1 }}
-										name="invoiceDueDate"
-										label="Invoice Due Date"
-									/>
+									<DateField style={{ flex: 1 }} name="invoiceDate" label="Invoice Date" />
+									<DateField style={{ flex: 1 }} name="invoiceDueDate" label="Invoice Due Date" />
 								</Row>
 
 								<FormField
 									style={{ minWidth: '152px', flex: 1 }}
 									type="text"
-									label="Country"
-									name="clientCountry"
+									label="Project Description"
+									name="projectDescription"
 								/>
+								<ItemsListHeader>Item List</ItemsListHeader>
+								<ItemsFieldList>
+									{fields.map((item, itemIndex) => (
+										<ItemField key={item.id} idx={itemIndex} total={item.total} remove={remove} />
+									))}
+									<AddItemButton
+										variant="secondary"
+										type="button"
+										onClick={() => append({ name: '', quantity: 0, price: 0, total: 0 })}
+									>
+										+ Add New Item
+									</AddItemButton>
+								</ItemsFieldList>
 							</FormSection>
-							<ItemsListHeader>Item List</ItemsListHeader>
-							{/* <ItemsFieldList>
-								{fields.map((item, itemIndex) => (
-									<ItemField key={item.id} idx={itemIndex} total={item.total} remove={remove} />
-								))}
-								<AddItemButton
-									variant="secondary"
-									type="button"
-									onClick={() => append({ name: '', quantity: 0, price: 0, total: 0 })}
-								>
-									+ Add New Item
-								</AddItemButton>
-							</ItemsFieldList> */}
 						</InnerWrapper>
 						<FormButtonsContainer>
 							<Button type="button" variant="secondary">
