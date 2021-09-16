@@ -1,21 +1,19 @@
 import { ListboxInput, ListboxButton, ListboxPopover, ListboxList } from '@reach/listbox';
 import VisuallyHidden from '@reach/visually-hidden';
 import Image from 'next/image';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import styled from 'styled-components';
 
-import { DropdownOption } from './DropdownOption';
-
 import '@reach/listbox/styles.css';
-import iconChevronDownSrc from '@/public/icons/icon-arrow-down.svg';
+import iconChevronDownSrc from '/public/icons/icon-arrow-down.svg';
+
 import { h4TextStyle } from '@/styles/typography';
 
-interface Props {
-	children: typeof DropdownOption;
+interface DropDownProps {
 	className?: string;
 }
 
-export const Dropdown = ({ children, className }: Props) => {
+export const Dropdown: FC<DropDownProps> = ({ children, className }) => {
 	const labelId = `filter-by-status`;
 	const [value, setValue] = useState('Pending');
 

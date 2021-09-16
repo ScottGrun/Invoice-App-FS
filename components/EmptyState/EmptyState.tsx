@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
 
-import emptyStateIllustrationSrc from '@/public/assets/illustration-empty.svg';
+import emptyStateIllustrationSrc from '@/assets/illustration-empty.svg';
 import { h2TextStyle } from '@/styles/typography';
 
 interface Props {

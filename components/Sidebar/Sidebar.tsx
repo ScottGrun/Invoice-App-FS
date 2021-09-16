@@ -1,17 +1,17 @@
 import Image from 'next/image';
-import React from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 
 import { ProfileImg } from '../ProfileImg/ProfileImg';
 import { ThemeSwitcher } from '../ThemeSwitcher/ThemeSwitcher';
 
-import logoSrc from '@/public/assets/logo.svg';
+import logoSrc from '@/assets/logo.svg';
 
-interface Props {
+interface SidebarProps {
 	className?: string;
 }
 
-export const Sidebar = ({ className }: Props) => {
+export const Sidebar: FC<SidebarProps> = ({ className }) => {
 	return (
 		<Wrapper className={className}>
 			<LogoWrapper>

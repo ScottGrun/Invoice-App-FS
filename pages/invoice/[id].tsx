@@ -1,22 +1,31 @@
 import { NextPage } from 'next';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 import { Button } from '@/components/Button/Button';
-import { Form } from '@/components/Form/Form';
+import { Drawer } from '@/components/Drawer';
+import { EditInvoiceForm } from '@/components/Form/EditInvoiceForm';
 import { DetailsCard } from '@/components/InvoiceDetails/DetailsCard/DetailsCard';
 import { Header } from '@/components/InvoiceDetails/Header/Header';
 import { PageLink } from '@/components/PageLink/PageLink';
 import PageLayout from '@/layouts/PageLayout';
 
 const InvoiceDetails: NextPage = () => {
+	const [isDrawerOpen, setDrawerClosed] = useState(true);
 	return (
 		<>
-			<Form />
+			<Drawer
+				isDrawerOpen={isDrawerOpen}
+				setDrawerClosed={setDrawerClosed}
+				ariaLabel="Invoice Editing Form Modal"
+			>
+				<EditInvoiceForm setDrawerClosed={setDrawerClosed} invoiceDetails={null} />
+			</Drawer>
 			<PageLayout>
 				<PageLink href="/" icon="back">
 					Go back
 				</PageLink>
-				<DetailsHeader />
+				<StyledHeader status="Pending" />
 				<InvoiceDetailsCard />
 				<MobileButtonsContainer>
 					<Button variant="secondary">Edit</Button>
@@ -30,7 +39,7 @@ const InvoiceDetails: NextPage = () => {
 
 export default InvoiceDetails;
 
-const DetailsHeader = styled(Header)`
+const StyledHeader = styled(Header)`
 	margin-top: 32px;
 `;
 

@@ -1,13 +1,15 @@
-import React, { ReactElement } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
+
+import { PossibleStatus } from 'config/PossibleStatus';
 
 import { ColorVariantsType } from '../Button/Button';
 
 import { theme } from '@/styles/theme';
 import { h4TextStyle } from '@/styles/typography';
 
-interface Props {
-	status: 'Draft' | 'Pending' | 'Paid';
+interface StatusProps {
+	status: PossibleStatus;
 	className?: string;
 }
 
@@ -26,7 +28,7 @@ const colorVariants: ColorVariantsType = {
 	},
 };
 
-export const StatusBadge = ({ status, className }: Props) => {
+export const StatusBadge: FC<StatusProps> = ({ status, className }) => {
 	return (
 		<Wrapper className={className} status={status}>
 			<div></div>

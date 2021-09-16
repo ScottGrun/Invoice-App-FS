@@ -1,15 +1,21 @@
 import Image from 'next/image';
-import React from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 
 import { StatusBadge } from '../StatusBadge/StatusBadge';
 
-import iconChevronSrc from '@/public/icons/icon-arrow-right.svg';
+import iconChevronSrc from '@/icons/icon-arrow-right.svg';
 import { bodyTextStyle, h3TextStyle, h4TextStyle } from '@/styles/typography';
 
-interface Props {}
+interface InvoiceCardProps {
+	id: string;
+	dueDate: string;
+	clientName: string;
+	total: string;
+	status: 'Draft' | 'Pending' | 'Paid';
+}
 
-export const InvoiceCard = ({ id, dueDate, clientName, total, status }: Props) => {
+export const InvoiceCard: FC<InvoiceCardProps> = ({ id, dueDate, clientName, total, status }) => {
 	return (
 		<Wrapper>
 			<Id className="id">

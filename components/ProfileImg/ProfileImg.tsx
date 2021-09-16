@@ -1,17 +1,17 @@
 import Image from 'next/image';
-import React from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 
-import iconPersonSrc from '@/public/icons/icon-user.svg';
+import iconPersonSrc from '@/icons/icon-user.svg';
 
-interface Props {
+interface ProfileImgProps {
 	className?: string;
 	profileImgSrc?: string;
 }
 
-export const ProfileImg = ({ className, profileImgSrc }: Props) => {
+export const ProfileImg: FC<ProfileImgProps> = ({ className, profileImgSrc }) => {
 	return (
-		<Wrapper>
+		<Wrapper className={className}>
 			{profileImgSrc ? (
 				<Image
 					src={profileImgSrc}

@@ -1,26 +1,25 @@
-import React, { ReactElement } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import { body2TextStyle, bodyTextStyle, detailValueTextStyle } from '@/styles/typography';
 
-interface Props {
+interface DetailFieldProps {
 	label: string;
 	value: string;
-	children: React.ReactNode;
 	className?: string;
 }
 
-export default function DetailField({ label, value, children, className }: Props): ReactElement {
+export const DetailField: FC<DetailFieldProps> = ({ label, value, children, className }) => {
 	return (
-		<Wrapper className={className} hasChildren={children}>
+		<Wrapper className={className}>
 			<Label>{label}</Label>
 			<Value>{value}</Value>
 			{children && <ChildrenWrapper>{children}</ChildrenWrapper>}
 		</Wrapper>
 	);
-}
+};
 
-const Wrapper = styled.div<{ hasChildren: boolean }>`
+const Wrapper = styled.div`
 	display: flex;
 	flex-flow: column;
 `;

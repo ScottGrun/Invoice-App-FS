@@ -1,19 +1,18 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import DetailField from '../DetailField/DetailField';
-import { ItemsTable } from '../ItemsTable/ItemsTable';
-import { MobileItemsTable } from '../MobileItemsTable/MobileItemsTable';
-
+import { DesktopTable } from '@/components/InvoiceDetails/DesktopTable';
+import { DetailField } from '@/components/InvoiceDetails/DetailField';
+import { MobileItemsTable } from '@/components/InvoiceDetails/MobileItemsTable';
 import { Size, useWindowSize } from '@/hooks/useWindowSize';
 import { BREAKPOINTS } from '@/styles/theme';
 import { body2TextStyle, bodyTextStyle, h4TextStyle } from '@/styles/typography';
 
-interface Props {
+interface DetailsCardProps {
 	className?: string;
 }
 
-export const DetailsCard = ({ className }: Props) => {
+export const DetailsCard: FC<DetailsCardProps> = ({ className }) => {
 	const size: Size = useWindowSize();
 
 	return (
@@ -45,7 +44,11 @@ export const DetailsCard = ({ className }: Props) => {
 					</address>
 				</BillTo>
 			</MetaData>
-			{size?.width > BREAKPOINTS.phone ? <LargeTable /> : <MobileTable />}
+			{size.width ?? 0 > BREAKPOINTS.phone ? (
+				<StyledDesktopTable items={[]} />
+			) : (
+				<MobileTable items={[]} />
+			)}
 		</Wrapper>
 	);
 };
@@ -123,7 +126,7 @@ const BillTo = styled(DetailField)`
 	grid-area: bill-to;
 `;
 
-const LargeTable = styled(ItemsTable)`
+const StyledDesktopTable = styled(DesktopTable)`
 	margin-top: 40px;
 `;
 

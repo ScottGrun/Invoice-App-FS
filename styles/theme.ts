@@ -47,6 +47,7 @@ export const theme = {
 	FONT_FAMILY: {
 		header: "'Spartan', sans-serif",
 		body: "'Spartan', sans-serif",
+		error: "'Spartan', sans-serif",
 	},
 	FONT_SIZES: {
 		h1: `${32 / 16}rem`,

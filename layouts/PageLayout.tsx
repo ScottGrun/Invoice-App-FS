@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import styled from 'styled-components';
 
 import { Sidebar } from '@/components/Sidebar/Sidebar';
@@ -6,7 +7,7 @@ interface PageLayoutProps {
 	children: React.ReactNode;
 }
 
-const PageLayout = ({ children }: PageLayoutProps) => {
+export const PageLayout: FC<PageLayoutProps> = ({ children }) => {
 	return (
 		<Container>
 			<Sidebar />

@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import { Button } from '@/components/Button/Button';
 import { StatusBadge } from '@/components/StatusBadge/StatusBadge';
+import { PossibleStatus } from '@/config/PossibleStatus';
 import { bodyTextStyle } from '@/styles/typography';
 
-interface Props {
-	status: '';
+interface InvoiceDetailHeaderProps {
+	status: PossibleStatus;
 	className?: string;
 }
 
-export const Header = ({ status, className }: Props) => {
+export const Header: FC<InvoiceDetailHeaderProps> = ({ status, className }) => {
 	return (
 		<Wrapper className={className}>
 			<StatusLabel>Status</StatusLabel>
-			<StyledStatusBadge status="Pending" />
+			<StyledStatusBadge status={status} />
 			<ButtonContainer>
 				<Button variant="secondary">Edit</Button>
 				<Button variant="warning">Delete</Button>

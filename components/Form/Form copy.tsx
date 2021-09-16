@@ -6,86 +6,35 @@ import React, { useState } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import '@reach/dialog/styles.css';
-import * as yup from 'yup';
 
-import { Button } from '../Button/Button';
+import { initalValues } from 'config/Form/InitalValues';
+import { formSchema } from 'config/Form/ValidationSchema';
 
-import { FormField } from './FormField';
-import { FormSection } from './FormSection';
-import { ItemField } from './ItemField';
+import { Error } from './Error';
 
-import { DateField } from '@/components/Form/DateField/DateField';
-import iconChevronLeftSrc from '@/public/icons/icon-arrow-left.svg';
+import { Button } from '@/components/Button';
+import { DateField } from '@/components/Form/Fields/DateField';
+import { FormField } from '@/components/Form/Fields/FormField';
+import { ItemField } from '@/components/Form/Fields/ItemField';
+import { FormSection } from '@/components/Form/FormSection';
+import iconChevronLeftSrc from '@/icons/icon-arrow-left.svg';
 import { formHeaderTextStyle, h4TextStyle, itemlistHeaderTextStyle } from '@/styles/typography';
-
-const formSchema = yup.object().shape({
-	userStreetAddress: yup.string().required('Required'),
-	userCity: yup.string().required('Required'),
-	userPostCode: yup.string().required('Required'),
-	userCountry: yup.string().required('Required'),
-	clientName: yup.string().required('Required'),
-	clientEmail: yup.string().email().required('Required'),
-	clientStreetAddress: yup.string().required('Required'),
-	clientCity: yup.string().required('Required'),
-	clientPostCode: yup.string().required('Required'),
-	clientCountry: yup.string().required('Required'),
-	invoiceDate: yup.date().required('Required'),
-	invoiceDueDate: yup.date().required('Required'),
-	items: yup
-		.array()
-		.of(
-			yup.object().shape({
-				name: yup.string().required('A name is required.'),
-				quantity: yup.number().required('A number of items is required.'),
-				price: yup.number(),
-			})
-		)
-		.required('At least 1 item is required'),
-});
-
-const initalValues = {
-	userStreetAddress: '',
-	userCity: '',
-	userPostCode: '',
-	userCountry: '',
-	clientName: '',
-	clientEmail: '',
-	clientStreetAddress: '',
-	clientCity: '',
-	clientPostCode: '',
-	clientCountry: '',
-	invoiceDate: new Date(),
-	invoiceDueDate: new Date(),
-	items: [
-		{
-			name: 'Banner Design',
-			quantity: 1,
-			price: 156.0,
-			total: 156.0,
-		},
-		{
-			name: 'Email Design',
-			quantity: 2,
-			price: 200.0,
-			total: 400.0,
-		},
-	],
-};
 
 export const Form = () => {
 	const [showDialog, setShowDialog] = useState(true);
 	const methods = useForm({
 		defaultValues: initalValues,
 		resolver: yupResolver(formSchema),
+		mode: 'onSubmit',
 	});
 	const { fields, append, remove } = useFieldArray({
 		control: methods.control,
-		name: 'items',
+		name: 'invoiceItems',
 	});
 
 	// Functions
 	const close = () => setShowDialog(false);
-	const submitFormData = (data) => console.log(data);
+	const submitFormData = (data: any) => console.log(data);
 
 	return (
 		<DialogOverlay isOpen={showDialog} onDismiss={close}>
@@ -150,27 +99,43 @@ export const Form = () => {
 										name="clientCountry"
 									/>
 								</Row>
-
-								{/* <DateField name="invoiceDate" label="Invoice Date" control={control} />
-							<DateField name="invoiceDueDate" label="Invoice Due Date" control={control} /> */}
-								<FormField type="text" label="Project Description" name="projectDescription" />
 							</FormSection>
-							<ItemsListHeader>Item List</ItemsListHeader>
-							<ItemsFieldList>
-								{fields.map((item, itemIndex) => (
-									<ItemField key={item.id} idx={itemIndex} total={item.total} remove={remove} />
-								))}
-								<AddItemButton
-									variant="secondary"
-									type="button"
-									onClick={() => append({ name: '', quantity: 0, price: 0, total: 0 })}
-								>
-									+ Add New Item
-								</AddItemButton>
-							</ItemsFieldList>
+
+							<FormSection label="Invoice Details">
+								<Row>
+									<DateField style={{ flex: 1 }} name="invoiceDate" label="Invoice Date" />
+									<DateField style={{ flex: 1 }} name="invoiceDueDate" label="Invoice Due Date" />
+								</Row>
+
+								<FormField
+									style={{ minWidth: '152px', flex: 1 }}
+									type="text"
+									label="Project Description"
+									name="projectDescription"
+								/>
+								<ItemsListHeaderWrapper>
+									<ItemListHeader>Item List</ItemListHeader>
+									{/* @ts-expect-error: ignore wrong schema warning */}
+									<Error>{methods.formState.errors.invoiceItems?.message}</Error>
+								</ItemsListHeaderWrapper>
+								<ItemsFieldList>
+									{fields.map((item, itemIndex) => (
+										<ItemField key={item.id} idx={itemIndex} remove={remove} />
+									))}
+									<AddItemButton
+										variant="secondary"
+										type="button"
+										onClick={() => append({ name: '', quantity: 0, price: 0, total: 0 })}
+									>
+										+ Add New Item
+									</AddItemButton>
+								</ItemsFieldList>
+							</FormSection>
 						</InnerWrapper>
 						<FormButtonsContainer>
-							<Button variant="secondary">Cancel</Button>
+							<Button type="button" variant="secondary">
+								Cancel
+							</Button>
 							<SaveDraftButton variant="tertiary">Save as Draft</SaveDraftButton>
 							<Button type="submit" variant="primary">
 								Save Changes
@@ -231,7 +196,7 @@ const FormHeader = styled.h2`
 `;
 
 // Form
-const StyledForm = styled.form<{ isOpen: boolean; onDismiss: boolean }>`
+const StyledForm = styled.form`
 	position: relative;
 	height: 100%;
 	display: flex;
@@ -260,10 +225,31 @@ const Row = styled.div`
 	width: 100%;
 `;
 
-const ItemsListHeader = styled.h4`
-	${itemlistHeaderTextStyle};
-	color: ${(p) => p.theme.COLORS.grey[7]};
+const ItemsListHeaderWrapper = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
 	margin-top: 66px;
+
+	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+		flex-flow: row;
+		justify-content: space-between;
+		align-items: baseline;
+	}
+`;
+
+const ItemListHeader = styled.h4`
+	${itemlistHeaderTextStyle};
+	display: block;
+	width: 100%;
+	color: ${(p) => p.theme.COLORS.grey[7]};
+
+	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+		flex-flow: row;
+		justify-content: space-between;
+		align-items: baseline;
+		width: auto;
+	}
 `;
 
 const ItemsFieldList = styled.div`

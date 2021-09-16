@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
     /* Using this inherit reset method means you can use content-box or padding-box without a universal selector overriding your CSS */
   html {
     box-sizing: border-box;
+
   }
   /* Only using * omits pseudo elements so specifically include these  */
   * , *:before, *:after {
@@ -46,6 +47,8 @@ body {
   line-height: 1;
   background-color:#F8F8FB;
   color: #0C0E16;
+  accent-color: hotpink;
+
 }
 menu, ol, ul {
   list-style: none;

@@ -1,9 +1,9 @@
 import { ListboxOption } from '@reach/listbox';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-import iconCheckmarkSrc from '@/public/icons/icon-check.svg';
+import iconCheckmarkSrc from '@/icons/icon-check.svg';
 import { h4TextStyle } from '@/styles/typography';
 
 interface Props {

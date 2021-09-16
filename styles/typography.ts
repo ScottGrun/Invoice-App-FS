@@ -94,6 +94,7 @@ export const itemlistHeaderTextStyle = css`
 `;
 
 export const errorMessageTextStyle = css`
+	font-family: ${(p) => p.theme.FONT_FAMILY.error};
 	font-size: ${(p) => p.theme.FONT_SIZES.formError};
 	font-weight: ${(p) => p.theme.WEIGHTS.semiBold};
 	line-height: 15px;

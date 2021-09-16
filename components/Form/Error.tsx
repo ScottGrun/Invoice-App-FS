@@ -1,13 +1,9 @@
-import React from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 
 import { errorMessageTextStyle } from '@/styles/typography';
 
-interface Props {
-	children: React.ReactNode;
-}
-
-export const Error = ({ children }: Props) => {
+export const Error: FC = ({ children }) => {
 	return <Wrapper>{children}</Wrapper>;
 };
 

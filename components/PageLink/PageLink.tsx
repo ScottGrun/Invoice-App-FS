@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 
-import iconChevronSrc from '@/public/icons/icon-arrow-left.svg';
+import iconChevronSrc from '@/icons/icon-arrow-left.svg';
 import { h4TextStyle } from '@/styles/typography';
 
 interface Props {

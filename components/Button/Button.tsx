@@ -1,8 +1,9 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-import iconPlusSrc from '@/public/icons/icon-plus.svg';
+import iconPlusSrc from 'public/icons/icon-plus.svg';
+
 import { theme } from '@/styles/theme';
 import { h4TextStyle } from '@/styles/typography';
 
@@ -35,7 +36,7 @@ const colorVariants: ColorVariantsType = {
 	},
 };
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 	children: React.ReactNode;
 	variant?: 'primary' | 'secondary' | 'tertiary' | 'warning';
 	icon?: 'plus';
