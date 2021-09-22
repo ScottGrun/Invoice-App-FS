@@ -1,26 +1,35 @@
 import { ListboxInput, ListboxButton, ListboxPopover, ListboxList } from '@reach/listbox';
 import VisuallyHidden from '@reach/visually-hidden';
 import Image from 'next/image';
-import { FC, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import '@reach/listbox/styles.css';
 import iconChevronDownSrc from '/public/icons/icon-arrow-down.svg';
 
+import { PossibleStatus } from '@/config/PossibleStatus';
+import { usePrevious } from '@/hooks/usePrevious';
 import { h4TextStyle } from '@/styles/typography';
 
 interface DropDownProps {
 	className?: string;
+	setDropdownValue: Dispatch<SetStateAction<any>>;
+	filter: PossibleStatus | '';
 }
 
-export const Dropdown: FC<DropDownProps> = ({ children, className }) => {
+export const Dropdown: FC<DropDownProps> = ({ children, className, setDropdownValue }) => {
 	const labelId = `filter-by-status`;
-	const [value, setValue] = useState('Pending');
+	const [localState, setLocalState] = useState('');
 
 	return (
 		<div className={className}>
 			<VisuallyHidden id={labelId}>Filter By Status</VisuallyHidden>
-			<ListboxInput aria-labelledby={labelId} value={value} onChange={(value) => setValue(value)}>
+			<ListboxInput
+				aria-labelledby={labelId}
+				defaultValue=""
+				value={localState}
+				onChange={(value) => setDropdownValue(value)}
+			>
 				<DropdownButton
 					arrow={<Image id="chevron" src={iconChevronDownSrc} alt="Arrow facing up" />}
 				>

@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { Dispatch, FC, SetStateAction } from 'react';
 import styled from 'styled-components';
 
 import { Button } from '@/components/Button/Button';
-import { Dropdown } from '@/components/Dropdown/Dropdown';
-import { DropdownOption } from '@/components/Dropdown/DropdownOption';
+import { InvoiceFilterDropdown } from '@/components/Dropdown/InvoiceFilterDropdown';
+import { PossibleStatus } from '@/config/PossibleStatus';
 import { bodyTextStyle, h1TextStyle, h2TextStyle } from '@/styles/typography';
-interface Props {
+interface HeaderProps {
 	invoiceCount: number;
+	setFilter: Dispatch<SetStateAction<'' | PossibleStatus>>;
+	filter: PossibleStatus | '';
 }
 
 const getInvoiceCountText = (count: number) => {
@@ -19,24 +21,14 @@ const getInvoiceCountText = (count: number) => {
 	}
 };
 
-export const Header = ({ invoiceCount }: Props) => {
+export const Header: FC<HeaderProps> = ({ invoiceCount, setFilter, filter }) => {
 	return (
 		<Wrapper>
 			<HeadingWrapper>
 				<Heading>Invoices</Heading>
 				<SubHeading>{getInvoiceCountText(invoiceCount)}</SubHeading>
 			</HeadingWrapper>
-			<StyledDropdown>
-				<DropdownOption value="Draft" label="Draft">
-					Draft
-				</DropdownOption>
-				<DropdownOption value="Pending" label="Pending">
-					Pending
-				</DropdownOption>
-				<DropdownOption value="Paid" label="Paid">
-					Paid
-				</DropdownOption>
-			</StyledDropdown>
+			<StyledDropdown setDropdownValue={setFilter} filter={filter} />
 			<NewInvoiceButton icon="plus">
 				New&nbsp;<span>Invoice</span>
 			</NewInvoiceButton>
@@ -74,7 +66,7 @@ const SubHeading = styled.p`
 	}
 `;
 
-const StyledDropdown = styled(Dropdown)`
+const StyledDropdown = styled(InvoiceFilterDropdown)`
 	margin-top: 15px;
 
 	@media ${(p) => p.theme.QUERIES.tabletAndUp} {

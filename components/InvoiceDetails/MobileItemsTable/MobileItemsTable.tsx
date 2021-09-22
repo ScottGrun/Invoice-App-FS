@@ -1,15 +1,18 @@
 import VisuallyHidden from '@reach/visually-hidden';
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import { body2TextStyle, h4TextStyle, tableFooterTotalTextStyle } from '@/styles/typography';
+import { InvoiceItem } from '@/types/index';
+import { calculateItemTotal } from '@/utils/calculateItemTotal';
+import { calculateInvoiceTotal } from '@/utils/calculateTotal';
 
-interface Props {
+interface MobileItemsTableProps {
 	className?: string;
-	items: [];
+	items: InvoiceItem[];
 }
 
-export const MobileItemsTable = ({ className }: Props) => {
+export const MobileItemsTable: FC<MobileItemsTableProps> = ({ className, items }) => {
 	return (
 		<Table className={className}>
 			<thead>
@@ -23,30 +26,24 @@ export const MobileItemsTable = ({ className }: Props) => {
 				</tr>
 			</thead>
 			<Body>
-				<tr>
-					<NameColumn>
-						<div>
-							<ItemName>Banner Design</ItemName>
-							<ItemQuantity>1 x £ 156.00</ItemQuantity>
-						</div>
-					</NameColumn>
-					<TotalColumn>£ 156.00</TotalColumn>
-				</tr>
-
-				<tr>
-					<NameColumn>
-						<div>
-							<ItemName>Banner Design</ItemName>
-							<ItemQuantity>1 x £ 156.00</ItemQuantity>
-						</div>
-					</NameColumn>
-					<TotalColumn>£ 156.00</TotalColumn>
-				</tr>
+				{items.map((item, idx) => (
+					<tr key={item.name + idx}>
+						<NameColumn>
+							<div>
+								<ItemName>{item.name}</ItemName>
+								<ItemQuantity>
+									{item.quantity} x ${(item.price / 100).toFixed(2)}
+								</ItemQuantity>
+							</div>
+						</NameColumn>
+						<TotalColumn>${calculateItemTotal(item.quantity, item.price)}</TotalColumn>
+					</tr>
+				))}
 			</Body>
 			<Footer>
 				<tr>
 					<TotalLabel>Grand Total</TotalLabel>
-					<InvoiceTotal>£ 556.00</InvoiceTotal>
+					<InvoiceTotal>${calculateInvoiceTotal(items)}</InvoiceTotal>
 				</tr>
 			</Footer>
 		</Table>

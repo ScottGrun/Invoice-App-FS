@@ -1,18 +1,23 @@
+import { PossibleStatus } from '@/config/PossibleStatus';
+
+// Invoice Types
 export interface Invoice {
-	userStreetAddress: string;
-	userCity: string;
-	userPostCode: string;
-	userCountry: string;
-	clientName: string;
-	clientEmail: string;
-	clientStreetAddress: string;
-	clientCity: string;
-	clientPostCode: string;
-	clientCountry: string;
-	invoiceDate: Date | string;
-	invoiceDueDate: Date | string;
-	projectDescription: string;
-	invoiceItems: InvoiceItem[];
+	id: string;
+	status: PossibleStatus;
+	user_street_address: string;
+	user_city: string;
+	user_post_code: string;
+	user_country: string;
+	client_name: string;
+	client_email: string;
+	client_street_address: string;
+	client_city: string;
+	client_post_code: string;
+	client_country: string;
+	invoice_date: Date | string;
+	invoice_due_date: Date | string;
+	description: string;
+	invoice_items: InvoiceItem[];
 }
 
 export interface InvoiceItem {

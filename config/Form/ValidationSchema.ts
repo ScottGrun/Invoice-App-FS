@@ -2,23 +2,23 @@
 import { string, array, date, object, number } from 'yup';
 
 export const formSchema = object().shape({
-	userStreetAddress: string().required('Required'),
-	userCity: string().required('Required'),
-	userPostCode: string().required('Required'),
-	userCountry: string().required('Required'),
-	clientName: string().required('Required'),
-	clientEmail: string().email('Must be a valid email').required('Required'),
-	clientStreetAddress: string().required('Required'),
-	clientCity: string().required('Required'),
-	clientPostCode: string().required('Required'),
-	clientCountry: string().required('Required'),
-	invoiceDate: date().required('Required'),
-	invoiceDueDate: date().when(
-		'invoiceDate',
-		(invoiceDate, schema) => invoiceDate && schema.min(invoiceDate, 'Must be after start date')
+	user_street_address: string().required('Required'),
+	user_city: string().required('Required'),
+	user_post_code: string().required('Required'),
+	user_country: string().required('Required'),
+	client_name: string().required('Required'),
+	client_email: string().email('Must be a valid email').required('Required'),
+	client_street_address: string().required('Required'),
+	client_city: string().required('Required'),
+	client_post_code: string().required('Required'),
+	client_country: string().required('Required'),
+	invoice_date: date().required('Required'),
+	invoice_due_date: date().when(
+		'invoice_date',
+		(invoice_date, schema) => invoice_date && schema.min(invoice_date, 'Must be after start date')
 	),
-	projectDescription: string().required('Required'),
-	invoiceItems: array()
+	description: string().required('Required'),
+	invoice_items: array()
 		.of(
 			object().shape({
 				name: string().required('A Item Name is required.'),

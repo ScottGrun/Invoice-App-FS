@@ -7,47 +7,51 @@ import { MobileItemsTable } from '@/components/InvoiceDetails/MobileItemsTable';
 import { Size, useWindowSize } from '@/hooks/useWindowSize';
 import { BREAKPOINTS } from '@/styles/theme';
 import { body2TextStyle, bodyTextStyle, h4TextStyle } from '@/styles/typography';
+import { InvoiceItem, Invoice } from '@/types/index';
 
 interface DetailsCardProps {
 	className?: string;
+	invoice: Invoice;
 }
 
-export const DetailsCard: FC<DetailsCardProps> = ({ className }) => {
+export const DetailsCard: FC<DetailsCardProps> = ({ className, invoice }) => {
 	const size: Size = useWindowSize();
-
 	return (
 		<Wrapper className={className}>
 			<MetaData>
 				<InvoiceIdAndName>
 					<Id>
-						<span>#</span>XM9141
+						<span>#</span>
+						{invoice.id}
 					</Id>
-					<Name>Graphic Design</Name>
+					<Name>{invoice.description}</Name>
 				</InvoiceIdAndName>
 				<UserAddress>
 					<address>
-						19 Union Terrace <br />
-						London <br />
-						E1 3EZ <br />
-						United Kingdom
+						{invoice.user_street_address} <br />
+						{invoice.user_city} <br />
+						{invoice.user_post_code}
+						<br />
+						{invoice.user_country}
 					</address>
 				</UserAddress>
-				<InvoiceDate label="Invoice Date" value="21 Aug 2021"></InvoiceDate>
-				<PaymentDue label="Payment Due" value="20 Sep 2021"></PaymentDue>
-				<ClientEmail label="Sent to" value="alexgrim@mail.com"></ClientEmail>
-				<BillTo label="Bill to" value="Alex Grim">
+				<InvoiceDate label="Invoice Date" value={invoice.invoice_date}></InvoiceDate>
+				<PaymentDue label="Payment Due" value={invoice.invoice_due_date}></PaymentDue>
+				<ClientEmail label="Sent to" value={invoice.client_email}></ClientEmail>
+				<BillTo label="Bill to" value={invoice.client_name}>
 					<address>
-						19 Union Terrace <br />
-						London <br />
-						E1 3EZ <br />
-						United Kingdom
+						{invoice.client_street_address} <br />
+						{invoice.client_city} <br />
+						{invoice.client_post_code}
+						<br />
+						{invoice.client_country}
 					</address>
 				</BillTo>
 			</MetaData>
-			{size.width ?? 0 > BREAKPOINTS.phone ? (
-				<StyledDesktopTable items={[]} />
+			{size?.width > BREAKPOINTS.phone ? (
+				<StyledDesktopTable items={invoice.invoice_items} />
 			) : (
-				<MobileTable items={[]} />
+				<MobileTable items={invoice.invoice_items} />
 			)}
 		</Wrapper>
 	);

@@ -1,43 +1,55 @@
-import React, { FC } from 'react';
-import CurrencyInput from 'react-currency-input-field';
-import { Controller, useFormContext } from 'react-hook-form';
+import React, { FC, useEffect, useState } from 'react';
+import { formatValue } from 'react-currency-input-field';
+import { useFormContext, useWatch } from 'react-hook-form';
 import styled from 'styled-components';
 
 import { FormField } from './FormField';
+import { PriceField } from './PriceField';
 
 import { bodyTextStyle, h4TextStyle } from '@/styles/typography';
 
 interface ItemFieldProps {
 	idx: number;
-	remove: (index?: number | number[] | undefined) => void;
+	remove: (index?: number | number[]) => void;
 }
 
 export const ItemField: FC<ItemFieldProps> = ({ idx, remove }) => {
-	const { control } = useFormContext();
+	const { control, getValues } = useFormContext();
+	const [total, setTotal] = useState('0');
+
+	const watchedQuantityAndPrice = useWatch({
+		control,
+		name: [`invoice_items[${idx}].quantity`, `invoice_items[${idx}].price`],
+	});
+
+	const invoiceItem = getValues('invoice_items')[idx];
+
+	useEffect(() => {
+		if (isNaN(watchedQuantityAndPrice[0]) || isNaN(watchedQuantityAndPrice[1])) {
+			return setTotal('0');
+		}
+
+		const formattedTotal = formatValue({
+			value: ((watchedQuantityAndPrice[0] * watchedQuantityAndPrice[1]) / 100)
+				.toFixed(2)
+				.toString(),
+			groupSeparator: ',',
+			decimalScale: 2,
+			decimalSeparator: '.',
+			prefix: '$',
+		});
+
+		setTotal(formattedTotal);
+	}, [watchedQuantityAndPrice]);
 
 	return (
 		<Wrapper>
-			<ItemName label="Item Name" name={`invoiceItems[${idx}].name`} type="text" />
-			<Quantity label="Qty" name={`invoiceItems[${idx}].quantity`} type="number" min={0} />
-			<PriceWrapper>
-				<span>Price</span>
-				<Controller
-					control={control}
-					name={`invoiceItems[${idx}].price`}
-					render={({ field }) => (
-						<Price
-							allowNegativeValue={false}
-							decimalScale={2}
-							intlConfig={{ locale: 'en-US', currency: 'GBP' }}
-							onValueChange={(e) => field.onChange(e)}
-							value={field.value}
-						/>
-					)}
-				/>
-			</PriceWrapper>
+			<ItemName label="Item Name" name={`invoice_items[${idx}].name`} type="text" />
+			<Quantity label="Qty" name={`invoice_items[${idx}].quantity`} type="number" min={0} />
+			<PriceField formPriceValue={invoiceItem?.price ?? 0} name={`invoice_items[${idx}].price`} />
 			<TotalWrapper>
 				<span>Total</span>
-				<TotalPrice>1012</TotalPrice>
+				<TotalPrice>{total}</TotalPrice>
 			</TotalWrapper>
 			<DeleteButton type="button" onClick={() => remove(idx)}>
 				<svg width="13" height="16" xmlns="http://www.w3.org/2000/svg">
@@ -77,7 +89,6 @@ const ItemName = styled(FormField)`
 // Quanity Field
 const Quantity = styled(FormField)`
 	max-width: 64px;
-
 	span {
 		text-align: center;
 	}
@@ -102,28 +113,6 @@ const Quantity = styled(FormField)`
 	}
 `;
 
-// Price Field
-const PriceWrapper = styled.div`
-	${bodyTextStyle};
-	display: flex;
-	flex-flow: column;
-	color: ${(p) => p.theme.COLORS.primary[3]};
-	max-width: 100px;
-	span {
-		margin-bottom: 10px;
-	}
-`;
-
-const Price = styled(CurrencyInput)`
-	${h4TextStyle};
-	text-align: center;
-	padding: 0 10px;
-	margin-right: 16px;
-	height: 48px;
-	border-radius: 4px;
-	border: solid 2px ${(p) => p.theme.COLORS.grey[2]};
-`;
-
 // Total Display (styled to look like field)
 const TotalWrapper = styled.div`
 	${bodyTextStyle};
@@ -131,12 +120,13 @@ const TotalWrapper = styled.div`
 	flex-flow: column;
 	color: ${(p) => p.theme.COLORS.primary[3]};
 	max-width: 60px;
+
 	span {
 		margin-bottom: 10px;
 	}
 
 	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
-		max-width: 45px;
+		/* max-width: 45px; */
 	}
 `;
 
@@ -145,6 +135,8 @@ const TotalPrice = styled.p`
 	display: flex;
 	align-items: center;
 	height: 48px;
+	width: 90px;
+	overflow: auto;
 `;
 
 // Delete Item button

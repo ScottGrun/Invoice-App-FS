@@ -1,27 +1,10 @@
+import { FC } from 'react';
 import styled from 'styled-components';
 
 import { EmptyState } from '../EmptyState/EmptyState';
 
-interface Props {
-	children: React.ReactNode;
-}
-
-export const InvoiceListContainer = ({ children }: Props) => {
-	return (
-		<Wrapper>
-			{children ? (
-				children
-			) : (
-				<li>
-					<StyledEmptyState
-						heading="There is nothing here"
-						errorMessage="Create a new invoice by clicking the
-					New Invoice button and get started"
-					/>
-				</li>
-			)}
-		</Wrapper>
-	);
+export const InvoiceListContainer: FC = ({ children }) => {
+	return <Wrapper>{children}</Wrapper>;
 };
 
 const Wrapper = styled.ul`
@@ -37,17 +20,5 @@ const Wrapper = styled.ul`
 
 	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
 		margin-top: 65parx;
-	}
-`;
-
-const StyledEmptyState = styled(EmptyState)`
-	margin-top: 71px;
-
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
-		margin-top: 154px;
-	}
-
-	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
-		margin-top: 76px;
 	}
 `;

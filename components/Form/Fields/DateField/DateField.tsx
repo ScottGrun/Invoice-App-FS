@@ -25,7 +25,7 @@ export const DateField: FC<DateFieldProps> = ({ style, label, name }) => {
 				render={({ field, fieldState }) => (
 					<ReactDatePicker
 						closeOnScroll={() => true}
-						onChange={(e) => field.onChange(e)}
+						onChange={(e) => field.onChange(e.toDateString())}
 						selected={field.value}
 						showPopperArrow={false}
 						dateFormat="d MMM yyyy"

@@ -5,16 +5,16 @@ import '@reach/dialog/styles.css';
 
 interface DrawerProps {
 	isDrawerOpen: boolean;
-	setDrawerClosed: Dispatch<SetStateAction<boolean>>;
+	setDrawerOpen: Dispatch<SetStateAction<boolean>>;
 	ariaLabel: string;
 }
 
-export const Drawer: FC<DrawerProps> = ({ children, isDrawerOpen, setDrawerClosed, ariaLabel }) => {
+export const Drawer: FC<DrawerProps> = ({ children, isDrawerOpen, setDrawerOpen, ariaLabel }) => {
 	return (
-		<DialogOverlay isOpen={isDrawerOpen} onDismiss={() => setDrawerClosed(false)}>
+		<DialogOverlay isOpen={isDrawerOpen} onDismiss={() => setDrawerOpen(false)}>
 			<StyledDialogContent
 				isOpen={isDrawerOpen}
-				onDismiss={() => setDrawerClosed(false)}
+				onDismiss={() => setDrawerOpen(false)}
 				aria-label={ariaLabel}
 			>
 				{children}

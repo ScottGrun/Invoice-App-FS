@@ -10,7 +10,8 @@
 			"@/icons/*": ["public/icons/*"],
 			"@/assets/*": ["public/assets/*"],
 			"@/config/*": ["config/*"],
-			"@/types/*": ["types/*"]
+			"@/types/*": ["types/*"],
+			"@/store/*": ["store/*"]
 		},
 		"target": "es5",
 		"lib": ["dom", "dom.iterable", "esnext"],

@@ -1,12 +1,11 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import VisuallyHidden from '@reach/visually-hidden';
-import Image from 'next/image';
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import React, { Dispatch, FC, SetStateAction, useContext, useEffect } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
 import { initalValues } from 'config/Form/InitalValues';
 import { formSchema } from 'config/Form/ValidationSchema';
+import { InvoicesContext } from 'context/InvoicesContext';
 
 import { Error } from './Error';
 
@@ -15,107 +14,129 @@ import { DateField } from '@/components/Form/Fields/DateField';
 import { FormField } from '@/components/Form/Fields/FormField';
 import { ItemField } from '@/components/Form/Fields/ItemField';
 import { FormSection } from '@/components/Form/FormSection';
-import iconChevronLeftSrc from '@/icons/icon-arrow-left.svg';
-import { formHeaderTextStyle, h4TextStyle, itemlistHeaderTextStyle } from '@/styles/typography';
+import { PossibleStatus } from '@/config/PossibleStatus';
+import { formHeaderTextStyle, itemlistHeaderTextStyle } from '@/styles/typography';
 import { Invoice } from '@/types/index';
 
 interface EditInvoiceForm {
-	setDrawerClosed: Dispatch<SetStateAction<boolean>>;
-	invoiceDetails: Invoice | null;
+	setDrawerOpen: Dispatch<SetStateAction<boolean>>;
+	invoice: Invoice | undefined;
 }
 
-export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerClosed, invoiceDetails }) => {
+export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice }) => {
+	const { addInvoice, updateInvoice } = useContext(InvoicesContext);
+
 	const methods = useForm({
-		defaultValues: invoiceDetails ?? initalValues,
+		defaultValues: initalValues,
 		resolver: yupResolver(formSchema),
-		mode: 'onSubmit',
-	});
-	const { fields, append, remove } = useFieldArray({
-		control: methods.control,
-		name: 'invoiceItems',
+		mode: 'onBlur',
 	});
 
-	const submitFormData = (data: any) => console.log(data);
+	const { fields, append, remove } = useFieldArray({
+		control: methods.control,
+		name: 'invoice_items',
+	});
+	// TODO: Fix price input treating cents as dollars oh also the date input is fucked good luck
+	// useEffect(() => {
+	// 	methods.reset({
+	// 		...invoice,
+	// 		invoice_items: invoice?.invoice_items,
+	// 	});
+	// }, [invoice, methods]);
+
+	const submitFormData = (e) => {
+		e.preventDefault();
+		console.log('hi submitted');
+	};
+
+	const handleAddInvoice = () => {
+		console.log(methods.getValues());
+		addInvoice(methods.getValues());
+	};
+
+	const handleUpdateInvoice = () => {
+		if (methods.formState.isValid) {
+			updateInvoice(methods.getValues());
+		}
+	};
 
 	return (
 		<FormProvider {...methods}>
-			<StyledForm onSubmit={methods.handleSubmit(submitFormData)}>
-				<BackButton onClick={close}>
-					<Image src={iconChevronLeftSrc} alt="" />
-					<span>Go back</span>
-					<VisuallyHidden>Go back</VisuallyHidden>
-				</BackButton>
-				<FormHeader>
-					Edit <span>#</span>XM9141
-				</FormHeader>
+			<StyledForm onSubmit={(e) => e.preventDefault()}>
+				{invoice && (
+					<FormHeader>
+						Edit <span>#</span>
+						{invoice.id}
+					</FormHeader>
+				)}
 				<InnerWrapper>
 					{/* Bill From */}
 					<FormSection label="Bill From">
-						<FormField type="text" label="Street Address" name="userStreetAddress" />
+						<FormField type="text" label="Street Address" name="user_street_address" />
 						<Row>
 							<FormField
 								style={{ minWidth: '140px', flex: 1 }}
 								type="text"
 								label="City"
-								name="userCity"
+								name="user_city"
 							/>
 							<FormField
 								style={{ minWidth: '140px', flex: 1 }}
 								type="text"
 								label="Post Code"
-								name="userPostCode"
+								name="user_post_code"
 							/>
 							<FormField
 								style={{ minWidth: '152px', flex: 1 }}
 								type="text"
 								label="Country"
-								name="userCountry"
+								name="user_country"
 							/>
 						</Row>
 					</FormSection>
 					{/* Bill To */}
 					<FormSection label="Bill To">
-						<FormField type="text" label="Client's Name" name="clientName" />
-						<FormField type="email" label="Client's Email" name="clientEmail" />
-						<FormField type="text" label="Street Address" name="clientStreetAddress" />
+						<FormField type="text" label="Client's Name" name="client_name" />
+						<FormField type="email" label="Client's Email" name="client_email" />
+						<FormField type="text" label="Street Address" name="client_street_address" />
 						<Row>
 							<FormField
 								style={{ minWidth: '140px', flex: 1 }}
 								type="text"
 								label="City"
-								name="clientCity"
+								name="client_city"
 							/>
 							<FormField
 								style={{ minWidth: '140px', flex: 1 }}
 								type="text"
 								label="Post Code"
-								name="clientPostCode"
+								name="client_post_code"
 							/>
 							<FormField
 								style={{ minWidth: '152px', flex: 1 }}
 								type="text"
 								label="Country"
-								name="clientCountry"
+								name="client_country"
 							/>
 						</Row>
 					</FormSection>
 
 					<FormSection label="Invoice Details">
 						<Row>
-							<DateField style={{ flex: 1 }} name="invoiceDate" label="Invoice Date" />
-							<DateField style={{ flex: 1 }} name="invoiceDueDate" label="Invoice Due Date" />
+							<DateField style={{ flex: 1 }} name="invoice_date" label="Invoice Date" />
+							<DateField style={{ flex: 1 }} name="invoice_due_date" label="Invoice Due Date" />
 						</Row>
 
 						<FormField
 							style={{ minWidth: '152px', flex: 1 }}
 							type="text"
 							label="Project Description"
-							name="projectDescription"
+							name="description"
 						/>
 						<ItemsListHeaderWrapper>
 							<ItemListHeader>Item List</ItemListHeader>
 							{/* @ts-expect-error: ignore wrong schema warning */}
-							<Error>{methods.formState.errors.invoiceItems?.message}</Error>
+							<Error>{methods.formState.errors.invoice_items?.message}</Error>
 						</ItemsListHeaderWrapper>
 						<ItemsFieldList>
 							{fields.map((item, itemIndex) => (
@@ -132,13 +153,13 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerClosed, invoiceD
 					</FormSection>
 				</InnerWrapper>
 				<FormButtonsContainer>
-					<Button onClick={() => setDrawerClosed(false)} type="button" variant="secondary">
+					<Button onClick={() => setDrawerOpen(false)} type="button" variant="secondary">
 						Cancel
 					</Button>
-					<SaveDraftButton type="submit" variant="tertiary">
+					<SaveDraftButton type="submit" variant="tertiary" onClick={() => handleAddInvoice()}>
 						Save as Draft
 					</SaveDraftButton>
-					<Button type="submit" variant="primary">
+					<Button type="submit" variant="primary" onClick={() => handleUpdateInvoice()}>
 						Save Changes
 					</Button>
 				</FormButtonsContainer>
@@ -146,21 +167,6 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerClosed, invoiceD
 		</FormProvider>
 	);
 };
-
-const BackButton = styled.button`
-	${h4TextStyle};
-	display: flex;
-	align-items: baseline;
-	background-color: transparent;
-	margin-top: 32px;
-	span {
-		margin-left: 24px;
-	}
-
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
-		display: none;
-	}
-`;
 
 const FormHeader = styled.h2`
 	${formHeaderTextStyle};
@@ -255,5 +261,5 @@ const FormButtonsContainer = styled.div`
 const AddItemButton = styled(Button)``;
 
 const SaveDraftButton = styled(Button)`
-	display: none;
+	/* display: none; */
 `;

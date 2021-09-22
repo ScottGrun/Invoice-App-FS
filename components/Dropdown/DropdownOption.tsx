@@ -1,21 +1,28 @@
-import { ListboxOption } from '@reach/listbox';
+import { ListboxOption, useListboxContext } from '@reach/listbox';
 import Image from 'next/image';
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import iconCheckmarkSrc from '@/icons/icon-check.svg';
 import { h4TextStyle } from '@/styles/typography';
 
-interface Props {
+interface DropdownOptionProps {
 	value: any;
 	children: React.ReactNode;
 	className?: string;
 	label: string;
+	onClick?: (value: any) => void;
 }
 
-export const DropdownOption = ({ value, children, className, label }: Props) => {
+export const DropdownOption: FC<DropdownOptionProps> = ({
+	value,
+	children,
+	className,
+	label,
+	onClick,
+}) => {
 	return (
-		<Option className={className} value={value} label={label}>
+		<Option onClick={onClick} className={className} value={value} label={label}>
 			<CheckWrapper>
 				<Image src={iconCheckmarkSrc} alt="" />
 			</CheckWrapper>

@@ -2,13 +2,17 @@ import { FC } from 'react';
 import styled from 'styled-components';
 
 import { body2TextStyle, h4TextStyle, tableFooterTotalTextStyle } from '@/styles/typography';
+import { InvoiceItem } from '@/types/index';
+import { calculateItemTotal } from '@/utils/calculateItemTotal';
+import { calculateInvoiceTotal } from '@/utils/calculateTotal';
 
 interface DesktopTableProps {
 	className?: string;
-	items: [];
+	items: InvoiceItem[];
 }
 
 export const DesktopTable: FC<DesktopTableProps> = ({ className, items }) => {
+	console.log(items.length);
 	return (
 		<Table className={className}>
 			<thead>
@@ -20,23 +24,19 @@ export const DesktopTable: FC<DesktopTableProps> = ({ className, items }) => {
 				</tr>
 			</thead>
 			<Body>
-				<tr>
-					<Name>Banner Design</Name>
-					<Quantity>1</Quantity>
-					<Price>£ 156.00</Price>
-					<Total>£ 156.00</Total>
-				</tr>
-				<tr>
-					<Name>Banner Design</Name>
-					<Quantity>1</Quantity>
-					<Price>£ 156.00</Price>
-					<Total>£ 156.00</Total>
-				</tr>
+				{items.map((item, idx) => (
+					<tr key={item.name + idx}>
+						<Name>{item.name}</Name>
+						<Quantity>{item.quantity}</Quantity>
+						<Price>${(item.price / 100).toFixed(2)}</Price>
+						<Total>${calculateItemTotal(item.quantity, item.price)}</Total>
+					</tr>
+				))}
 			</Body>
 			<Footer>
 				<tr>
 					<TotalLabel>Grand Total</TotalLabel>
-					<InvoiceTotal colSpan={3}>£ 556.00</InvoiceTotal>
+					<InvoiceTotal colSpan={3}>£{calculateInvoiceTotal(items)}</InvoiceTotal>
 				</tr>
 			</Footer>
 		</Table>

@@ -24,7 +24,7 @@ export const InvoiceCard: FC<InvoiceCardProps> = ({ id, dueDate, clientName, tot
 			</Id>
 			<DueDate>{dueDate}</DueDate>
 			<ClientName>{clientName}</ClientName>
-			<Total>{total}</Total>
+			<Total>{`$` + total}</Total>
 			<Status>
 				<StatusBadge status={status} />
 			</Status>
