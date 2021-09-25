@@ -1,14 +1,13 @@
 import { ListboxInput, ListboxButton, ListboxPopover, ListboxList } from '@reach/listbox';
 import VisuallyHidden from '@reach/visually-hidden';
 import Image from 'next/image';
-import { Dispatch, FC, SetStateAction, useEffect, useRef, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
 import styled from 'styled-components';
 
 import '@reach/listbox/styles.css';
 import iconChevronDownSrc from '/public/icons/icon-arrow-down.svg';
 
 import { PossibleStatus } from '@/config/PossibleStatus';
-import { usePrevious } from '@/hooks/usePrevious';
 import { h4TextStyle } from '@/styles/typography';
 
 interface DropDownProps {

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import ReactDatePicker, { ReactDatePickerProps } from 'react-datepicker';
 import { Controller, useFormContext } from 'react-hook-form';
 import styled, { createGlobalStyle, CSSProperties } from 'styled-components';
@@ -6,16 +6,28 @@ import styled, { createGlobalStyle, CSSProperties } from 'styled-components';
 import { CalendarHeader } from './CalendarHeader';
 import { CalendarInput } from './CalendarInput';
 
+import { DateType } from '@/config/index';
 import { h4TextStyle } from '@/styles/typography';
 
 interface DateFieldProps extends Omit<ReactDatePickerProps, 'onChange'> {
 	style?: CSSProperties;
 	label: string;
 	name: string;
+	shouldBeDisabled?: boolean;
 }
 
-export const DateField: FC<DateFieldProps> = ({ style, label, name }) => {
-	const { control } = useFormContext();
+export const DateField: FC<DateFieldProps> = ({ style, label, name, shouldBeDisabled = false }) => {
+	const { control, getValues } = useFormContext();
+	const [date, setDate] = useState<DateType>(new Date());
+	const storedDate = getValues(name);
+
+	// On mount if there is stored date convert it to a date object
+	// because react-datepicker can only work with date objects
+	useEffect(() => {
+		if (storedDate) {
+			setDate(new Date(storedDate));
+		}
+	}, []);
 
 	return (
 		<Wrapper style={style}>
@@ -25,12 +37,16 @@ export const DateField: FC<DateFieldProps> = ({ style, label, name }) => {
 				render={({ field, fieldState }) => (
 					<ReactDatePicker
 						closeOnScroll={() => true}
-						onChange={(e) => field.onChange(e.toDateString())}
-						selected={field.value}
+						onChange={(e) => {
+							setDate(e);
+							field.onChange(e);
+						}}
+						selected={date}
 						showPopperArrow={false}
-						dateFormat="d MMM yyyy"
+						dateFormat="MMM dd yyyy"
 						calendarClassName="custom-calendar"
 						dayClassName={() => 'custom-day'}
+						disabled={shouldBeDisabled}
 						customInput={
 							<CalendarInput
 								name={field.name}

@@ -12,7 +12,6 @@ interface DesktopTableProps {
 }
 
 export const DesktopTable: FC<DesktopTableProps> = ({ className, items }) => {
-	console.log(items.length);
 	return (
 		<Table className={className}>
 			<thead>

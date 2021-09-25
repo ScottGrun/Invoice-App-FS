@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { Dispatch, FC, SetStateAction, useContext, useEffect } from 'react';
+import cuid from 'cuid';
+import React, { Dispatch, FC, SetStateAction, useContext, useEffect, useState } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
@@ -7,69 +8,109 @@ import { initalValues } from 'config/Form/InitalValues';
 import { formSchema } from 'config/Form/ValidationSchema';
 import { InvoicesContext } from 'context/InvoicesContext';
 
-import { Error } from './Error';
-
 import { Button } from '@/components/Button';
+import { Error } from '@/components/Form/Error';
 import { DateField } from '@/components/Form/Fields/DateField';
 import { FormField } from '@/components/Form/Fields/FormField';
 import { ItemField } from '@/components/Form/Fields/ItemField';
 import { FormSection } from '@/components/Form/FormSection';
-import { PossibleStatus } from '@/config/PossibleStatus';
 import { formHeaderTextStyle, itemlistHeaderTextStyle } from '@/styles/typography';
 import { Invoice } from '@/types/index';
+import { formatDateToString } from '@/utils/formatDate';
 
 interface EditInvoiceForm {
 	setDrawerOpen: Dispatch<SetStateAction<boolean>>;
-	invoice: Invoice | undefined;
+	invoice?: Invoice;
 }
 
 export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice }) => {
 	const { addInvoice, updateInvoice } = useContext(InvoicesContext);
+	const [shouldBeDisabled, setShouldBeDisabled] = useState(false);
 
 	const methods = useForm({
-		defaultValues: initalValues,
+		defaultValues: invoice ? invoice : initalValues,
 		resolver: yupResolver(formSchema),
-		mode: 'onBlur',
+		mode: 'onSubmit',
 	});
+
+	const invoiceStatus = methods.getValues().status;
 
 	const { fields, append, remove } = useFieldArray({
 		control: methods.control,
 		name: 'invoice_items',
 	});
-	// TODO: Fix price input treating cents as dollars oh also the date input is fucked good luck
-	// useEffect(() => {
-	// 	methods.reset({
-	// 		...invoice,
-	// 		invoice_items: invoice?.invoice_items,
-	// 	});
-	// }, [invoice, methods]);
 
-	const submitFormData = (e) => {
-		e.preventDefault();
-		console.log('hi submitted');
-	};
+	useEffect(() => {
+		setShouldBeDisabled(invoiceStatus !== 'Draft');
+	}, [invoiceStatus]);
 
-	const handleAddInvoice = () => {
-		console.log(methods.getValues());
-		addInvoice(methods.getValues());
-	};
+	const handleSubmit = async (submitType: 'Add' | 'Update' | 'Send') => {
+		const isVaild = await methods.trigger();
 
-	const handleUpdateInvoice = () => {
-		if (methods.formState.isValid) {
-			updateInvoice(methods.getValues());
+		if (isVaild) {
+			// Get all form values as obj
+			const formValues = methods.getValues();
+
+			switch (submitType) {
+				case 'Add':
+					addInvoice({
+						...formValues,
+						id: cuid.slug(),
+						status: 'Draft',
+						invoice_date: formatDateToString(formValues.invoice_date),
+						invoice_due_date: formatDateToString(formValues.invoice_due_date),
+					});
+					break;
+				case 'Update':
+					updateInvoice({
+						...formValues,
+						invoice_date: formatDateToString(formValues.invoice_date),
+						invoice_due_date: formatDateToString(formValues.invoice_due_date),
+					});
+					break;
+				case 'Send':
+					if (formValues.status === 'Draft') {
+						updateInvoice({
+							...formValues,
+							status: 'Pending',
+							invoice_date: formatDateToString(formValues.invoice_date),
+							invoice_due_date: formatDateToString(formValues.invoice_due_date),
+						});
+					} else if (formValues.status === null) {
+						addInvoice({
+							...formValues,
+							id: cuid.slug(),
+							status: 'Pending',
+							invoice_date: formatDateToString(formValues.invoice_date),
+							invoice_due_date: formatDateToString(formValues.invoice_due_date),
+						});
+					}
+					break;
+				default:
+					throw 'Error: Unknown submit type'; // generates an error object with the message of Required
+			}
+
+			// Reset form and close drawer
+			methods.reset();
+			setDrawerOpen(false);
 		}
 	};
 
 	return (
 		<FormProvider {...methods}>
 			<StyledForm onSubmit={(e) => e.preventDefault()}>
-				{invoice && (
-					<FormHeader>
-						Edit <span>#</span>
-						{invoice.id}
-					</FormHeader>
-				)}
-				<InnerWrapper>
+				<FormHeader>
+					{invoice ? (
+						<>
+							Edit <span>#</span>
+							{invoice.id}
+						</>
+					) : (
+						<>New Invoice</>
+					)}
+				</FormHeader>
+
+				<FieldSet disabled={shouldBeDisabled}>
 					{/* Bill From */}
 					<FormSection label="Bill From">
 						<FormField type="text" label="Street Address" name="user_street_address" />
@@ -123,8 +164,18 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 
 					<FormSection label="Invoice Details">
 						<Row>
-							<DateField style={{ flex: 1 }} name="invoice_date" label="Invoice Date" />
-							<DateField style={{ flex: 1 }} name="invoice_due_date" label="Invoice Due Date" />
+							<DateField
+								style={{ flex: 1 }}
+								name="invoice_date"
+								label="Invoice Date"
+								shouldBeDisabled={shouldBeDisabled}
+							/>
+							<DateField
+								style={{ flex: 1 }}
+								name="invoice_due_date"
+								label="Invoice Due Date"
+								shouldBeDisabled={shouldBeDisabled}
+							/>
 						</Row>
 
 						<FormField
@@ -140,28 +191,46 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 						</ItemsListHeaderWrapper>
 						<ItemsFieldList>
 							{fields.map((item, itemIndex) => (
-								<ItemField key={item.id} idx={itemIndex} remove={remove} />
+								<ItemField
+									key={item.id}
+									idx={itemIndex}
+									remove={remove}
+									shouldBeDisabled={shouldBeDisabled}
+								/>
 							))}
-							<AddItemButton
-								variant="secondary"
-								type="button"
-								onClick={() => append({ name: '', quantity: 0, price: 0 })}
-							>
-								+ Add New Item
-							</AddItemButton>
+							{!shouldBeDisabled && (
+								<Button
+									disabled={shouldBeDisabled}
+									variant="secondary"
+									type="button"
+									onClick={() => append({ name: '', quantity: 0, price: 0 })}
+								>
+									+ Add New Item
+								</Button>
+							)}
 						</ItemsFieldList>
 					</FormSection>
-				</InnerWrapper>
+				</FieldSet>
 				<FormButtonsContainer>
 					<Button onClick={() => setDrawerOpen(false)} type="button" variant="secondary">
-						Cancel
+						Close
 					</Button>
-					<SaveDraftButton type="submit" variant="tertiary" onClick={() => handleAddInvoice()}>
-						Save as Draft
-					</SaveDraftButton>
-					<Button type="submit" variant="primary" onClick={() => handleUpdateInvoice()}>
-						Save Changes
-					</Button>
+
+					{invoiceStatus === 'Draft' && (
+						<>
+							<SaveDraftButton
+								type="submit"
+								variant="tertiary"
+								onClick={() => (invoice ? handleSubmit('Update') : handleSubmit('Add'))}
+							>
+								Save as Draft
+							</SaveDraftButton>
+
+							<Button type="submit" variant="primary" onClick={() => handleSubmit('Send')}>
+								Save & Send
+							</Button>
+						</>
+					)}
 				</FormButtonsContainer>
 			</StyledForm>
 		</FormProvider>
@@ -193,7 +262,7 @@ const StyledForm = styled.form`
 	}
 `;
 
-const InnerWrapper = styled.div`
+const FieldSet = styled.fieldset`
 	height: 100%;
 	width: 100%;
 	overflow: scroll !important;
@@ -258,8 +327,6 @@ const FormButtonsContainer = styled.div`
 	}
 `;
 
-const AddItemButton = styled(Button)``;
-
 const SaveDraftButton = styled(Button)`
-	/* display: none; */
+	margin-left: auto;
 `;

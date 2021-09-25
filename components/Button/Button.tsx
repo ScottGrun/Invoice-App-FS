@@ -76,8 +76,7 @@ const ButtonBase = styled.button<{ variant: string }>`
 	background-color: ${({ variant }) => colorVariants[variant].background};
 	color: ${({ variant }) => colorVariants[variant].text};
 
-	&:hover,
-	:focus {
+	&:hover {
 		cursor: pointer;
 		background-color: ${({ variant }) => colorVariants[variant].backgroundHover};
 	}

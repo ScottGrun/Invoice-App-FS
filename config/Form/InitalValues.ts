@@ -1,7 +1,8 @@
 import { Invoice } from '@/types/index';
+import { formatDateToString } from '@/utils/formatDate';
 
 export const initalValues: Invoice = {
-	id: '',
+	id: null,
 	status: 'Draft',
 	user_street_address: '',
 	user_city: '',
@@ -16,16 +17,5 @@ export const initalValues: Invoice = {
 	invoice_date: new Date(),
 	invoice_due_date: new Date(),
 	description: '',
-	invoice_items: [
-		{
-			name: 'Banner Design',
-			quantity: 1,
-			price: 156.0,
-		},
-		{
-			name: 'Banner Design',
-			quantity: 1,
-			price: 156.0,
-		},
-	],
+	invoice_items: [],
 };

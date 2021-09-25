@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/devtools": "^4.0.1",
     "@hookform/resolvers": "^2.8.0",
     "@prisma/client": "3.0.2",
     "@reach/dialog": "^0.16.0",
@@ -16,6 +17,7 @@
     "@reach/visually-hidden": "^0.16.0",
     "@reduxjs/toolkit": "^1.6.1",
     "babel-plugin-styled-components": "^1.13.2",
+    "cuid": "^2.1.8",
     "next": "11.1.2",
     "next-redux-wrapper": "^7.0.5",
     "react": "17.0.2",

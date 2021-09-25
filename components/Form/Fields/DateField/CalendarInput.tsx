@@ -78,11 +78,6 @@ const CustomInput = styled.input<{ hasError: boolean }>`
 	border-radius: 4px;
 	width: 100%;
 	border: solid 2px ${(p) => (p.hasError ? p.theme.COLORS.warning[1] : p.theme.COLORS.grey[2])};
-
-	&:hover {
-		cursor: pointer;
-		border: solid 2px ${(p) => p.theme.COLORS.primary[1]};
-	}
 `;
 
 const InputIcon = styled.div`
