@@ -1,1 +1,1 @@
-export type PossibleStatus = 'Draft' | 'Pending' | 'Paid';
+export type PossibleStatus = 'draft' | 'pending' | 'paid';

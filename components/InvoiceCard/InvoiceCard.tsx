@@ -51,7 +51,7 @@ const Wrapper = styled.a`
 
 	padding: 24px;
 
-	background-color: ${COLORS.white};
+	background-color: ${(p) => p.theme.COLORS.invoiceCard.bg};
 	border-radius: 8px;
 	box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
 	border: solid 1px transparent;

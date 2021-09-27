@@ -16,6 +16,7 @@ export const theme: DefaultTheme = {
 			border: '#494E6E',
 		},
 		dropdown: {
+			bg: '#FFF',
 			color: '#0C0E16',
 			itemColor: '#1E2139',
 			itemSelectedColor: '#7C5DFA',
@@ -48,6 +49,7 @@ export const theme: DefaultTheme = {
 			},
 		},
 		invoiceCard: {
+			bg: '#fff',
 			id: '#0C0E16',
 			dueDate: '#7E88C3',
 			clietName: '#858BB2',
@@ -120,6 +122,7 @@ export const darkTheme: DefaultTheme = {
 			border: '#494E6E',
 		},
 		dropdown: {
+			bg: '#252945',
 			color: '#FFFFFF',
 			itemColor: '#FFFFFF',
 			itemSelectedColor: '#7C5DFA',
@@ -153,10 +156,10 @@ export const darkTheme: DefaultTheme = {
 		},
 		invoiceCard: {
 			bg: '#1E2139',
-			id: '#0C0E16',
-			dueDate: '#7E88C3',
-			clietName: '#858BB2',
-			total: '#0C0E16',
+			id: '#FFFFFF',
+			dueDate: '#DFE3FA',
+			clietName: '#FFFFFF',
+			total: '#FFFFFF',
 		},
 		invoiceDetails: {
 			bg: '#FFF',
@@ -171,15 +174,15 @@ export const darkTheme: DefaultTheme = {
 		},
 		statusBadge: {
 			paid: {
-				bg: '#F3FCF9',
+				bg: '#1F2B3F',
 				color: '#33D69F',
 			},
 			pending: {
-				bg: '#FFF8F0',
+				bg: '#2B2736',
 				color: '#FF8F00',
 			},
 			draft: {
-				bg: '#F3F3F5',
+				bg: '#292C44',
 				color: '#373B53',
 			},
 		},

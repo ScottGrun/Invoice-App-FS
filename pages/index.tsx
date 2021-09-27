@@ -9,7 +9,7 @@ import { Invoice } from '../types';
 
 import { Button } from '@/components/Button';
 import { Drawer } from '@/components/Drawer';
-import { InvoiceFilterDropdown } from '@/components/Dropdown';
+import { Dropdown, DropdownOption } from '@/components/Dropdown';
 import { EmptyState } from '@/components/EmptyState';
 import { EditInvoiceForm } from '@/components/Form/EditInvoiceForm';
 import { InvoiceCard } from '@/components/InvoiceCard/InvoiceCard';
@@ -22,16 +22,17 @@ import { getInvoiceCountText } from '@/utils/getInvoiceCountText';
 
 const Home: NextPage = () => {
 	const { invoices } = useContext(InvoicesContext);
-	const [filter, setFilter] = useState<PossibleStatus | ''>('');
+	const [filter, setFilter] = useState<PossibleStatus | 'all'>('all');
 	const [filteredInvoices, setFilteredInvoices] = useState(invoices);
 	const [isDrawerOpen, setDrawerOpen] = useState(false);
 
 	useEffect(() => {
-		if (filter === 'Draft' && invoices.length > 0) {
+		console.log(filter);
+		if (filter === 'draft' && invoices.length > 0) {
 			setFilteredInvoices(invoices.filter((invoice) => invoice.status === filter));
-		} else if (filter === 'Pending') {
+		} else if (filter === 'pending') {
 			setFilteredInvoices(invoices.filter((invoice) => invoice.status === filter));
-		} else if (filter === 'Paid') {
+		} else if (filter === 'paid') {
 			setFilteredInvoices(invoices.filter((invoice) => invoice.status === filter));
 		} else {
 			setFilteredInvoices(invoices);
@@ -53,7 +54,20 @@ const Home: NextPage = () => {
 						<Heading>Invoices</Heading>
 						<SubHeading>{getInvoiceCountText(filteredInvoices.length)}</SubHeading>
 					</HeadingWrapper>
-					<StyledDropdown setDropdownValue={setFilter} filter={filter} />
+					<StyledDropdown setDropdownValue={setFilter} filter={filter} defaultValue="all">
+						<DropdownOption label="All" value="all">
+							All
+						</DropdownOption>
+						<DropdownOption label="Draft" value="draft">
+							Draft
+						</DropdownOption>
+						<DropdownOption label="Pending" value="pending">
+							Pending
+						</DropdownOption>
+						<DropdownOption label="Paid" value="paid">
+							Paid
+						</DropdownOption>
+					</StyledDropdown>
 					<NewInvoiceButton icon="plus" onClick={() => setDrawerOpen(true)}>
 						New&nbsp;<span>Invoice</span>
 					</NewInvoiceButton>
@@ -116,7 +130,7 @@ const SubHeading = styled.p`
 	}
 `;
 
-const StyledDropdown = styled(InvoiceFilterDropdown)`
+const StyledDropdown = styled(Dropdown)`
 	margin-top: 15px;
 
 	@media ${MEDIA_QUERIES.tabletAndUp} {

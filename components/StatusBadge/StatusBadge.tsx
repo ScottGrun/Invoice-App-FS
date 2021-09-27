@@ -3,30 +3,12 @@ import styled from 'styled-components';
 
 import { PossibleStatus } from 'config/PossibleStatus';
 
-import { ColorVariantsType } from '../Button/Button';
-
-import { theme } from '@/styles/theme';
 import { h4TextStyle } from '@/styles/typography';
 
 interface StatusProps {
 	status: PossibleStatus;
 	className?: string;
 }
-
-const colorVariants: ColorVariantsType = {
-	Paid: {
-		color: theme.COLORS.statusBadge.paid.color,
-		background: theme.COLORS.statusBadge.paid.bg,
-	},
-	Pending: {
-		color: theme.COLORS.statusBadge.pending.color,
-		background: theme.COLORS.statusBadge.pending.bg,
-	},
-	Draft: {
-		color: theme.COLORS.statusBadge.draft.color,
-		background: theme.COLORS.statusBadge.draft.bg,
-	},
-};
 
 export const StatusBadge: FC<StatusProps> = ({ status, className }) => {
 	return (
@@ -37,16 +19,17 @@ export const StatusBadge: FC<StatusProps> = ({ status, className }) => {
 	);
 };
 
-const Wrapper = styled.div<{ status: string }>`
+const Wrapper = styled.div<{ status: PossibleStatus }>`
+	${h4TextStyle};
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	${h4TextStyle};
 	width: 104px;
 	height: 40px;
 	border-radius: 6px;
-	color: ${({ status }) => colorVariants[status]['color']};
-	background-color: ${({ status }) => colorVariants[status]['background']};
+	text-transform: capitalize;
+	color: ${({ theme, status }) => theme.COLORS.statusBadge[status].color};
+	background-color: ${({ theme, status }) => theme.COLORS.statusBadge[status].bg};
 
 	div {
 		display: block;
@@ -54,6 +37,6 @@ const Wrapper = styled.div<{ status: string }>`
 		width: 8px;
 		border-radius: 50%;
 		margin-right: 8px;
-		background-color: ${({ status }) => colorVariants[status]['color']};
+		background-color: ${({ theme, status }) => theme.COLORS.statusBadge[status].color};
 	}
 `;

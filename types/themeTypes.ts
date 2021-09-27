@@ -37,6 +37,7 @@ export interface Aside {
 }
 
 export interface Dropdown {
+	bg: string;
 	color: string;
 	itemColor: string;
 	itemSelectedColor: string;
@@ -80,6 +81,7 @@ export interface Warning {
 }
 
 export interface InvoiceCard {
+	bg: string;
 	id: string;
 	dueDate: string;
 	clietName: string;

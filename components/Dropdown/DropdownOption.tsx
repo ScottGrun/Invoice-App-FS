@@ -44,7 +44,7 @@ const Option = styled(ListboxOption)`
 
 	&[data-reach-listbox-option][data-current-selected] {
 		div {
-			background-color: ${(p) => p.theme.COLORS.dropdown.itemSelectedColor};
+			background-color: ${(p) => p.theme.COLORS.checkbox.bgChecked};
 		}
 
 		div > img {

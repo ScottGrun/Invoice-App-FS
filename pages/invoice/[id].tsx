@@ -49,7 +49,7 @@ const InvoiceDetails: NextPage = () => {
 									Edit
 								</Button>
 								<Button variant="warning">Delete</Button>
-								{selectedInvoice.status !== 'Paid' && (
+								{selectedInvoice.status !== 'paid' && (
 									<Button variant="primary" onClick={markInvoicePaid}>
 										Mark as Paid
 									</Button>
