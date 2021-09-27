@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { StatusBadge } from '../StatusBadge/StatusBadge';
 
+import { PossibleStatus } from '@/config/PossibleStatus';
 import iconChevronSrc from '@/icons/icon-arrow-right.svg';
 import { COLORS, MEDIA_QUERIES } from '@/styles/constants';
 import { bodyTextStyle, h3TextStyle, h4TextStyle } from '@/styles/typography';
@@ -14,7 +15,7 @@ interface InvoiceCardProps {
 	dueDate: string;
 	clientName: string;
 	total: string;
-	status: 'Draft' | 'Pending' | 'Paid';
+	status: PossibleStatus;
 }
 
 export const InvoiceCard: FC<InvoiceCardProps> = ({ id, dueDate, clientName, total, status }) => {
@@ -121,7 +122,7 @@ const Total = styled.div`
 const ClientName = styled.div`
 	${bodyTextStyle};
 	grid-area: client-name;
-	color: ${(p) => p.theme.COLORS.invoiceCard.clientname};
+	color: ${(p) => p.theme.COLORS.invoiceCard.clientName};
 	text-align: end;
 	@media ${MEDIA_QUERIES.tabletAndUp} {
 		white-space: nowrap;

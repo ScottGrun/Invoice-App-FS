@@ -21,7 +21,7 @@ import { h4TextStyle } from '@/styles/typography';
 interface DropDownProps extends ListboxInputProps {
 	className?: string;
 	setDropdownValue: Dispatch<SetStateAction<any>>;
-	filter: PossibleStatus | '';
+	filter: PossibleStatus | 'all';
 }
 
 export const Dropdown: FC<DropDownProps> = ({

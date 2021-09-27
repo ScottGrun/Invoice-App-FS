@@ -52,7 +52,7 @@ export const theme: DefaultTheme = {
 			bg: '#fff',
 			id: '#0C0E16',
 			dueDate: '#7E88C3',
-			clietName: '#858BB2',
+			clientName: '#858BB2',
 			total: '#0C0E16',
 		},
 		invoiceDetails: {
@@ -158,17 +158,17 @@ export const darkTheme: DefaultTheme = {
 			bg: '#1E2139',
 			id: '#FFFFFF',
 			dueDate: '#DFE3FA',
-			clietName: '#FFFFFF',
+			clientName: '#FFFFFF',
 			total: '#FFFFFF',
 		},
 		invoiceDetails: {
-			bg: '#FFF',
+			bg: '#1E2139',
 		},
 		invoiceDetailsTable: {
-			heading: '#7E88C3',
-			bg: '#F9FAFE',
+			heading: '#DFE3FA',
+			bg: '#252945',
 			totalSection: {
-				bg: '#373B53',
+				bg: '#0C0E16',
 				color: '#FFFFFF',
 			},
 		},
@@ -187,9 +187,9 @@ export const darkTheme: DefaultTheme = {
 			},
 		},
 		text: {
-			h1: '#0C0E16',
-			body1: '#858BB2',
-			body2: '#7E88C3',
+			h1: '#FFF',
+			body1: '#DFE3FA',
+			body2: '#DFE3FA',
 		},
 		drawer: {
 			bg: '#FFFFFF',

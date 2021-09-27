@@ -10,7 +10,7 @@ import { theme, darkTheme } from '../styles/theme';
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<>
-			<ThemeProvider theme={theme}>
+			<ThemeProvider theme={darkTheme}>
 				<GlobalStyle />
 				<InvoicesProvider>
 					<Component {...pageProps} />

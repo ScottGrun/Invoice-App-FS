@@ -84,7 +84,7 @@ export interface InvoiceCard {
 	bg: string;
 	id: string;
 	dueDate: string;
-	clietName: string;
+	clientName: string;
 	total: string;
 }
 

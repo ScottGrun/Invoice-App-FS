@@ -101,6 +101,9 @@ const InvoiceIdAndName = styled.div`
 
 const Id = styled.p`
 	${h4TextStyle};
+	@media ${MEDIA_QUERIES.tabletAndUp} {
+		font-size: 16px;
+	}
 `;
 
 const Name = styled.h1`
