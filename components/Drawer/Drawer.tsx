@@ -3,7 +3,7 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import styled from 'styled-components';
 
 import '@reach/dialog/styles.css';
-import { MEDIA_QUERIES } from '@/styles/constants';
+import { COLORS, MEDIA_QUERIES } from '@/styles/constants';
 
 interface DrawerProps {
 	isDrawerOpen: boolean;
@@ -33,7 +33,7 @@ const StyledDialogContent = styled(DialogContent)`
 	width: 100%;
 	height: 100%;
 
-	background-color: ${(p) => p.theme.COLORS.white};
+	background-color: ${COLORS.white};
 	@media ${MEDIA_QUERIES.tabletAndUp} {
 		width: 616px;
 		padding-left: 56px;

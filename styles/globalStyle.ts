@@ -1,6 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, DefaultTheme } from 'styled-components';
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<{ theme: DefaultTheme }>`
     /* Props to https://medium.com/geekculture/headless-woocommerce-next-js-set-up-styled-components-with-typescript-and-next-js-18cc047ccd79 for the following 
     border box tips */
  
@@ -45,9 +45,8 @@ footer, header, hgroup, main, menu, nav, section {
 }
 body {
   line-height: 1;
-  background-color:#F8F8FB;
-  color: #0C0E16;
-  accent-color: hotpink;
+  background-color: ${(p) => p.theme.COLORS.body.bg};
+  color: ${(p) => p.theme.COLORS.body.color};
 
 }
 menu, ol, ul {
