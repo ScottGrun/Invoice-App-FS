@@ -1,4 +1,4 @@
-import { ListboxOption, useListboxContext } from '@reach/listbox';
+import { ListboxOption } from '@reach/listbox';
 import Image from 'next/image';
 import React, { FC } from 'react';
 import styled from 'styled-components';
@@ -39,7 +39,7 @@ const Option = styled(ListboxOption)`
 	padding-left: 0;
 
 	div > img {
-		display: none !important;
+		opacity: 0;
 	}
 
 	&[data-reach-listbox-option][data-current-selected] {
@@ -48,7 +48,7 @@ const Option = styled(ListboxOption)`
 		}
 
 		div > img {
-			display: block !important;
+			opacity: 1;
 		}
 	}
 

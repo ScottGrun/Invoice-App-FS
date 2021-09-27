@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { FC } from 'react';
 import styled from 'styled-components';
 
@@ -17,26 +18,28 @@ interface InvoiceCardProps {
 
 export const InvoiceCard: FC<InvoiceCardProps> = ({ id, dueDate, clientName, total, status }) => {
 	return (
-		<Wrapper>
-			<Id className="id">
-				<span>#</span>
-				{id}
-			</Id>
-			<DueDate>{dueDate}</DueDate>
-			<ClientName>{clientName}</ClientName>
-			<Total>{`$` + total}</Total>
-			<Status>
-				<StatusBadge status={status} />
-			</Status>
+		<Link href={`/invoice/${id}`} passHref>
+			<Wrapper>
+				<Id className="id">
+					<span>#</span>
+					{id}
+				</Id>
+				<DueDate>{dueDate}</DueDate>
+				<ClientName>{clientName}</ClientName>
+				<Total>{`$` + total}</Total>
+				<Status>
+					<StatusBadge status={status} />
+				</Status>
 
-			<ChevronWrapper>
-				<Image src={iconChevronSrc} alt="" />
-			</ChevronWrapper>
-		</Wrapper>
+				<ChevronWrapper>
+					<Image src={iconChevronSrc} alt="" />
+				</ChevronWrapper>
+			</Wrapper>
+		</Link>
 	);
 };
 
-const Wrapper = styled.li`
+const Wrapper = styled.a`
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 0px 0px;
@@ -50,6 +53,12 @@ const Wrapper = styled.li`
 	background-color: ${(p) => p.theme.COLORS.white};
 	border-radius: 8px;
 	box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+	border: solid 1px transparent;
+	transition: border 250ms ease-in-out;
+
+	&:hover {
+		border: solid 1px ${(p) => p.theme.COLORS.primary[1]};
+	}
 
 	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
 		display: flex;

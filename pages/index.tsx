@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
@@ -61,17 +60,15 @@ const Home: NextPage = () => {
 				<InvoiceListContainer>
 					{filteredInvoices.length > 0 ? (
 						filteredInvoices.map((invoice: Invoice) => (
-							<Link key={invoice.id} href={`/invoice/${invoice.id}`} passHref>
-								<a>
-									<InvoiceCard
-										id={invoice.id}
-										dueDate={invoice.invoice_date}
-										clientName={invoice.client_name}
-										status={invoice.status}
-										total={calculateInvoiceTotal(invoice.invoice_items)}
-									/>
-								</a>
-							</Link>
+							<li key={invoice.id}>
+								<InvoiceCard
+									id={invoice.id}
+									dueDate={invoice.invoice_date}
+									clientName={invoice.client_name}
+									status={invoice.status}
+									total={calculateInvoiceTotal(invoice.invoice_items)}
+								/>
+							</li>
 						))
 					) : (
 						<li>
