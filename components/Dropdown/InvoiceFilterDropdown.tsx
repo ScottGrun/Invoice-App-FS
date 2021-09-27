@@ -10,6 +10,7 @@ import iconChevronDownSrc from '/public/icons/icon-arrow-down.svg';
 import { DropdownOption } from '.';
 
 import { PossibleStatus } from '@/config/PossibleStatus';
+import { MEDIA_QUERIES } from '@/styles/constants';
 import { h4TextStyle } from '@/styles/typography';
 
 interface DropDownProps {
@@ -112,7 +113,7 @@ const DropdownButton = styled(ListboxButton)`
 		}
 	}
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		#extra-text {
 			display: revert;
 		}

@@ -14,6 +14,7 @@ import { DateField } from '@/components/Form/Fields/DateField';
 import { FormField } from '@/components/Form/Fields/FormField';
 import { ItemField } from '@/components/Form/Fields/ItemField';
 import { FormSection } from '@/components/Form/FormSection';
+import { COLORS, MEDIA_QUERIES } from '@/styles/constants';
 import { formHeaderTextStyle, itemlistHeaderTextStyle } from '@/styles/typography';
 import { Invoice } from '@/types/index';
 import { formatDateToString } from '@/utils/formatDate';
@@ -241,10 +242,10 @@ const FormHeader = styled.h2`
 	${formHeaderTextStyle};
 	padding-top: 24px;
 	span {
-		color: ${(p) => p.theme.COLORS.grey[1]};
+		color: ${COLORS.grey[1]};
 	}
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		padding-top: 56px;
 	}
 `;
@@ -257,7 +258,7 @@ const StyledForm = styled.form`
 	flex-flow: column;
 	padding: 0;
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		width: 528px;
 	}
 `;
@@ -267,7 +268,7 @@ const FieldSet = styled.fieldset`
 	width: 100%;
 	overflow: scroll !important;
 	padding-right: 8px;
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		padding-right: 16px;
 	}
 `;
@@ -285,7 +286,7 @@ const ItemsListHeaderWrapper = styled.div`
 	width: 100%;
 	margin-top: 66px;
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		flex-flow: row;
 		justify-content: space-between;
 		align-items: baseline;
@@ -296,9 +297,9 @@ const ItemListHeader = styled.h4`
 	${itemlistHeaderTextStyle};
 	display: block;
 	width: 100%;
-	color: ${(p) => p.theme.COLORS.grey[7]};
+	color: ${(p) => p.theme.COLORS.form.itemListHeader};
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		flex-flow: row;
 		justify-content: space-between;
 		align-items: baseline;
@@ -322,7 +323,7 @@ const FormButtonsContainer = styled.div`
 	margin-top: 24px;
 
 	padding-right: 8px;
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		padding-right: 16px;
 	}
 `;

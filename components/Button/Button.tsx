@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import iconPlusSrc from 'public/icons/icon-plus.svg';
 
+import { COLORS, MEDIA_QUERIES } from '@/styles/constants';
 import { theme } from '@/styles/theme';
 import { h4TextStyle } from '@/styles/typography';
 
@@ -15,24 +16,24 @@ export type ColorVariantsType = {
 
 const colorVariants: ColorVariantsType = {
 	primary: {
-		background: theme.COLORS.primary[1],
-		backgroundHover: theme.COLORS.primary[2],
-		text: theme.COLORS.white,
+		background: theme.COLORS.button.primary.bg,
+		backgroundHover: theme.COLORS.button.primary.hover,
+		text: theme.COLORS.button.primary.color,
 	},
 	secondary: {
-		background: theme.COLORS.grey[4],
-		backgroundHover: theme.COLORS.grey[2],
-		text: theme.COLORS.primary[3],
+		background: theme.COLORS.button.secondary.bg,
+		backgroundHover: theme.COLORS.button.secondary.hover,
+		text: theme.COLORS.button.secondary.color,
 	},
 	tertiary: {
-		background: theme.COLORS.dark[5],
-		backgroundHover: theme.COLORS.dark[1],
-		text: theme.COLORS.grey[1],
+		background: theme.COLORS.button.tertiary.bg,
+		backgroundHover: theme.COLORS.button.tertiary.hover,
+		text: theme.COLORS.button.tertiary.color,
 	},
 	warning: {
-		background: theme.COLORS.warning[1],
-		backgroundHover: theme.COLORS.warning[2],
-		text: theme.COLORS.white,
+		background: theme.COLORS.button.warning.bg,
+		backgroundHover: theme.COLORS.button.warning.hover,
+		text: theme.COLORS.button.warning.color,
 	},
 };
 
@@ -81,7 +82,7 @@ const ButtonBase = styled.button<{ variant: string }>`
 		background-color: ${({ variant }) => colorVariants[variant].backgroundHover};
 	}
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		height: 48px;
 	}
 `;
@@ -93,8 +94,7 @@ const TextButton = styled(ButtonBase)`
 
 const IconButton = styled(ButtonBase)`
 	padding: 6px 14px 6px 6px;
-
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		padding: 8px 15px 8px 8px;
 	}
 `;
@@ -107,10 +107,10 @@ const IconWrapper = styled.div`
 	width: 32px;
 	height: 32px;
 
-	background-color: ${(p) => p.theme.COLORS.white};
+	background-color: ${COLORS.white};
 	border-radius: 50%;
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		margin-right: 16px;
 	}
 `;

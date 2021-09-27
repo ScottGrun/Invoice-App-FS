@@ -15,6 +15,7 @@ import { EditInvoiceForm } from '@/components/Form/EditInvoiceForm';
 import { InvoiceCard } from '@/components/InvoiceCard/InvoiceCard';
 import { InvoiceListContainer } from '@/components/InvoiceListContainer/InvoiceListContainer';
 import PageLayout from '@/layouts/PageLayout';
+import { MEDIA_QUERIES } from '@/styles/constants';
 import { bodyTextStyle, h1TextStyle, h2TextStyle } from '@/styles/typography';
 import { calculateInvoiceTotal } from '@/utils/calculateTotal';
 import { getInvoiceCountText } from '@/utils/getInvoiceCountText';
@@ -88,7 +89,7 @@ const Home: NextPage = () => {
 const Header = styled.header`
 	display: flex;
 	gap: 18px;
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		align-items: center;
 		gap: 40px;
 	}
@@ -101,7 +102,7 @@ const HeadingWrapper = styled.div`
 
 const Heading = styled.h1`
 	${h2TextStyle};
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		${h1TextStyle};
 	}
 `;
@@ -109,8 +110,8 @@ const Heading = styled.h1`
 const SubHeading = styled.p`
 	${bodyTextStyle};
 	margin-top: 4px;
-	color: ${(p) => p.theme.COLORS.grey[1]};
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	color: ${(p) => p.theme.COLORS.header.subHeaderColor};
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		margin-top: 8px;
 	}
 `;
@@ -118,7 +119,7 @@ const SubHeading = styled.p`
 const StyledDropdown = styled(InvoiceFilterDropdown)`
 	margin-top: 15px;
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		margin: 0px;
 	}
 `;
@@ -128,7 +129,7 @@ const NewInvoiceButton = styled(Button)`
 		display: none;
 	}
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		span {
 			display: revert;
 		}
@@ -138,11 +139,11 @@ const NewInvoiceButton = styled(Button)`
 const StyledEmptyState = styled(EmptyState)`
 	margin-top: 71px;
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		margin-top: 154px;
 	}
 
-	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
+	@media ${MEDIA_QUERIES.laptopAndUp} {
 		margin-top: 76px;
 	}
 `;

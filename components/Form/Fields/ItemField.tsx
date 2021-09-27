@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { FormField } from './FormField';
 import { PriceField } from './PriceField';
 
+import { COLORS, MEDIA_QUERIES } from '@/styles/constants';
 import { bodyTextStyle, h4TextStyle } from '@/styles/typography';
 
 interface ItemFieldProps {
@@ -72,7 +73,7 @@ const Wrapper = styled.fieldset`
 	flex-wrap: wrap;
 	gap: 16px;
 	width: 100%;
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		gap: revert;
 		flex-wrap: revert;
 	}
@@ -82,7 +83,7 @@ const Wrapper = styled.fieldset`
 const ItemName = styled(FormField)`
 	min-width: 309px;
 	width: 100%;
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		min-width: revert;
 		width: 214px;
 		margin-right: 16px;
@@ -101,7 +102,7 @@ const Quantity = styled(FormField)`
 		padding-left: 20px;
 	}
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		margin-right: 16px;
 		width: 46px;
 
@@ -121,15 +122,11 @@ const TotalWrapper = styled.div`
 	${bodyTextStyle};
 	display: flex;
 	flex-flow: column;
-	color: ${(p) => p.theme.COLORS.primary[3]};
+	color: ${(p) => p.theme.COLORS.itemField.total};
 	max-width: 60px;
 
 	span {
 		margin-bottom: 10px;
-	}
-
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
-		/* max-width: 45px; */
 	}
 `;
 
@@ -149,14 +146,14 @@ const DeleteButton = styled.button`
 	margin-left: auto;
 	background-color: transparent;
 	svg {
-		fill: ${(p) => p.theme.COLORS.grey[1]};
+		fill: ${(p) => p.theme.COLORS.itemField.deleteBtn};
 	}
 
 	&:hover {
 		cursor: pointer;
 
 		svg {
-			fill: ${(p) => p.theme.COLORS.warning[1]};
+			fill: ${COLORS.warning[1]};
 		}
 	}
 `;

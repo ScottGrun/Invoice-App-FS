@@ -1,13 +1,14 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
+import { InvoiceDetail } from '../InvoiceDetail';
+
 import { DesktopTable } from '@/components/InvoiceDetails/DesktopTable';
-import { DetailField } from '@/components/InvoiceDetails/DetailField';
 import { MobileItemsTable } from '@/components/InvoiceDetails/MobileItemsTable';
 import { Size, useWindowSize } from '@/hooks/useWindowSize';
-import { BREAKPOINTS } from '@/styles/theme';
+import { COLORS, MEDIA_QUERIES, BREAKPOINTS } from '@/styles/constants';
 import { body2TextStyle, bodyTextStyle, h4TextStyle } from '@/styles/typography';
-import { InvoiceItem, Invoice } from '@/types/index';
+import { Invoice } from '@/types/index';
 
 interface DetailsCardProps {
 	className?: string;
@@ -48,7 +49,7 @@ export const DetailsCard: FC<DetailsCardProps> = ({ className, invoice }) => {
 					</address>
 				</BillTo>
 			</MetaData>
-			{size?.width > BREAKPOINTS.phone ? (
+			{size?.width ?? 0 > BREAKPOINTS.mobile ? (
 				<StyledDesktopTable items={invoice.invoice_items} />
 			) : (
 				<MobileTable items={invoice.invoice_items} />
@@ -60,7 +61,7 @@ export const DetailsCard: FC<DetailsCardProps> = ({ className, invoice }) => {
 const Wrapper = styled.main`
 	width: 100%;
 	padding: 32px;
-	background-color: ${(p) => p.theme.COLORS.white};
+	background-color: ${(p) => p.theme.COLORS.invoiceDetails.bg};
 	border-radius: 8px;
 	box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
 `;
@@ -78,7 +79,7 @@ const MetaData = styled.div`
 		'payment-due bill-to'
 		'client-email .';
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		grid-template-columns: max-content 100px max-content 110px auto;
 		grid-template-rows: repeat(3, max-content);
 		gap: 21px 0px;
@@ -94,7 +95,7 @@ const InvoiceIdAndName = styled.div`
 	grid-area: id;
 
 	span {
-		color: ${(p) => p.theme.COLORS.primary[3]};
+		color: ${COLORS.primary[3]};
 	}
 `;
 
@@ -104,29 +105,29 @@ const Id = styled.p`
 
 const Name = styled.h1`
 	${bodyTextStyle};
-	color: ${(p) => p.theme.COLORS.primary[3]};
+	color: ${(p) => p.theme.COLORS.text.body2};
 	margin-top: 4px;
 `;
 
 const UserAddress = styled.div`
 	${body2TextStyle};
 	grid-area: user-address;
-	color: ${(p) => p.theme.COLORS.primary[3]};
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	color: ${(p) => p.theme.COLORS.text.body2};
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		justify-self: flex-end;
 	}
 `;
-const InvoiceDate = styled(DetailField)`
+const InvoiceDate = styled(InvoiceDetail)`
 	grid-area: invoice-date;
 `;
-const PaymentDue = styled(DetailField)`
+const PaymentDue = styled(InvoiceDetail)`
 	grid-area: payment-due;
 	align-self: flex-end;
 `;
-const ClientEmail = styled(DetailField)`
+const ClientEmail = styled(InvoiceDetail)`
 	grid-area: client-email;
 `;
-const BillTo = styled(DetailField)`
+const BillTo = styled(InvoiceDetail)`
 	grid-area: bill-to;
 `;
 

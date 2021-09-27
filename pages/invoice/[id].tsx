@@ -12,6 +12,7 @@ import { DetailsCard } from '@/components/InvoiceDetails/DetailsCard/DetailsCard
 import { PageLink } from '@/components/PageLink/PageLink';
 import { StatusBadge } from '@/components/StatusBadge';
 import PageLayout from '@/layouts/PageLayout';
+import { COLORS, MEDIA_QUERIES } from '@/styles/constants';
 import { bodyTextStyle } from '@/styles/typography';
 import { Invoice } from '@/types/index';
 
@@ -72,10 +73,6 @@ const InvoiceDetails: NextPage = () => {
 
 export default InvoiceDetails;
 
-// const StyledHeader = styled(Header)`
-//
-// `;
-
 const Header = styled.header`
 	display: flex;
 	align-items: center;
@@ -83,20 +80,20 @@ const Header = styled.header`
 	margin-top: 32px;
 	width: 100%;
 	height: 91px;
-	background-color: ${(p) => p.theme.COLORS.white};
+	background-color: ${(p) => p.theme.COLORS.invoiceDetails.bg};
 	border-radius: 8px;
 	box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
 `;
 
 const StatusLabel = styled.p`
 	${bodyTextStyle};
-	color: ${(p) => p.theme.COLORS.grey[5]};
+	color: ${COLORS.grey[5]};
 `;
 
 const StyledStatusBadge = styled(StatusBadge)`
 	margin-left: auto;
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		margin-left: 16px;
 		margin-right: auto;
 	}
@@ -105,7 +102,7 @@ const StyledStatusBadge = styled(StatusBadge)`
 const ButtonContainer = styled.div`
 	display: none;
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		display: flex;
 		gap: 8px;
 	}
@@ -115,7 +112,7 @@ const InvoiceDetailsCard = styled(DetailsCard)`
 	margin-top: 16px;
 	margin-bottom: 147px;
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		margin-bottom: revert;
 	}
 `;
@@ -130,9 +127,9 @@ const MobileButtonsContainer = styled.div`
 	gap: 8px;
 	width: 100%;
 	height: 91px;
-	background-color: ${(p) => p.theme.COLORS.white};
+	background-color: ${COLORS.white};
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		display: none;
 	}
 `;

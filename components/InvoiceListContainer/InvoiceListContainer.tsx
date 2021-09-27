@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-import { EmptyState } from '../EmptyState/EmptyState';
+import { MEDIA_QUERIES } from '@/styles/constants';
 
 export const InvoiceListContainer: FC = ({ children }) => {
 	return <Wrapper>{children}</Wrapper>;
@@ -14,11 +14,11 @@ const Wrapper = styled.ul`
 
 	margin-top: 32px;
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		margin-top: 56px;
 	}
 
-	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
+	@media ${MEDIA_QUERIES.laptopAndUp} {
 		margin-top: 65parx;
 	}
 `;

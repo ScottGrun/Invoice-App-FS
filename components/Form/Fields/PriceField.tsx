@@ -61,7 +61,7 @@ const Wrapper = styled.div`
 	${bodyTextStyle};
 	display: flex;
 	flex-flow: column;
-	color: ${(p) => p.theme.COLORS.primary[3]};
+	color: ${(p) => p.theme.COLORS.form.inputLabel};
 	max-width: 100px;
 	span {
 		margin-bottom: 10px;
@@ -75,5 +75,5 @@ const Price = styled(CurrencyInput)`
 	margin-right: 16px;
 	height: 48px;
 	border-radius: 4px;
-	border: solid 2px ${(p) => p.theme.COLORS.grey[2]};
+	border: solid 2px ${(p) => p.theme.COLORS.form.inputBorderColor};
 `;

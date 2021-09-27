@@ -4,6 +4,7 @@ import styled, { CSSProperties } from 'styled-components';
 
 import { Error } from '../Error';
 
+import { COLORS } from '@/styles/constants';
 import { bodyTextStyle, h4TextStyle } from '@/styles/typography';
 
 interface FromFieldProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -44,7 +45,7 @@ const Wrapper = styled.div`
 
 const Label = styled.label<{ hasError: boolean }>`
 	flex-flow: column;
-	color: ${(p) => (p.hasError ? p.theme.COLORS.warning[1] : p.theme.COLORS.primary[3])};
+	color: ${(p) => (p.hasError ? COLORS.warning[1] : p.theme.COLORS.form.inputLabel)};
 	margin-bottom: 10px;
 `;
 
@@ -59,6 +60,7 @@ const Input = styled.input<{ hasError: boolean }>`
 	height: 48px;
 	padding-left: 20px;
 	border-radius: 4px;
-	border: solid 2px ${(p) => (p.hasError ? p.theme.COLORS.warning[1] : p.theme.COLORS.grey[2])};
+	border: solid 2px
+		${(p) => (p.hasError ? COLORS.warning[1] : p.theme.COLORS.form.inputBorderColor)};
 	width: 100%;
 `;

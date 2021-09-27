@@ -15,16 +15,16 @@ interface StatusProps {
 
 const colorVariants: ColorVariantsType = {
 	Paid: {
-		color: theme.COLORS.success[1],
-		background: theme.COLORS.success[2],
+		color: theme.COLORS.statusBadge.paid.color,
+		background: theme.COLORS.statusBadge.paid.bg,
 	},
 	Pending: {
-		color: theme.COLORS.caution[1],
-		background: theme.COLORS.caution[2],
+		color: theme.COLORS.statusBadge.pending.color,
+		background: theme.COLORS.statusBadge.pending.bg,
 	},
 	Draft: {
-		color: theme.COLORS.dark[5],
-		background: theme.COLORS.grey[6],
+		color: theme.COLORS.statusBadge.draft.color,
+		background: theme.COLORS.statusBadge.draft.bg,
 	},
 };
 

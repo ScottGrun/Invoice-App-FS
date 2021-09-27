@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { StatusBadge } from '../StatusBadge/StatusBadge';
 
 import iconChevronSrc from '@/icons/icon-arrow-right.svg';
+import { COLORS, MEDIA_QUERIES } from '@/styles/constants';
 import { bodyTextStyle, h3TextStyle, h4TextStyle } from '@/styles/typography';
 
 interface InvoiceCardProps {
@@ -50,17 +51,17 @@ const Wrapper = styled.a`
 
 	padding: 24px;
 
-	background-color: ${(p) => p.theme.COLORS.white};
+	background-color: ${COLORS.white};
 	border-radius: 8px;
 	box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
 	border: solid 1px transparent;
 	transition: border 250ms ease-in-out;
 
 	&:hover {
-		border: solid 1px ${(p) => p.theme.COLORS.primary[1]};
+		border: solid 1px ${COLORS.primary[1]};
 	}
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		display: flex;
 		align-items: center;
 		height: 72px;
@@ -72,14 +73,14 @@ const Id = styled.div`
 	grid-area: id;
 
 	span {
-		color: ${(p) => p.theme.COLORS.primary[3]};
+		color: ${COLORS.primary[3]};
 	}
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		flex-basis: 87px;
 	}
 
-	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
+	@media ${MEDIA_QUERIES.laptopAndUp} {
 		flex-basis: 103px;
 	}
 `;
@@ -89,14 +90,14 @@ const DueDate = styled.div`
 	grid-area: total;
 	padding-top: 24px;
 	padding-bottom: 28px;
-	color: ${(p) => p.theme.COLORS.grey[1]};
+	color: ${(p) => p.theme.COLORS.invoiceCard.dueDate};
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		padding: 0px;
 		flex-basis: 143px;
 	}
 
-	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
+	@media ${MEDIA_QUERIES.laptopAndUp} {
 		flex-basis: 151px;
 	}
 `;
@@ -106,13 +107,13 @@ const Total = styled.div`
 	align-self: end;
 	grid-area: total;
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		flex-basis: 116px;
 		align-self: revert;
 		text-align: end;
 	}
 
-	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
+	@media ${MEDIA_QUERIES.laptopAndUp} {
 		flex-basis: 142px;
 	}
 `;
@@ -120,15 +121,15 @@ const Total = styled.div`
 const ClientName = styled.div`
 	${bodyTextStyle};
 	grid-area: client-name;
-	color: ${(p) => p.theme.COLORS.grey[5]};
+	color: ${(p) => p.theme.COLORS.invoiceCard.clientname};
 	text-align: end;
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		white-space: nowrap;
 		text-align: start;
 		flex-basis: 110px;
 	}
 
-	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
+	@media ${MEDIA_QUERIES.laptopAndUp} {
 		flex-basis: 110px;
 	}
 `;
@@ -138,14 +139,14 @@ const Status = styled.div`
 	justify-self: end;
 	align-self: end;
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		display: flex;
 		align-self: center;
 		justify-content: flex-end;
 		flex-basis: 144px;
 	}
 
-	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
+	@media ${MEDIA_QUERIES.laptopAndUp} {
 		flex-basis: 144px;
 	}
 `;
@@ -153,7 +154,7 @@ const Status = styled.div`
 const ChevronWrapper = styled.div`
 	display: none;
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		display: flex;
 		justify-content: flex-end;
 		flex-basis: 26px;

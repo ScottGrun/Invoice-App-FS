@@ -8,6 +8,7 @@ import '@reach/listbox/styles.css';
 import iconChevronDownSrc from '/public/icons/icon-arrow-down.svg';
 
 import { PossibleStatus } from '@/config/PossibleStatus';
+import { MEDIA_QUERIES } from '@/styles/constants';
 import { h4TextStyle } from '@/styles/typography';
 
 interface DropDownProps {
@@ -27,7 +28,10 @@ export const Dropdown: FC<DropDownProps> = ({ children, className, setDropdownVa
 				aria-labelledby={labelId}
 				defaultValue=""
 				value={localState}
-				onChange={(value) => setDropdownValue(value)}
+				onChange={(value) => {
+					setDropdownValue(value);
+					setLocalState(value);
+				}}
 			>
 				<DropdownButton
 					arrow={<Image id="chevron" src={iconChevronDownSrc} alt="Arrow facing up" />}
@@ -83,7 +87,7 @@ const DropdownButton = styled(ListboxButton)`
 		}
 	}
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		#extra-text {
 			display: revert;
 		}

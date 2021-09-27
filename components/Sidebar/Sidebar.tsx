@@ -6,6 +6,7 @@ import { ProfileImg } from '../ProfileImg/ProfileImg';
 import { ThemeSwitcher } from '../ThemeSwitcher/ThemeSwitcher';
 
 import logoSrc from '@/assets/logo.svg';
+import { MEDIA_QUERIES } from '@/styles/constants';
 
 interface SidebarProps {
 	className?: string;
@@ -34,13 +35,13 @@ const Wrapper = styled.aside`
 	height: 72px;
 	padding-right: 32px;
 
-	background-color: ${(p) => p.theme.COLORS.dark[5]};
+	background-color: ${(p) => p.theme.COLORS.aside.bg};
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		height: 80px;
 	}
 
-	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
+	@media ${MEDIA_QUERIES.laptopAndUp} {
 		flex-flow: column;
 		min-height: 100vh;
 		width: 103px;
@@ -55,12 +56,12 @@ const LogoWrapper = styled.div`
 	width: 72px;
 	height: 72px;
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		width: 80px;
 		height: 80px;
 	}
 
-	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
+	@media ${MEDIA_QUERIES.laptopAndUp} {
 		width: 103px;
 		height: 103px;
 	}
@@ -69,7 +70,7 @@ const LogoWrapper = styled.div`
 const StyledThemeSwitcher = styled(ThemeSwitcher)`
 	margin-left: auto;
 
-	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
+	@media ${MEDIA_QUERIES.laptopAndUp} {
 		margin-left: revert;
 		margin-top: auto;
 	}
@@ -79,9 +80,9 @@ const Divider = styled.div`
 	height: 100%;
 	width: 2px;
 
-	background-color: ${(p) => p.theme.COLORS.dark[6]};
+	background-color: ${(p) => p.theme.COLORS.aside.border};
 
-	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
+	@media ${MEDIA_QUERIES.laptopAndUp} {
 		height: 2px;
 		width: 100%;
 	}

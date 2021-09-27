@@ -1,7 +1,9 @@
 import DialogContent, { DialogOverlay } from '@reach/dialog';
 import { Dispatch, FC, SetStateAction } from 'react';
 import styled from 'styled-components';
+
 import '@reach/dialog/styles.css';
+import { MEDIA_QUERIES } from '@/styles/constants';
 
 interface DrawerProps {
 	isDrawerOpen: boolean;
@@ -32,12 +34,12 @@ const StyledDialogContent = styled(DialogContent)`
 	height: 100%;
 
 	background-color: ${(p) => p.theme.COLORS.white};
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		width: 616px;
 		padding-left: 56px;
 	}
 
-	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
+	@media ${MEDIA_QUERIES.laptopAndUp} {
 		width: 719px;
 		padding-left: 159px;
 		padding-top: 0px;

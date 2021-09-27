@@ -4,6 +4,7 @@ import styled, { CSSProperties } from 'styled-components';
 
 import { Error } from '@/components/Form/Error';
 import iconCalendarSrc from '@/icons/icon-calendar.svg';
+import { COLORS, MEDIA_QUERIES } from '@/styles/constants';
 import { bodyTextStyle, h4TextStyle } from '@/styles/typography';
 
 interface CalendarInputProps {
@@ -50,7 +51,7 @@ const InputHeader = styled.div`
 	justify-content: space-between;
 	width: 100%;
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		flex-flow: revert;
 	}
 `;
@@ -60,7 +61,7 @@ const Label = styled.label<{ hasError: boolean }>`
 	display: flex;
 	flex-flow: column;
 	margin-bottom: 10px;
-	color: ${(p) => (p.hasError ? p.theme.COLORS.warning[1] : p.theme.COLORS.primary[3])};
+	color: ${(p) => (p.hasError ? COLORS.warning[1] : p.theme.COLORS.form.inputLabel)};
 `;
 
 const InputWrapper = styled.div`
@@ -77,7 +78,8 @@ const CustomInput = styled.input<{ hasError: boolean }>`
 	height: 100%;
 	border-radius: 4px;
 	width: 100%;
-	border: solid 2px ${(p) => (p.hasError ? p.theme.COLORS.warning[1] : p.theme.COLORS.grey[2])};
+	border: solid 2px
+		${(p) => (p.hasError ? COLORS.warning[1] : p.theme.COLORS.form.inputBorderColor)};
 `;
 
 const InputIcon = styled.div`

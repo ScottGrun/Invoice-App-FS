@@ -2,6 +2,7 @@ import VisuallyHidden from '@reach/visually-hidden';
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
+import { COLORS } from '@/styles/constants';
 import { body2TextStyle, h4TextStyle, tableFooterTotalTextStyle } from '@/styles/typography';
 import { InvoiceItem } from '@/types/index';
 import { calculateItemTotal } from '@/utils/calculateItemTotal';
@@ -53,7 +54,7 @@ export const MobileItemsTable: FC<MobileItemsTableProps> = ({ className, items }
 const Table = styled.table`
 	${h4TextStyle};
 	width: 100%;
-	background-color: ${(p) => p.theme.COLORS.grey[4]};
+	background-color: ${(p) => p.theme.COLORS.invoiceDetailsTable.bg};
 	border-radius: 8px 8px 0 0;
 `;
 
@@ -80,7 +81,7 @@ const ItemName = styled.span``;
 
 const ItemQuantity = styled.span`
 	width: fit-content;
-	color: ${(p) => p.theme.COLORS.primary[3]};
+	color: ${COLORS.primary[3]};
 `;
 
 const TotalColumn = styled.td`
@@ -102,13 +103,13 @@ const TotalLabel = styled.td`
 	color: ${(p) => p.theme.COLORS.white};
 	padding-left: 24px;
 	border-radius: 0 0 0 8px;
-	background-color: ${(p) => p.theme.COLORS.dark[5]};
+	background-color: ${(p) => p.theme.COLORS.invoiceDetailsTable.totalSection.bg};
 `;
 const InvoiceTotal = styled.td`
 	${tableFooterTotalTextStyle};
 	padding-right: 24px;
 	text-align: end;
 	color: ${(p) => p.theme.COLORS.white};
-	background-color: ${(p) => p.theme.COLORS.dark[5]};
+	background-color: ${(p) => p.theme.COLORS.invoiceDetailsTable.totalSection.bg};
 	border-radius: 0 0 8px 0;
 `;

@@ -21,17 +21,12 @@ export const InvoicesContext = createContext<InvoicesContextStateType>({
 	updateInvoice: () => {},
 });
 
-// const initalState = {
-// 	invoices: [],
-// };
-
 export const InvoicesProvider: FC = ({ children }) => {
 	const [state, dispatch] = useReducer(invoiceReducer, []);
 
 	useEffect(() => {
 		const localInvoices = JSON.parse(localStorage.getItem('invoices'));
 		// TODO: Add check for demo flag here
-
 		if (localInvoices !== null) {
 			dispatch({ type: 'ADD', payload: localInvoices });
 		} else {

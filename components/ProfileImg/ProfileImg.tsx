@@ -38,6 +38,6 @@ const EmptyState = styled.div`
 
 	width: 32px;
 	height: 32px;
-	background-color: ${(p) => p.theme.COLORS.grey[1]};
+	background-color: ${(p) => p.theme.COLORS.aside.color};
 	border-radius: 50%;
 `;

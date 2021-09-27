@@ -3,7 +3,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import emptyStateIllustrationSrc from '@/assets/illustration-empty.svg';
-import { h2TextStyle } from '@/styles/typography';
+import { MEDIA_QUERIES } from '@/styles/constants';
+import { EmptyStateMessageTextStyle, h2TextStyle } from '@/styles/typography';
 
 interface Props {
 	heading: string;
@@ -21,8 +22,8 @@ export const EmptyState = ({ heading, errorMessage, className }: Props) => {
 					alt="A drawing of a person jumping out a letter with a megaphone"
 				/>
 			</EmptyStateImgWrapper>
-			<ErrorHeading>{heading}</ErrorHeading>
-			<ErrorMessage>{errorMessage}</ErrorMessage>
+			<Heading>{heading}</Heading>
+			<Message>{errorMessage}</Message>
 		</Wrapper>
 	);
 };
@@ -38,35 +39,30 @@ const EmptyStateImgWrapper = styled.div`
 	width: 192px;
 	height: 159px;
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		width: 240px;
 		height: 199px;
 	}
 `;
 
-const ErrorHeading = styled.h2`
+const Heading = styled.h2`
 	${h2TextStyle};
-	color: ${(p) => p.theme.COLORS.dark[1]};
+	color: ${(p) => p.theme.COLORS.emptyState.heading};
 	margin-top: 40px;
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		margin-top: 64px;
 	}
 `;
 
-const ErrorMessage = styled.p`
+const Message = styled.p`
+	${EmptyStateMessageTextStyle};
 	max-width: 201px;
 	margin-top: 24px;
-
-	font-family: ${(p) => p.theme.FONT_FAMILY.body};
-	font-weight: ${(p) => p.theme.WEIGHTS.medium};
-	font-size: ${12 / 16}rem;
-	line-height: 15px;
 	text-align: center;
-	letter-spacing: -0.25px;
-	color: ${(p) => p.theme.COLORS.grey[1]};
+	color: ${(p) => p.theme.COLORS.emptyState.message};
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		max-width: 221px;
 	}
 `;

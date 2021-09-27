@@ -26,5 +26,5 @@ const Wrapper = styled.fieldset`
 
 const Label = styled.h3`
 	${h4TextStyle};
-	color: ${(p) => p.theme.COLORS.primary[1]};
+	color: ${(p) => p.theme.COLORS.form.sectionLabel};
 `;

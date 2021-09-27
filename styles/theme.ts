@@ -1,76 +1,103 @@
-// Constants
-export const BREAKPOINTS = {
-	phone: 500,
-	tablet: 768,
-	laptop: 1110,
-	xl: 1440,
-};
-
 export const theme = {
 	COLORS: {
-		primary: {
-			1: '#7C5DFA',
-			2: '#9277FF',
-			3: '#7E88C3',
+		body: {
+			bg: '#F8F8FB',
+			color: '#0C0E16',
 		},
-		dark: {
-			1: '#0C0E16',
-			2: '#141625',
-			3: '#1E2139',
-			4: '#252945',
-			5: '#373B53',
-			6: '#494E6E',
+		header: {
+			headerColor: '#0C0E16',
+			subHeaderColor: '#888EB0',
 		},
-		grey: {
-			1: '#888EB0',
-			2: '#DFE3FA',
-			3: '#F8F8FB',
-			4: '#F9FAFE',
-			5: '#858BB2',
-			6: '#F3F3F5',
-			7: '#777F98',
+		aside: {
+			bg: '#373B53',
+			color: '#7E88C3',
+			border: '#494E6E',
 		},
-		success: {
-			1: '#33D69F',
-			2: '#F3FCF9',
+		dropdown: {
+			color: '#0C0E16',
+			itemColor: '#1E2139',
+			itemSelectedColor: '#7C5DFA',
 		},
-		caution: {
-			1: '#FF8F00',
-			2: '#FFF8F0',
+		checkbox: {
+			bgEmpty: '#DFE3FA',
+			bgChecked: '#7C5DFA',
+			borderChecked: '#7C5DFA',
 		},
-		warning: {
-			1: '#EC5757',
-			2: '#FF9797',
+		button: {
+			primary: {
+				bg: '#7C5DFA',
+				color: '#FFFFFF',
+				hover: '#9277FF',
+			},
+			secondary: {
+				bg: '#F9FAFE',
+				color: '#7E88C3',
+				hover: '#DFE3FA',
+			},
+			tertiary: {
+				bg: '#373B53',
+				color: '#888EB0',
+				hover: '#0C0E16',
+			},
+			warning: {
+				bg: '#EC5757',
+				color: '#FFFFFF',
+				hover: '#FF9797',
+			},
 		},
-		white: '#fff',
-	},
-	FONT_FAMILY: {
-		header: "'Spartan', sans-serif",
-		body: "'Spartan', sans-serif",
-		error: "'Spartan', sans-serif",
-	},
-	FONT_SIZES: {
-		h1: `${32 / 16}rem`,
-		h2: `${20 / 16}rem`,
-		h3: `${16 / 16}rem`,
-		h4: `${12 / 16}rem`,
-		body: `${12 / 16}rem`,
-		body2: `${11 / 16}rem`,
-		formH1: `${24 / 16}rem`,
-		formItemListH1: `${18 / 16}rem`,
-		formError: `${10 / 16}rem`,
-	},
-	WEIGHTS: {
-		medium: 500,
-		semiBold: 600,
-		bold: 700,
-	},
-	// Using REM for breakpoints to maintain a nicer UI
-	//  when changing zoom levels
-	QUERIES: {
-		phoneAndUp: `(min-width: ${BREAKPOINTS.phone / 16}rem)`,
-		tabletAndUp: `(min-width: ${BREAKPOINTS.tablet / 16}rem)`,
-		laptopAndUp: `(min-width: ${BREAKPOINTS.laptop / 16}rem)`,
-		xlAndUp: `(min-width: ${BREAKPOINTS.xl / 16}rem)`,
+		invoiceCard: {
+			id: '#0C0E16',
+			dueDate: '#7E88C3',
+			clietName: '#858BB2',
+			total: '#0C0E16',
+		},
+		invoiceDetails: {
+			bg: '#FFF',
+		},
+		invoiceDetailsTable: {
+			heading: '#7E88C3',
+			bg: '#F9FAFE',
+			totalSection: {
+				bg: '#373B53',
+				color: '#FFFFFF',
+			},
+		},
+		statusBadge: {
+			paid: {
+				bg: '#F3FCF9',
+				color: '#33D69F',
+			},
+			pending: {
+				bg: '#FFF8F0',
+				color: '#FF8F00',
+			},
+			draft: {
+				bg: '#F3F3F5',
+				color: '#373B53',
+			},
+		},
+		text: {
+			h1: '#0C0E16',
+			body1: '#858BB2',
+			body2: '#7E88C3',
+		},
+		drawer: {
+			bg: '#FFFFFF',
+		},
+		form: {
+			sectionLabel: '#7C5DFA',
+			inputLabel: '#7E88C3',
+			inputValue: '#0C0E16',
+			inputBorderColor: '#DFE3FA',
+			itemListHeader: '#777F98',
+		},
+		itemField: {
+			deleteBtn: '#888EB0',
+			total: '#888EB0',
+		},
+		emptyState: {
+			heading: '#0C0E16',
+			message: '#888EB0',
+		},
 	},
 };

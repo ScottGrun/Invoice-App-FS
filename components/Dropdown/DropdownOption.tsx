@@ -44,7 +44,7 @@ const Option = styled(ListboxOption)`
 
 	&[data-reach-listbox-option][data-current-selected] {
 		div {
-			background-color: ${(p) => p.theme.COLORS.primary[1]};
+			background-color: ${(p) => p.theme.COLORS.dropdown.itemSelectedColor};
 		}
 
 		div > img {
@@ -54,10 +54,10 @@ const Option = styled(ListboxOption)`
 
 	&[data-reach-listbox-option][data-current-nav] {
 		background-color: transparent;
-		color: ${(p) => p.theme.COLORS.primary[1]};
+		color: ${(p) => p.theme.COLORS.dropdown.itemSelectedColor};
 		cursor: pointer;
 		div {
-			border-color: ${(p) => p.theme.COLORS.primary[1]};
+			border-color: ${(p) => p.theme.COLORS.checkbox.borderChecked};
 		}
 	}
 `;
@@ -70,7 +70,7 @@ const CheckWrapper = styled.div`
 	height: 16px;
 	margin-right: 13px;
 
-	background-color: ${(p) => p.theme.COLORS.grey[2]};
+	background-color: ${(p) => p.theme.COLORS.checkbox.bgEmpty};
 	border-radius: 2px;
 	border: solid 2px transparent;
 `;

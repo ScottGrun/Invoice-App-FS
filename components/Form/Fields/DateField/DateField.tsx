@@ -7,6 +7,7 @@ import { CalendarHeader } from './CalendarHeader';
 import { CalendarInput } from './CalendarInput';
 
 import { DateType } from '@/config/index';
+import { COLORS } from '@/styles/constants';
 import { h4TextStyle } from '@/styles/typography';
 
 interface DateFieldProps extends Omit<ReactDatePickerProps, 'onChange'> {
@@ -78,7 +79,7 @@ const Wrapper = styled.div``;
 const DatePickerStyles = createGlobalStyle`
 .custom-calendar {
      ${h4TextStyle};
-     background-color: ${(p) => p.theme.COLORS.white};
+     background-color: ${COLORS.white};
      padding: 22px 10px 22px 10px;
      border: none;
      border-radius: 8px;
@@ -87,26 +88,26 @@ const DatePickerStyles = createGlobalStyle`
 }
 
 .custom-day{
-	color: ${(p) => p.theme.COLORS.dark[1]};
+	color: ${COLORS.dark[1]};
     &:hover {
          background-color: transparent;
-         color: ${(p) => p.theme.COLORS.primary[1]};
+         color: ${COLORS.primary[1]};
     }
 }
 
 .react-datepicker__day--selected {
-	background-color: ${(p) => p.theme.COLORS.primary[1]};
-  color: ${(p) => p.theme.COLORS.white};
+	background-color: ${COLORS.primary[1]};
+  color: ${COLORS.white};
 }
 
 .react-datepicker__day--keyboard-selected {
-     background-color: ${(p) => p.theme.COLORS.primary[1]};
-     color: ${(p) => p.theme.COLORS.white};
+     background-color: ${COLORS.primary[1]};
+     color: ${COLORS.white};
 }
 
 
 .react-datepicker__day--outside-month{
-      color: ${(p) => p.theme.COLORS.dark[1]};
+      color: ${COLORS.dark[1]};
       opacity: 0.08;
      }
 

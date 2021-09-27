@@ -45,12 +45,12 @@ export const DesktopTable: FC<DesktopTableProps> = ({ className, items }) => {
 const Table = styled.table`
 	${h4TextStyle};
 	width: 100%;
-	background-color: ${(p) => p.theme.COLORS.grey[4]};
+	background-color: ${(p) => p.theme.COLORS.invoiceDetailsTable.bg};
 	border-radius: 8px 8px 0 0;
 
 	th {
 		${body2TextStyle};
-		color: ${(p) => p.theme.COLORS.primary[3]};
+		color: ${(p) => p.theme.COLORS.invoiceDetailsTable.heading};
 	}
 `;
 
@@ -64,7 +64,6 @@ const Body = styled.tbody`
 `;
 
 // Head
-
 const ItemNameColumn = styled.th`
 	text-align: start;
 	width: 276px;
@@ -86,18 +85,17 @@ const TotalColumn = styled.th`
 `;
 
 // Row
-
 const Name = styled.td`
 	text-align: start;
 	padding-left: 32px;
 `;
 const Quantity = styled.td`
 	text-align: center;
-	color: ${(p) => p.theme.COLORS.primary[3]};
+	color: ${(p) => p.theme.COLORS.text.body2};
 `;
 const Price = styled.td`
 	text-align: end;
-	color: ${(p) => p.theme.COLORS.primary[3]};
+	color: ${(p) => p.theme.COLORS.text.body2};
 `;
 const Total = styled.td`
 	text-align: end;
@@ -105,7 +103,6 @@ const Total = styled.td`
 `;
 
 // Footer
-
 const Footer = styled.tfoot`
 	td {
 		padding-top: 31px;
@@ -115,16 +112,16 @@ const Footer = styled.tfoot`
 
 const TotalLabel = styled.td`
 	${body2TextStyle};
-	color: ${(p) => p.theme.COLORS.white};
+	color: ${(p) => p.theme.COLORS.invoiceDetailsTable.totalSection.color};
 	padding-left: 32px;
 	border-radius: 0 0 0 8px;
-	background-color: ${(p) => p.theme.COLORS.dark[5]};
+	background-color: ${(p) => p.theme.COLORS.invoiceDetailsTable.totalSection.bg};
 `;
 const InvoiceTotal = styled.td<{ colSpan: number }>`
 	${tableFooterTotalTextStyle};
 	padding-right: 32px;
 	text-align: end;
-	color: ${(p) => p.theme.COLORS.white};
-	background-color: ${(p) => p.theme.COLORS.dark[5]};
+	color: ${(p) => p.theme.COLORS.invoiceDetailsTable.totalSection.color};
+	background-color: ${(p) => p.theme.COLORS.invoiceDetailsTable.totalSection.bg};
 	border-radius: 0 0 8px 0;
 `;

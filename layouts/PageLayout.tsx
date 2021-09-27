@@ -2,6 +2,7 @@ import { FC } from 'react';
 import styled from 'styled-components';
 
 import { Sidebar } from '@/components/Sidebar/Sidebar';
+import { MEDIA_QUERIES } from '@/styles/constants';
 
 interface PageLayoutProps {
 	children: React.ReactNode;
@@ -21,7 +22,7 @@ export default PageLayout;
 const Container = styled.div`
 	display: flex;
 	flex-flow: column;
-	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
+	@media ${MEDIA_QUERIES.laptopAndUp} {
 		flex-flow: row;
 	}
 `;
@@ -32,7 +33,7 @@ const Wrapper = styled.main`
 	height: 100%;
 	width: 100%;
 
-	@media ${(p) => p.theme.QUERIES.tabletAndUp} {
+	@media ${MEDIA_QUERIES.tabletAndUp} {
 		margin: 0 auto;
 		margin-top: 56px;
 		padding: 0;
@@ -40,7 +41,7 @@ const Wrapper = styled.main`
 		max-width: 672px;
 	}
 
-	@media ${(p) => p.theme.QUERIES.laptopAndUp} {
+	@media ${MEDIA_QUERIES.laptopAndUp} {
 		max-width: 730px;
 		margin-top: 72px;
 	}

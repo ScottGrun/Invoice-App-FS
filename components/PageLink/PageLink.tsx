@@ -4,6 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import iconChevronSrc from '@/icons/icon-arrow-left.svg';
+import { COLORS } from '@/styles/constants';
 import { h4TextStyle } from '@/styles/typography';
 
 interface Props {
@@ -36,7 +37,7 @@ const InnerWrapper = styled.a<{ icon?: string }>`
 	width: fit-content;
 
 	&:hover {
-		color: ${(p) => p.theme.COLORS.primary[3]};
+		color: ${COLORS.primary[3]};
 	}
 `;
 
