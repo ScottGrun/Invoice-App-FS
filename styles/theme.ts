@@ -2,6 +2,10 @@ import { DefaultTheme } from 'styled-components';
 
 export const theme: DefaultTheme = {
 	COLORS: {
+		scrollbar: {
+			bg: '#DFE3FA',
+			track: 'transparent',
+		},
 		body: {
 			bg: '#F8F8FB',
 			color: '#0C0E16',
@@ -89,6 +93,7 @@ export const theme: DefaultTheme = {
 			bg: '#FFFFFF',
 		},
 		form: {
+			inputBg: '#FFF',
 			sectionLabel: '#7C5DFA',
 			inputLabel: '#7E88C3',
 			inputValue: '#0C0E16',
@@ -103,11 +108,22 @@ export const theme: DefaultTheme = {
 			heading: '#0C0E16',
 			message: '#888EB0',
 		},
+		calendarField: {
+			bg: '#FFF',
+			color: '#0C0E16',
+			selectedBg: '#7C5DFA',
+			selectedColor: '#FFF',
+			daysOutOfMonth: '#EBEBEC',
+		},
 	},
 };
 
 export const darkTheme: DefaultTheme = {
 	COLORS: {
+		scrollbar: {
+			bg: '#252945',
+			track: 'transparent',
+		},
 		body: {
 			bg: '#141625',
 			color: '#FFFFFF',
@@ -140,7 +156,7 @@ export const darkTheme: DefaultTheme = {
 			},
 			secondary: {
 				bg: '#252945',
-				color: '#DFE3FA',
+				color: '#7E88C3',
 				hover: '#FFFFFF',
 			},
 			tertiary: {
@@ -183,7 +199,7 @@ export const darkTheme: DefaultTheme = {
 			},
 			draft: {
 				bg: '#292C44',
-				color: '#373B53',
+				color: '#DFE3FA',
 			},
 		},
 		text: {
@@ -192,14 +208,22 @@ export const darkTheme: DefaultTheme = {
 			body2: '#DFE3FA',
 		},
 		drawer: {
-			bg: '#FFFFFF',
+			bg: '#141625',
 		},
 		form: {
 			sectionLabel: '#7C5DFA',
-			inputLabel: '#7E88C3',
-			inputValue: '#0C0E16',
-			inputBorderColor: '#DFE3FA',
+			inputBg: '#1E2139',
+			inputLabel: '#DFE3FA',
+			inputValue: '#FFFFFF',
+			inputBorderColor: '#252945',
 			itemListHeader: '#777F98',
+		},
+		calendarField: {
+			bg: '#1E2139',
+			color: '#DFE3FA',
+			selectedBg: '#7C5DFA',
+			selectedColor: '#FFF',
+			daysOutOfMonth: '#343853',
 		},
 		itemField: {
 			deleteBtn: '#888EB0',

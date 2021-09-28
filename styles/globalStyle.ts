@@ -75,17 +75,17 @@ button{
 }
 
 /* Custom Scrollbar */
-
+::-webkit-scrollbar-corner {background-color: transparent;}
 ::-webkit-scrollbar {
-  width: 8px;               /* width of the entire scrollbar */
+  width: 8px;   
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;  
+  background: ${(p) => p.theme.COLORS.scrollbar.track};  
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #DFE3FA;    /* color of the scroll thumb */
+  background: ${(p) => p.theme.COLORS.scrollbar.bg};  ;    /* color of the scroll thumb */
   border-radius: 4px;
 }
 

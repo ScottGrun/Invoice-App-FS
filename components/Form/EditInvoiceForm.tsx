@@ -31,7 +31,7 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 	const methods = useForm({
 		defaultValues: invoice ? invoice : initalValues,
 		resolver: yupResolver(formSchema),
-		mode: 'onSubmit',
+		mode: 'onChange',
 	});
 
 	const invoiceStatus = methods.getValues().status;
@@ -42,7 +42,7 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 	});
 
 	useEffect(() => {
-		setShouldBeDisabled(invoiceStatus !== 'Draft');
+		setShouldBeDisabled(invoiceStatus !== 'draft');
 	}, [invoiceStatus]);
 
 	const handleSubmit = async (submitType: 'Add' | 'Update' | 'Send') => {
@@ -57,7 +57,7 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 					addInvoice({
 						...formValues,
 						id: cuid.slug(),
-						status: 'Draft',
+						status: 'draft',
 						invoice_date: formatDateToString(formValues.invoice_date),
 						invoice_due_date: formatDateToString(formValues.invoice_due_date),
 					});
@@ -70,10 +70,10 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 					});
 					break;
 				case 'Send':
-					if (formValues.status === 'Draft') {
+					if (formValues.status === 'draft') {
 						updateInvoice({
 							...formValues,
-							status: 'Pending',
+							status: 'pending',
 							invoice_date: formatDateToString(formValues.invoice_date),
 							invoice_due_date: formatDateToString(formValues.invoice_due_date),
 						});
@@ -81,7 +81,7 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 						addInvoice({
 							...formValues,
 							id: cuid.slug(),
-							status: 'Pending',
+							status: 'pending',
 							invoice_date: formatDateToString(formValues.invoice_date),
 							invoice_due_date: formatDateToString(formValues.invoice_due_date),
 						});
@@ -217,7 +217,7 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 						Close
 					</Button>
 
-					{invoiceStatus === 'Draft' && (
+					{invoiceStatus === 'draft' && (
 						<>
 							<SaveDraftButton
 								type="submit"

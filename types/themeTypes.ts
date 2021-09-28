@@ -3,6 +3,7 @@ export interface Root {
 }
 
 export interface Colors {
+	scrollbar: Scrollbar;
 	body: Body;
 	header: Header;
 	aside: Aside;
@@ -18,6 +19,12 @@ export interface Colors {
 	form: Form;
 	itemField: ItemField;
 	emptyState: EmptyState;
+	calendarField: CalendarField;
+}
+
+export interface Scrollbar {
+	bg: string;
+	track: string;
 }
 
 export interface Body {
@@ -136,6 +143,7 @@ export interface Drawer {
 
 export interface Form {
 	sectionLabel: string;
+	inputBg: string;
 	inputLabel: string;
 	inputValue: string;
 	inputBorderColor: string;
@@ -150,4 +158,12 @@ export interface ItemField {
 export interface EmptyState {
 	heading: string;
 	message: string;
+}
+
+export interface CalendarField {
+	bg: string;
+	color: string;
+	selectedBg: string;
+	selectedColor: string;
+	daysOutOfMonth: string;
 }

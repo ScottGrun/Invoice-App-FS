@@ -30,13 +30,14 @@ const Wrapper = styled.div<{ status: PossibleStatus }>`
 	text-transform: capitalize;
 	color: ${({ theme, status }) => theme.COLORS.statusBadge[status].color};
 	background-color: ${({ theme, status }) => theme.COLORS.statusBadge[status].bg};
-
+	line-height: 0;
 	div {
 		display: block;
 		height: 8px;
 		width: 8px;
 		border-radius: 50%;
 		margin-right: 8px;
+		margin-bottom: 3px;
 		background-color: ${({ theme, status }) => theme.COLORS.statusBadge[status].color};
 	}
 `;

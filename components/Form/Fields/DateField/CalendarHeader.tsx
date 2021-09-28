@@ -36,22 +36,23 @@ export const CalendarHeader: FC<CalendarHeaderProps> = ({
 };
 
 const Header = styled.div`
-	background-color: white;
-	padding: 0 10px;
-	margin-bottom: 22px;
-	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-items: baseline;
+	padding: 0 10px;
+	margin-bottom: 22px;
+	width: 100%;
+	background-color: ${(p) => p.theme.COLORS.calendarField.bg};
 `;
 
 const Month = styled.span`
 	${h4TextStyle};
-	background-color: white;
+	background-color: ${(p) => p.theme.COLORS.calendarField.bg};
+	color: ${(p) => p.theme.COLORS.calendarField.color};
 `;
 
 const HeaderButton = styled.button`
-	background-color: white;
+	background-color: ${(p) => p.theme.COLORS.calendarField.bg};
 
 	&:hover {
 		cursor: pointer;

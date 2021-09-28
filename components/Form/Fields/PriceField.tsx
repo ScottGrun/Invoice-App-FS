@@ -76,4 +76,6 @@ const Price = styled(CurrencyInput)`
 	height: 48px;
 	border-radius: 4px;
 	border: solid 2px ${(p) => p.theme.COLORS.form.inputBorderColor};
+	color: ${(p) => p.theme.COLORS.form.inputValue};
+	background-color: ${(p) => p.theme.COLORS.form.inputBg};
 `;

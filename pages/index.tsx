@@ -27,7 +27,6 @@ const Home: NextPage = () => {
 	const [isDrawerOpen, setDrawerOpen] = useState(false);
 
 	useEffect(() => {
-		console.log(filter);
 		if (filter === 'draft' && invoices.length > 0) {
 			setFilteredInvoices(invoices.filter((invoice) => invoice.status === filter));
 		} else if (filter === 'pending') {

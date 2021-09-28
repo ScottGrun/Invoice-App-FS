@@ -33,7 +33,7 @@ const StyledDialogContent = styled(DialogContent)`
 	width: 100%;
 	height: 100%;
 
-	background-color: ${COLORS.white};
+	background-color: ${(p) => p.theme.COLORS.drawer.bg};
 	@media ${MEDIA_QUERIES.tabletAndUp} {
 		width: 616px;
 		padding-left: 56px;

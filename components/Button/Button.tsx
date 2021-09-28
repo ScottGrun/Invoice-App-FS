@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import iconPlusSrc from 'public/icons/icon-plus.svg';
 
 import { COLORS, MEDIA_QUERIES } from '@/styles/constants';
-import { theme } from '@/styles/theme';
 import { h4TextStyle } from '@/styles/typography';
 
 export type ColorVariantsType = {
@@ -14,32 +13,11 @@ export type ColorVariantsType = {
 	};
 };
 
-const colorVariants: ColorVariantsType = {
-	primary: {
-		background: theme.COLORS.button.primary.bg,
-		backgroundHover: theme.COLORS.button.primary.hover,
-		text: theme.COLORS.button.primary.color,
-	},
-	secondary: {
-		background: theme.COLORS.button.secondary.bg,
-		backgroundHover: theme.COLORS.button.secondary.hover,
-		text: theme.COLORS.button.secondary.color,
-	},
-	tertiary: {
-		background: theme.COLORS.button.tertiary.bg,
-		backgroundHover: theme.COLORS.button.tertiary.hover,
-		text: theme.COLORS.button.tertiary.color,
-	},
-	warning: {
-		background: theme.COLORS.button.warning.bg,
-		backgroundHover: theme.COLORS.button.warning.hover,
-		text: theme.COLORS.button.warning.color,
-	},
-};
+type ButtonVariants = 'primary' | 'secondary' | 'tertiary' | 'warning';
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 	children: React.ReactNode;
-	variant?: 'primary' | 'secondary' | 'tertiary' | 'warning';
+	variant?: ButtonVariants;
 	icon?: 'plus';
 	className?: string;
 };
@@ -66,7 +44,7 @@ export const Button = ({
 	);
 };
 
-const ButtonBase = styled.button<{ variant: string }>`
+const ButtonBase = styled.button<{ variant: ButtonVariants }>`
 	${h4TextStyle};
 	display: flex;
 	align-items: center;
@@ -74,12 +52,12 @@ const ButtonBase = styled.button<{ variant: string }>`
 	height: 44px;
 
 	border-radius: 24px;
-	background-color: ${({ variant }) => colorVariants[variant].background};
-	color: ${({ variant }) => colorVariants[variant].text};
-
+	background-color: ${({ variant, theme }) => theme.COLORS.button[variant].bg};
+	color: ${({ variant, theme }) => theme.COLORS.button[variant].color};
+	line-height: 0;
 	&:hover {
 		cursor: pointer;
-		background-color: ${({ variant }) => colorVariants[variant].backgroundHover};
+		background-color: ${({ variant, theme }) => theme.COLORS.button[variant].hover};
 	}
 
 	@media ${MEDIA_QUERIES.tabletAndUp} {

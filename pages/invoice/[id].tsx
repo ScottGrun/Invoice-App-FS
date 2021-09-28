@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
 
 import { InvoicesContext } from 'context/InvoicesContext';
@@ -14,17 +14,16 @@ import { StatusBadge } from '@/components/StatusBadge';
 import PageLayout from '@/layouts/PageLayout';
 import { COLORS, MEDIA_QUERIES } from '@/styles/constants';
 import { bodyTextStyle } from '@/styles/typography';
-import { Invoice } from '@/types/index';
 
 const InvoiceDetails: NextPage = () => {
-	const [isDrawerOpen, setDrawerOpen] = useState(true);
+	const [isDrawerOpen, setDrawerOpen] = useState(false);
 	const router = useRouter();
 	const { id } = router.query;
 	const { invoices, updateInvoice } = useContext(InvoicesContext);
 
 	const selectedInvoice = invoices.find((invoice) => invoice.id === id);
 
-	const markInvoicePaid = () => updateInvoice({ ...selectedInvoice, status: 'Paid' });
+	const markInvoicePaid = () => updateInvoice({ ...selectedInvoice, status: 'paid' });
 
 	return (
 		<>
@@ -64,7 +63,11 @@ const InvoiceDetails: NextPage = () => {
 						Edit
 					</Button>
 					<Button variant="warning">Delete</Button>
-					<Button variant="primary">Mark As Paid</Button>
+					{selectedInvoice?.status !== 'paid' && (
+						<Button variant="primary" onClick={markInvoicePaid}>
+							Mark as Paid
+						</Button>
+					)}
 				</MobileButtonsContainer>
 			</PageLayout>
 		</>
@@ -127,7 +130,7 @@ const MobileButtonsContainer = styled.div`
 	gap: 8px;
 	width: 100%;
 	height: 91px;
-	background-color: ${COLORS.white};
+	background-color: ${(p) => p.theme.COLORS.invoiceDetails.bg};
 
 	@media ${MEDIA_QUERIES.tabletAndUp} {
 		display: none;

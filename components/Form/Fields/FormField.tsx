@@ -63,4 +63,6 @@ const Input = styled.input<{ hasError: boolean }>`
 	border: solid 2px
 		${(p) => (p.hasError ? COLORS.warning[1] : p.theme.COLORS.form.inputBorderColor)};
 	width: 100%;
+	color: ${(p) => p.theme.COLORS.form.inputValue};
+	background-color: ${(p) => p.theme.COLORS.form.inputBg};
 `;

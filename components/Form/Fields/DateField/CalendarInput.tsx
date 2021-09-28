@@ -80,6 +80,8 @@ const CustomInput = styled.input<{ hasError: boolean }>`
 	width: 100%;
 	border: solid 2px
 		${(p) => (p.hasError ? COLORS.warning[1] : p.theme.COLORS.form.inputBorderColor)};
+	color: ${(p) => p.theme.COLORS.form.inputValue};
+	background-color: ${(p) => p.theme.COLORS.form.inputBg};
 `;
 
 const InputIcon = styled.div`
