@@ -1,3 +1,4 @@
+import { DevTool } from '@hookform/devtools';
 import { yupResolver } from '@hookform/resolvers/yup';
 import cuid from 'cuid';
 import React, { Dispatch, FC, SetStateAction, useContext, useEffect, useState } from 'react';
@@ -18,7 +19,6 @@ import { COLORS, MEDIA_QUERIES } from '@/styles/constants';
 import { formHeaderTextStyle, itemlistHeaderTextStyle } from '@/styles/typography';
 import { Invoice } from '@/types/index';
 import { formatDateToString } from '@/utils/formatDate';
-
 interface EditInvoiceForm {
 	setDrawerOpen: Dispatch<SetStateAction<boolean>>;
 	invoice?: Invoice;
@@ -51,7 +51,8 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 		if (isVaild) {
 			// Get all form values as obj
 			const formValues = methods.getValues();
-			console.log(methods.getValues());
+
+			console.log(submitType, formValues);
 			switch (submitType) {
 				case 'Add':
 					addInvoice({
@@ -70,14 +71,14 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 					});
 					break;
 				case 'Send':
-					if (formValues.status === 'draft') {
+					if (invoice) {
 						updateInvoice({
 							...formValues,
 							status: 'pending',
 							invoice_date: formatDateToString(formValues.invoice_date as Date),
 							invoice_due_date: formatDateToString(formValues.invoice_due_date as Date),
 						});
-					} else if (formValues.status === null) {
+					} else if (!invoice) {
 						addInvoice({
 							...formValues,
 							id: cuid.slug(),
@@ -92,13 +93,14 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 			}
 
 			// Reset form and close drawer
-			methods.reset();
+
 			setDrawerOpen(false);
 		}
 	};
 
 	return (
 		<FormProvider {...methods}>
+			<DevTool control={methods.control} /> {/* set up the dev tool */}
 			<StyledForm onSubmit={(e) => e.preventDefault()}>
 				<FormHeader>
 					{invoice ? (
@@ -192,19 +194,16 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 						</ItemsListHeaderWrapper>
 						<ItemsFieldList>
 							{fields.map((item, itemIndex) => (
-								<ItemField
-									key={item.id}
-									idx={itemIndex}
-									remove={remove}
-									shouldBeDisabled={shouldBeDisabled}
-								/>
+								<div key={item.id}>
+									<ItemField idx={itemIndex} remove={remove} shouldBeDisabled={shouldBeDisabled} />
+								</div>
 							))}
 							{!shouldBeDisabled && (
 								<Button
 									disabled={shouldBeDisabled}
 									variant="secondary"
 									type="button"
-									onClick={() => append({ name: '', quantity: 0, price: 0 })}
+									onClick={() => append({ name: '', price: 0, quantity: 0 })}
 								>
 									+ Add New Item
 								</Button>
@@ -220,14 +219,14 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 					{invoiceStatus === 'draft' && (
 						<>
 							<SaveDraftButton
-								type="submit"
+								type="button"
 								variant="tertiary"
 								onClick={() => (invoice ? handleSubmit('Update') : handleSubmit('Add'))}
 							>
 								Save as Draft
 							</SaveDraftButton>
 
-							<Button type="submit" variant="primary" onClick={() => handleSubmit('Send')}>
+							<Button type="button" variant="primary" onClick={() => handleSubmit('Send')}>
 								Save & Send
 							</Button>
 						</>

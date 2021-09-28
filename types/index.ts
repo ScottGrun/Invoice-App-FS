@@ -1,7 +1,7 @@
 // Invoice Types
 export interface Invoice {
 	id: string;
-	status: 'pending' | 'draft' | 'paid';
+	status: PossibleStatus;
 	user_street_address: string;
 	user_city: string;
 	user_post_code: string;

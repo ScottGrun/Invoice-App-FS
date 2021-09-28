@@ -13,6 +13,7 @@ interface FromFieldProps extends InputHTMLAttributes<HTMLInputElement> {
 	className?: string;
 	label: string;
 	type: string;
+	defaultValue?: any;
 }
 
 export const FormField: FC<FromFieldProps> = ({

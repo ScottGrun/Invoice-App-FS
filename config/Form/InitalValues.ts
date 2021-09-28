@@ -16,5 +16,5 @@ export const initalValues: Invoice = {
 	invoice_date: new Date(),
 	invoice_due_date: new Date(),
 	description: '',
-	invoice_items: [],
+	invoice_items: [{ name: '', price: 0, quantity: 0 }],
 };

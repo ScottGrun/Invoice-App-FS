@@ -9,6 +9,7 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
+		"@hookform/devtools": "^4.0.1",
 		"@hookform/resolvers": "^2.8.0",
 		"@prisma/client": "3.0.2",
 		"@reach/dialog": "^0.16.0",

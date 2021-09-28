@@ -8,9 +8,10 @@ import { bodyTextStyle, h4TextStyle } from '@/styles/typography';
 interface PriceFieldProps {
 	formPriceValue: number;
 	name: string;
+	defaultValue?: number;
 }
 
-export const PriceField: FC<PriceFieldProps> = ({ formPriceValue, name }) => {
+export const PriceField: FC<PriceFieldProps> = ({ formPriceValue, name, defaultValue }) => {
 	const { control } = useFormContext();
 	const [price, setPrice] = useState<string | undefined>('0');
 
@@ -28,6 +29,7 @@ export const PriceField: FC<PriceFieldProps> = ({ formPriceValue, name }) => {
 		<Wrapper>
 			<span>Price</span>
 			<Controller
+				defaultValue={defaultValue}
 				control={control}
 				name={name}
 				render={({ field }) => (
