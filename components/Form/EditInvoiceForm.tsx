@@ -5,7 +5,6 @@ import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
 import { initalValues } from 'config/Form/InitalValues';
-import { formSchema } from 'config/Form/ValidationSchema';
 import { InvoicesContext } from 'context/InvoicesContext';
 
 import { Button } from '@/components/Button';
@@ -14,6 +13,7 @@ import { DateField } from '@/components/Form/Fields/DateField';
 import { FormField } from '@/components/Form/Fields/FormField';
 import { ItemField } from '@/components/Form/Fields/ItemField';
 import { FormSection } from '@/components/Form/FormSection';
+import { ValidationSchema } from '@/config/Form';
 import { COLORS, MEDIA_QUERIES } from '@/styles/constants';
 import { formHeaderTextStyle, itemlistHeaderTextStyle } from '@/styles/typography';
 import { Invoice } from '@/types/index';
@@ -30,7 +30,7 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 
 	const methods = useForm({
 		defaultValues: invoice ? invoice : initalValues,
-		resolver: yupResolver(formSchema),
+		resolver: yupResolver(ValidationSchema),
 		mode: 'onChange',
 	});
 
@@ -51,22 +51,22 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 		if (isVaild) {
 			// Get all form values as obj
 			const formValues = methods.getValues();
-
+			console.log(methods.getValues());
 			switch (submitType) {
 				case 'Add':
 					addInvoice({
 						...formValues,
 						id: cuid.slug(),
 						status: 'draft',
-						invoice_date: formatDateToString(formValues.invoice_date),
-						invoice_due_date: formatDateToString(formValues.invoice_due_date),
+						invoice_date: formatDateToString(formValues.invoice_date as Date),
+						invoice_due_date: formatDateToString(formValues.invoice_due_date as Date),
 					});
 					break;
 				case 'Update':
 					updateInvoice({
 						...formValues,
-						invoice_date: formatDateToString(formValues.invoice_date),
-						invoice_due_date: formatDateToString(formValues.invoice_due_date),
+						invoice_date: formatDateToString(formValues.invoice_date as Date),
+						invoice_due_date: formatDateToString(formValues.invoice_due_date as Date),
 					});
 					break;
 				case 'Send':
@@ -74,16 +74,16 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 						updateInvoice({
 							...formValues,
 							status: 'pending',
-							invoice_date: formatDateToString(formValues.invoice_date),
-							invoice_due_date: formatDateToString(formValues.invoice_due_date),
+							invoice_date: formatDateToString(formValues.invoice_date as Date),
+							invoice_due_date: formatDateToString(formValues.invoice_due_date as Date),
 						});
 					} else if (formValues.status === null) {
 						addInvoice({
 							...formValues,
 							id: cuid.slug(),
 							status: 'pending',
-							invoice_date: formatDateToString(formValues.invoice_date),
-							invoice_due_date: formatDateToString(formValues.invoice_due_date),
+							invoice_date: formatDateToString(formValues.invoice_date as Date),
+							invoice_due_date: formatDateToString(formValues.invoice_due_date as Date),
 						});
 					}
 					break;

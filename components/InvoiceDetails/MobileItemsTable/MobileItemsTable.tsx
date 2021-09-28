@@ -100,7 +100,7 @@ const Footer = styled.tfoot`
 
 const TotalLabel = styled.td`
 	${body2TextStyle};
-	color: ${(p) => p.theme.COLORS.white};
+	color: ${(p) => p.theme.COLORS.invoiceDetailsTable.totalSection.color};
 	padding-left: 24px;
 	border-radius: 0 0 0 8px;
 	background-color: ${(p) => p.theme.COLORS.invoiceDetailsTable.totalSection.bg};
@@ -109,7 +109,7 @@ const InvoiceTotal = styled.td`
 	${tableFooterTotalTextStyle};
 	padding-right: 24px;
 	text-align: end;
-	color: ${(p) => p.theme.COLORS.white};
+	color: ${(p) => p.theme.COLORS.invoiceDetailsTable.totalSection.color};
 	background-color: ${(p) => p.theme.COLORS.invoiceDetailsTable.totalSection.bg};
 	border-radius: 0 0 8px 0;
 `;

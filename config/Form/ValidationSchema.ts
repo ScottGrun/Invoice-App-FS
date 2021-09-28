@@ -1,7 +1,6 @@
-// import * as yup from 'yup';
 import { string, array, date, object, number } from 'yup';
 
-export const formSchema = object().shape({
+export const ValidationSchema = object().shape({
 	user_street_address: string().required('Required'),
 	user_city: string().required('Required'),
 	user_post_code: string().required('Required'),

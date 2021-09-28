@@ -1,5 +1,7 @@
+import { useDarkMode } from 'next-dark-mode';
 import Image from 'next/image';
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import styled from 'styled-components';
 
 import iconMoonSrc from '@/icons/icon-moon.svg';
 import iconSunSrc from '@/icons/icon-sun.svg';
@@ -12,14 +14,25 @@ interface ThemeSwitcherProps {
 }
 
 export const ThemeSwitcher: FC<ThemeSwitcherProps> = ({ className }) => {
-	const [theme, setTheme] = useState('light');
+	const { switchToDarkMode, switchToLightMode, darkModeActive } = useDarkMode();
+
 	return (
 		<div className={className}>
-			{theme === 'light' ? (
-				<Image src={iconMoonSrc} alt="A moon icon" />
+			{darkModeActive ? (
+				<IconWrapper onClick={() => switchToLightMode()}>
+					<Image src={iconSunSrc} alt="A moon icon" />
+				</IconWrapper>
 			) : (
-				<Image src={iconSunSrc} alt="A sun icon" />
+				<IconWrapper onClick={() => switchToDarkMode()}>
+					<Image src={iconMoonSrc} alt="A moon icon" />
+				</IconWrapper>
 			)}
 		</div>
 	);
 };
+
+const IconWrapper = styled.button`
+	cursor: pointer;
+	background-color: transparent;
+	height: fit-content;
+`;

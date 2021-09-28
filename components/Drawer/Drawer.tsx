@@ -3,7 +3,7 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import styled from 'styled-components';
 
 import '@reach/dialog/styles.css';
-import { COLORS, MEDIA_QUERIES } from '@/styles/constants';
+import { MEDIA_QUERIES } from '@/styles/constants';
 
 interface DrawerProps {
 	isDrawerOpen: boolean;

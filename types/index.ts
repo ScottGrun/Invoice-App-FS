@@ -1,9 +1,7 @@
-import { PossibleStatus } from '@/config/PossibleStatus';
-
 // Invoice Types
 export interface Invoice {
 	id: string;
-	status: PossibleStatus;
+	status: 'pending' | 'draft' | 'paid';
 	user_street_address: string;
 	user_city: string;
 	user_post_code: string;
@@ -14,8 +12,8 @@ export interface Invoice {
 	client_city: string;
 	client_post_code: string;
 	client_country: string;
-	invoice_date: string;
-	invoice_due_date: string;
+	invoice_date: string | Date;
+	invoice_due_date: string | Date;
 	description: string;
 	invoice_items: InvoiceItem[];
 }
@@ -26,4 +24,13 @@ export interface InvoiceItem {
 	price: number;
 }
 
-export const DateType = typeof new Date();
+export type PossibleStatus = 'draft' | 'pending' | 'paid';
+
+export type PossibleThemes = 'light' | 'dark';
+
+export type InvoicesContextStateType = {
+	invoices: Invoice[] | [];
+	addInvoice: (invoice: Invoice) => void;
+	deleteInvoice: (id: string) => void;
+	updateInvoice: (invoice: Invoice) => void;
+};

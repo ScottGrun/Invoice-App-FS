@@ -6,9 +6,9 @@ import styled, { createGlobalStyle, CSSProperties } from 'styled-components';
 import { CalendarHeader } from './CalendarHeader';
 import { CalendarInput } from './CalendarInput';
 
-import { DateType } from '@/config/index';
 import { COLORS } from '@/styles/constants';
 import { h4TextStyle } from '@/styles/typography';
+
 interface DateFieldProps extends Omit<ReactDatePickerProps, 'onChange'> {
 	style?: CSSProperties;
 	label: string;
@@ -18,7 +18,7 @@ interface DateFieldProps extends Omit<ReactDatePickerProps, 'onChange'> {
 
 export const DateField: FC<DateFieldProps> = ({ style, label, name, shouldBeDisabled = false }) => {
 	const { control, getValues } = useFormContext();
-	const [date, setDate] = useState<DateType>(new Date());
+	const [date, setDate] = useState<Date | null>(new Date());
 	const storedDate = getValues(name);
 
 	// On mount if there is stored date convert it to a date object
@@ -38,7 +38,7 @@ export const DateField: FC<DateFieldProps> = ({ style, label, name, shouldBeDisa
 					<ReactDatePicker
 						closeOnScroll={() => true}
 						onChange={(e) => {
-							setDate(e);
+							setDate(e as Date);
 							field.onChange(e);
 						}}
 						selected={date}

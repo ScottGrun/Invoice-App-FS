@@ -1,6 +1,6 @@
 import { DefaultTheme } from 'styled-components';
 
-export const theme: DefaultTheme = {
+export const lightTheme: DefaultTheme = {
 	COLORS: {
 		scrollbar: {
 			bg: '#DFE3FA',

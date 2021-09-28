@@ -1,17 +1,10 @@
-import { createContext, FC, useEffect, useReducer, useState } from 'react';
+import { createContext, FC, useEffect, useReducer } from 'react';
 
-import { demoInvoicesData } from 'data/demo';
-
-import { Invoice } from '../types';
+import { demoInvoicesData } from '../data/demo';
 
 import { invoiceReducer } from './invoiceReducer';
 
-type InvoicesContextStateType = {
-	invoices: Invoice[] | [];
-	addInvoice: (invoice: Invoice) => void;
-	deleteInvoice: (id: string) => void;
-	updateInvoice: (invoice: Invoice) => void;
-};
+import { Invoice, InvoicesContextStateType, PossibleStatus } from '@/types/index';
 
 // Context
 export const InvoicesContext = createContext<InvoicesContextStateType>({
@@ -23,14 +16,22 @@ export const InvoicesContext = createContext<InvoicesContextStateType>({
 
 export const InvoicesProvider: FC = ({ children }) => {
 	const [state, dispatch] = useReducer(invoiceReducer, []);
-
 	useEffect(() => {
-		const localInvoices = JSON.parse(localStorage.getItem('invoices'));
+		const localocalStorageInvoices = localStorage.getItem('invoices');
 		// TODO: Add check for demo flag here
-		if (localInvoices !== null) {
-			dispatch({ type: 'ADD', payload: localInvoices });
+
+		if (typeof localocalStorageInvoices === 'string') {
+			const parsedLocalStorageInvoices: Invoice[] = JSON.parse(localocalStorageInvoices);
+			dispatch({ type: 'ADD', payload: parsedLocalStorageInvoices });
 		} else {
-			dispatch({ type: 'ADD', payload: demoInvoicesData });
+			// Need to map over obj to circumvent incorrect type error with demo data
+			dispatch({
+				type: 'ADD',
+				payload: demoInvoicesData.map((invoice) => ({
+					...invoice,
+					status: invoice.status as PossibleStatus,
+				})),
+			});
 			localStorage.setItem('invoices', JSON.stringify(demoInvoicesData));
 		}
 	}, []);

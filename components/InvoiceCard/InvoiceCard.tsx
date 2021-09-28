@@ -5,10 +5,10 @@ import styled from 'styled-components';
 
 import { StatusBadge } from '../StatusBadge/StatusBadge';
 
-import { PossibleStatus } from '@/config/PossibleStatus';
 import iconChevronSrc from '@/icons/icon-arrow-right.svg';
 import { COLORS, MEDIA_QUERIES } from '@/styles/constants';
 import { bodyTextStyle, h3TextStyle, h4TextStyle } from '@/styles/typography';
+import { PossibleStatus } from '@/types/index';
 
 interface InvoiceCardProps {
 	id: string;

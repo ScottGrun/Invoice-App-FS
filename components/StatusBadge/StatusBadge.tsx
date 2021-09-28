@@ -1,9 +1,8 @@
 import { FC } from 'react';
 import styled from 'styled-components';
 
-import { PossibleStatus } from 'config/PossibleStatus';
-
 import { h4TextStyle } from '@/styles/typography';
+import { PossibleStatus } from '@/types/index';
 
 interface StatusProps {
 	status: PossibleStatus;

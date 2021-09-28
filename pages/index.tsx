@@ -4,9 +4,6 @@ import styled from 'styled-components';
 
 import { InvoicesContext } from 'context/InvoicesContext';
 
-import { PossibleStatus } from '../config/PossibleStatus';
-import { Invoice } from '../types';
-
 import { Button } from '@/components/Button';
 import { Drawer } from '@/components/Drawer';
 import { Dropdown, DropdownOption } from '@/components/Dropdown';
@@ -17,6 +14,7 @@ import { InvoiceListContainer } from '@/components/InvoiceListContainer/InvoiceL
 import PageLayout from '@/layouts/PageLayout';
 import { MEDIA_QUERIES } from '@/styles/constants';
 import { bodyTextStyle, h1TextStyle, h2TextStyle } from '@/styles/typography';
+import { Invoice, PossibleStatus } from '@/types/index';
 import { calculateInvoiceTotal } from '@/utils/calculateTotal';
 import { getInvoiceCountText } from '@/utils/getInvoiceCountText';
 

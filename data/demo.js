@@ -24,7 +24,7 @@ export const demoInvoicesData = [
 		],
 	},
 	{
-		id: 'RT3080z',
+		id: 'RT323A',
 		invoice_date: 'Tue Sep 1 2022',
 		invoice_due_date: 'Tue Sep 21 2021',
 		description: 'Logo Work',

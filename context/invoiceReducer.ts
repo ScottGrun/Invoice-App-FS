@@ -1,11 +1,11 @@
-import { Invoice } from '../types';
+import { Invoice } from '@/types/index';
 
 type InvoiceActions =
 	| { type: 'ADD'; payload: Invoice | Invoice[] }
 	| { type: 'DELETE'; payload: string }
 	| { type: 'UPDATE'; payload: Invoice };
 
-export const invoiceReducer = (state, action: InvoiceActions) => {
+export const invoiceReducer = (state: Invoice[], action: InvoiceActions) => {
 	switch (action.type) {
 		case 'ADD':
 			if (Array.isArray(action.payload)) {
@@ -14,7 +14,7 @@ export const invoiceReducer = (state, action: InvoiceActions) => {
 				return [...state, action.payload];
 			}
 		case 'DELETE':
-			return state.invoices.filter((invoice: Invoice) => invoice.id !== action.payload);
+			return state.filter((invoice: Invoice) => invoice.id !== action.payload);
 		case 'UPDATE':
 			return state.map((invoice: Invoice) => {
 				if (invoice.id === action.payload.id) {

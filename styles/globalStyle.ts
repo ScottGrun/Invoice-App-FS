@@ -47,6 +47,7 @@ body {
   line-height: 1;
   background-color: ${(p) => p.theme.COLORS.body.bg};
   color: ${(p) => p.theme.COLORS.body.color};
+  transition: color, background-color 200ms ease-in;
 
 }
 menu, ol, ul {
