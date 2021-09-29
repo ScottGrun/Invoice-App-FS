@@ -2,6 +2,11 @@ import { DefaultTheme } from 'styled-components';
 
 export const lightTheme: DefaultTheme = {
 	COLORS: {
+		modal: {
+			bg: '#FFF',
+			header: '#0C0E16',
+			body: '#888EB0',
+		},
 		scrollbar: {
 			bg: '#DFE3FA',
 			track: 'transparent',
@@ -120,6 +125,11 @@ export const lightTheme: DefaultTheme = {
 
 export const darkTheme: DefaultTheme = {
 	COLORS: {
+		modal: {
+			bg: '#1E2139',
+			header: '#FFFFFF',
+			body: '#888EB0',
+		},
 		scrollbar: {
 			bg: '#252945',
 			track: 'transparent',
@@ -156,7 +166,7 @@ export const darkTheme: DefaultTheme = {
 			},
 			secondary: {
 				bg: '#252945',
-				color: '#7E88C3',
+				color: '#DFE3FA',
 				hover: '#FFFFFF',
 			},
 			tertiary: {

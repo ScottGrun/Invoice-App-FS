@@ -9,22 +9,30 @@ import { Button } from '@/components/Button/Button';
 import { Drawer } from '@/components/Drawer';
 import { EditInvoiceForm } from '@/components/Form/EditInvoiceForm';
 import { DetailsCard } from '@/components/InvoiceDetails/DetailsCard/DetailsCard';
+import { Modal } from '@/components/Modal';
 import { PageLink } from '@/components/PageLink/PageLink';
 import { StatusBadge } from '@/components/StatusBadge';
 import PageLayout from '@/layouts/PageLayout';
-import { COLORS, MEDIA_QUERIES } from '@/styles/constants';
-import { bodyTextStyle } from '@/styles/typography';
+import { COLORS, MEDIA_QUERIES, WEIGHTS } from '@/styles/constants';
+import { bodyTextStyle, modalBodyTextStyle, modalHeaderTextStyle } from '@/styles/typography';
 
 const InvoiceDetails: NextPage = () => {
-	const [isDrawerOpen, setDrawerOpen] = useState(false);
 	const router = useRouter();
+	const [isDrawerOpen, setDrawerOpen] = useState(false);
+	const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+
 	const { id } = router.query;
-	const { invoices, updateInvoice } = useContext(InvoicesContext);
+	const { invoices, updateInvoice, deleteInvoice } = useContext(InvoicesContext);
 
 	const selectedInvoice = invoices.find((invoice) => invoice.id === id);
 
 	const markInvoicePaid = () => {
 		if (selectedInvoice) updateInvoice({ ...selectedInvoice, status: 'paid' });
+	};
+
+	const handleDeleteInvoice = (id: string) => {
+		deleteInvoice(id);
+		router.push('/');
 	};
 
 	return (
@@ -36,11 +44,30 @@ const InvoiceDetails: NextPage = () => {
 			>
 				<EditInvoiceForm setDrawerOpen={setDrawerOpen} invoice={selectedInvoice} />
 			</Drawer>
-			<PageLayout>
-				<PageLink href="/" icon="back">
-					Go back
-				</PageLink>
-				{selectedInvoice && (
+			{selectedInvoice && (
+				<PageLayout>
+					<DeleteModal ariaLabel="Confirm Invoice Delete" isOpen={isDeleteModalOpen}>
+						<DeleteHeader>Confirm Deletion</DeleteHeader>
+						<DeleteWarningMessage>
+							Are you sure you want to delete invoice:{' '}
+							<b>
+								{selectedInvoice?.id} - {selectedInvoice?.description}
+							</b>
+							? This action cannot be undone.
+						</DeleteWarningMessage>
+						<ModalButtonContainer>
+							<Button variant="secondary" onClick={() => setDeleteModalOpen(false)}>
+								Cancel
+							</Button>
+							<Button variant="warning" onClick={() => handleDeleteInvoice(selectedInvoice.id)}>
+								Delete
+							</Button>
+						</ModalButtonContainer>
+					</DeleteModal>
+					<PageLink href="/" icon="back">
+						Go back
+					</PageLink>
+
 					<>
 						<Header>
 							<StatusLabel>Status</StatusLabel>
@@ -49,7 +76,9 @@ const InvoiceDetails: NextPage = () => {
 								<Button variant="secondary" onClick={() => setDrawerOpen(true)}>
 									Edit
 								</Button>
-								<Button variant="warning">Delete</Button>
+								<Button variant="warning" onClick={() => setDeleteModalOpen(true)}>
+									Delete
+								</Button>
 								{selectedInvoice.status !== 'paid' && (
 									<Button variant="primary" onClick={markInvoicePaid}>
 										Mark as Paid
@@ -59,19 +88,22 @@ const InvoiceDetails: NextPage = () => {
 						</Header>
 						<InvoiceDetailsCard invoice={selectedInvoice} />{' '}
 					</>
-				)}
-				<MobileButtonsContainer>
-					<Button variant="secondary" onClick={() => setDrawerOpen(true)}>
-						Edit
-					</Button>
-					<Button variant="warning">Delete</Button>
-					{selectedInvoice?.status !== 'paid' && (
-						<Button variant="primary" onClick={markInvoicePaid}>
-							Mark as Paid
+
+					<MobileButtonsContainer>
+						<Button variant="secondary" onClick={() => setDrawerOpen(true)}>
+							Edit
 						</Button>
-					)}
-				</MobileButtonsContainer>
-			</PageLayout>
+						<Button variant="warning" onClick={() => setDeleteModalOpen(true)}>
+							Delete
+						</Button>
+						{selectedInvoice?.status !== 'paid' && (
+							<Button variant="primary" onClick={markInvoicePaid}>
+								Mark as Paid
+							</Button>
+						)}
+					</MobileButtonsContainer>
+				</PageLayout>
+			)}
 		</>
 	);
 };
@@ -137,4 +169,34 @@ const MobileButtonsContainer = styled.div`
 	@media ${MEDIA_QUERIES.tabletAndUp} {
 		display: none;
 	}
+`;
+
+// Modal
+const DeleteModal = styled(Modal)`
+	align-self: center;
+	width: 100%;
+	margin: 0 24px;
+	background-color: ${(p) => p.theme.COLORS.modal.bg};
+`;
+
+const DeleteHeader = styled.h2`
+	${modalHeaderTextStyle};
+	color: ${(p) => p.theme.COLORS.modal.header};
+`;
+
+const DeleteWarningMessage = styled.p`
+	${modalBodyTextStyle};
+	margin-top: 8px;
+	color: ${(p) => p.theme.COLORS.modal.body};
+
+	b {
+		font-weight: ${WEIGHTS.bold};
+	}
+`;
+
+const ModalButtonContainer = styled.div`
+	display: flex;
+	justify-content: end;
+	margin-top: 24px;
+	gap: 8px;
 `;

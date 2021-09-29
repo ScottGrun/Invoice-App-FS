@@ -58,6 +58,9 @@ const ButtonBase = styled.button<{ variant: ButtonVariants }>`
 	&:hover {
 		cursor: pointer;
 		background-color: ${({ variant, theme }) => theme.COLORS.button[variant].hover};
+
+		/* Edge case for secondary button hover color being different */
+		color: ${({ variant, theme }) => theme.COLORS.button[variant].color};
 	}
 
 	@media ${MEDIA_QUERIES.tabletAndUp} {

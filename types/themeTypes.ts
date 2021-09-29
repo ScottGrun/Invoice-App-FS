@@ -20,8 +20,14 @@ export interface Colors {
 	itemField: ItemField;
 	emptyState: EmptyState;
 	calendarField: CalendarField;
+	modal: Modal;
 }
 
+export interface Modal {
+	bg: string;
+	header: string;
+	body: string;
+}
 export interface Scrollbar {
 	bg: string;
 	track: string;

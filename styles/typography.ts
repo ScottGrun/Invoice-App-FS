@@ -42,6 +42,13 @@ export const h4TextStyle = css`
 	letter-spacing: -0.25px;
 `;
 
+export const modalHeaderTextStyle = css`
+	${headerBaseStyles}
+	font-size: ${FONT_SIZES.h2};
+	line-height: 32px;
+	letter-spacing: -0.4166666567325592px;
+`;
+
 // Body
 export const bodyTextStyle = css`
 	${bodyBaseStyles}
@@ -55,6 +62,13 @@ export const body2TextStyle = css`
 	font-size: ${FONT_SIZES.body2};
 	line-height: 18px;
 	letter-spacing: -0.229167px;
+`;
+
+export const modalBodyTextStyle = css`
+	${bodyBaseStyles}
+	font-size: ${FONT_SIZES.body};
+	line-height: 22px;
+	letter-spacing: -0.25px;
 `;
 
 // Invoice Details
