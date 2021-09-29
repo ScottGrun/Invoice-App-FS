@@ -35,7 +35,7 @@ export const DesktopTable: FC<DesktopTableProps> = ({ className, items }) => {
 			<Footer>
 				<tr>
 					<TotalLabel>Grand Total</TotalLabel>
-					<InvoiceTotal colSpan={3}>£{calculateInvoiceTotal(items)}</InvoiceTotal>
+					<InvoiceTotal colSpan={3}>${calculateInvoiceTotal(items)}</InvoiceTotal>
 				</tr>
 			</Footer>
 		</Table>

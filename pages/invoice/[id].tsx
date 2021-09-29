@@ -23,11 +23,6 @@ const InvoiceDetails: NextPage = () => {
 
 	const selectedInvoice = invoices.find((invoice) => invoice.id === id);
 
-	// If no invoice found reroute to main page
-	if (!selectedInvoice) {
-		router.push('/');
-	}
-
 	const markInvoicePaid = () => {
 		if (selectedInvoice) updateInvoice({ ...selectedInvoice, status: 'paid' });
 	};

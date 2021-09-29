@@ -75,7 +75,7 @@ const Home: NextPage = () => {
 							<li key={invoice.id}>
 								<InvoiceCard
 									id={invoice.id}
-									dueDate={invoice.invoice_date}
+									dueDate={invoice.invoice_date.toString()}
 									clientName={invoice.client_name}
 									status={invoice.status}
 									total={calculateInvoiceTotal(invoice.invoice_items)}

@@ -72,7 +72,7 @@ const Wrapper = styled.a`
 const Id = styled.div`
 	${h4TextStyle};
 	grid-area: id;
-
+	text-transform: uppercase;
 	span {
 		color: ${COLORS.primary[3]};
 	}

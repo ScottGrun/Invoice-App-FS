@@ -1,4 +1,3 @@
-import { DevTool } from '@hookform/devtools';
 import { yupResolver } from '@hookform/resolvers/yup';
 import cuid from 'cuid';
 import React, { Dispatch, FC, SetStateAction, useContext, useEffect, useState } from 'react';
@@ -92,15 +91,12 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 					throw 'Error: Unknown submit type'; // generates an error object with the message of Required
 			}
 
-			// Reset form and close drawer
-
 			setDrawerOpen(false);
 		}
 	};
 
 	return (
 		<FormProvider {...methods}>
-			<DevTool control={methods.control} /> {/* set up the dev tool */}
 			<StyledForm onSubmit={(e) => e.preventDefault()}>
 				<FormHeader>
 					{invoice ? (
