@@ -13,10 +13,9 @@ interface DateFieldProps extends Omit<ReactDatePickerProps, 'onChange'> {
 	style?: CSSProperties;
 	label: string;
 	name: string;
-	shouldBeDisabled?: boolean;
 }
 
-export const DateField: FC<DateFieldProps> = ({ style, label, name, shouldBeDisabled = false }) => {
+export const DateField: FC<DateFieldProps> = ({ style, label, name }) => {
 	const { control, getValues } = useFormContext();
 	const [date, setDate] = useState<Date | null>(new Date());
 	const storedDate = getValues(name);
@@ -46,7 +45,6 @@ export const DateField: FC<DateFieldProps> = ({ style, label, name, shouldBeDisa
 						dateFormat="MMM dd yyyy"
 						calendarClassName="custom-calendar"
 						dayClassName={() => 'custom-day'}
-						disabled={shouldBeDisabled}
 						customInput={
 							<CalendarInput
 								name={field.name}

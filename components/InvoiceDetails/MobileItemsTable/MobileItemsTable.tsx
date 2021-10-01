@@ -48,9 +48,7 @@ export const MobileItemsTable: FC<MobileItemsTableProps> = ({ className, items }
 			<Footer>
 				<tr>
 					<TotalLabel>Grand Total</TotalLabel>
-					<InvoiceTotal>
-						{formatCurrencyToString(parseFloat(calculateInvoiceTotal(items)))}
-					</InvoiceTotal>
+					<InvoiceTotal>{formatCurrencyToString(calculateInvoiceTotal(items))}</InvoiceTotal>
 				</tr>
 			</Footer>
 		</Table>

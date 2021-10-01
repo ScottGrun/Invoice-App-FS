@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import cuid from 'cuid';
-import React, { Dispatch, FC, SetStateAction, useContext, useState } from 'react';
+import React, { Dispatch, FC, SetStateAction, useContext } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
@@ -27,7 +27,6 @@ interface EditInvoiceForm {
 
 export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice }) => {
 	const { addInvoice, updateInvoice } = useContext(InvoicesContext);
-	const [shouldBeDisabled, setShouldBeDisabled] = useState(false);
 	const methods = useForm({
 		defaultValues: invoice ? invoice : initalValues,
 		resolver: yupResolver(ValidationSchema),
@@ -183,16 +182,14 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 									<ItemField idx={itemIndex} remove={remove} />
 								</div>
 							))}
-							{!shouldBeDisabled && (
-								<Button
-									disabled={shouldBeDisabled}
-									variant="secondary"
-									type="button"
-									onClick={() => append({ name: '', price: 0, quantity: 0 })}
-								>
-									+ Add New Item
-								</Button>
-							)}
+
+							<Button
+								variant="secondary"
+								type="button"
+								onClick={() => append({ name: '', price: 0, quantity: 0 })}
+							>
+								+ Add New Item
+							</Button>
 						</ItemsFieldList>
 					</FormSection>
 

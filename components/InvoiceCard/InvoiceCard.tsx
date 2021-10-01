@@ -15,7 +15,7 @@ interface InvoiceCardProps {
 	id: string;
 	dueDate: string;
 	clientName: string;
-	total: string;
+	total: number;
 	status: PossibleStatus;
 }
 
