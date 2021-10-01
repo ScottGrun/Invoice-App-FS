@@ -7,6 +7,7 @@ import { body2TextStyle, h4TextStyle, tableFooterTotalTextStyle } from '@/styles
 import { InvoiceItem } from '@/types/index';
 import { calculateItemTotal } from '@/utils/calculateItemTotal';
 import { calculateInvoiceTotal } from '@/utils/calculateTotal';
+import { formatCurrencyToString } from '@/utils/formatCurrencyToString';
 
 interface MobileItemsTableProps {
 	className?: string;
@@ -33,18 +34,23 @@ export const MobileItemsTable: FC<MobileItemsTableProps> = ({ className, items }
 							<div>
 								<ItemName>{item.name}</ItemName>
 								<ItemQuantity>
-									{item.quantity} x ${(item.price / 100).toFixed(2)}
+									{item.quantity} x{' '}
+									{formatCurrencyToString(parseFloat((item.price / 100).toFixed(2)))}
 								</ItemQuantity>
 							</div>
 						</NameColumn>
-						<TotalColumn>${calculateItemTotal(item.quantity, item.price)}</TotalColumn>
+						<TotalColumn>
+							{formatCurrencyToString(parseFloat(calculateItemTotal(item.quantity, item.price)))}
+						</TotalColumn>
 					</tr>
 				))}
 			</Body>
 			<Footer>
 				<tr>
 					<TotalLabel>Grand Total</TotalLabel>
-					<InvoiceTotal>${calculateInvoiceTotal(items)}</InvoiceTotal>
+					<InvoiceTotal>
+						{formatCurrencyToString(parseFloat(calculateInvoiceTotal(items)))}
+					</InvoiceTotal>
 				</tr>
 			</Footer>
 		</Table>

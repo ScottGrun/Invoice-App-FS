@@ -9,6 +9,7 @@ import iconChevronSrc from '@/icons/icon-arrow-right.svg';
 import { COLORS, MEDIA_QUERIES } from '@/styles/constants';
 import { bodyTextStyle, h3TextStyle, h4TextStyle } from '@/styles/typography';
 import { PossibleStatus } from '@/types/index';
+import { formatCurrencyToString } from '@/utils/formatCurrencyToString';
 
 interface InvoiceCardProps {
 	id: string;
@@ -28,7 +29,7 @@ export const InvoiceCard: FC<InvoiceCardProps> = ({ id, dueDate, clientName, tot
 				</Id>
 				<DueDate>{dueDate}</DueDate>
 				<ClientName>{clientName}</ClientName>
-				<Total>{`$` + total}</Total>
+				<Total>{formatCurrencyToString(total)}</Total>
 				<Status>
 					<StatusBadge status={status} />
 				</Status>
@@ -56,7 +57,7 @@ const Wrapper = styled.a`
 	border-radius: 8px;
 	box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
 	border: solid 1px transparent;
-	transition: border 250ms ease-in-out;
+	transition: border 200ms ease;
 
 	&:hover {
 		border: solid 1px ${COLORS.primary[1]};

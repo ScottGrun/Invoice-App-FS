@@ -26,7 +26,8 @@ export const Sidebar: FC<SidebarProps> = ({ className }) => {
 };
 
 const Wrapper = styled.aside`
-	z-index: 10;
+	z-index: 10000;
+	position: fixed;
 	display: flex;
 	align-items: center;
 	gap: 24px;

@@ -102,6 +102,17 @@ const Quantity = styled(FormField)`
 		padding-left: 20px;
 	}
 
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	/* Firefox */
+	input[type='number'] {
+		-moz-appearance: textfield;
+	}
+
 	@media ${MEDIA_QUERIES.tabletAndUp} {
 		margin-right: 16px;
 		width: 46px;

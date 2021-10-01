@@ -1,11 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import cuid from 'cuid';
-import React, { Dispatch, FC, SetStateAction, useContext, useEffect, useState } from 'react';
+import React, { Dispatch, FC, SetStateAction, useContext, useState } from 'react';
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
 import { initalValues } from 'config/Form/InitalValues';
 import { InvoicesContext } from 'context/InvoicesContext';
+
+import { PageLink } from '../PageLink';
 
 import { Button } from '@/components/Button';
 import { Error } from '@/components/Form/Error';
@@ -26,7 +28,6 @@ interface EditInvoiceForm {
 export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice }) => {
 	const { addInvoice, updateInvoice } = useContext(InvoicesContext);
 	const [shouldBeDisabled, setShouldBeDisabled] = useState(false);
-
 	const methods = useForm({
 		defaultValues: invoice ? invoice : initalValues,
 		resolver: yupResolver(ValidationSchema),
@@ -40,10 +41,6 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 		name: 'invoice_items',
 	});
 
-	useEffect(() => {
-		setShouldBeDisabled(invoiceStatus !== 'draft');
-	}, [invoiceStatus]);
-
 	const handleSubmit = async (submitType: 'Add' | 'Update' | 'Send') => {
 		const isVaild = await methods.trigger();
 
@@ -51,7 +48,6 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 			// Get all form values as obj
 			const formValues = methods.getValues();
 
-			console.log(submitType, formValues);
 			switch (submitType) {
 				case 'Add':
 					addInvoice({
@@ -98,6 +94,9 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 	return (
 		<FormProvider {...methods}>
 			<StyledForm onSubmit={(e) => e.preventDefault()}>
+				<BackButton onClick={() => setDrawerOpen(false)} icon="back">
+					Go back
+				</BackButton>
 				<FormHeader>
 					{invoice ? (
 						<>
@@ -109,7 +108,7 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 					)}
 				</FormHeader>
 
-				<FieldSet disabled={shouldBeDisabled}>
+				<FieldSet>
 					{/* Bill From */}
 					<FormSection label="Bill From">
 						<FormField type="text" label="Street Address" name="user_street_address" />
@@ -163,18 +162,8 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 
 					<FormSection label="Invoice Details">
 						<Row>
-							<DateField
-								style={{ flex: 1 }}
-								name="invoice_date"
-								label="Invoice Date"
-								shouldBeDisabled={shouldBeDisabled}
-							/>
-							<DateField
-								style={{ flex: 1 }}
-								name="invoice_due_date"
-								label="Invoice Due Date"
-								shouldBeDisabled={shouldBeDisabled}
-							/>
+							<DateField style={{ flex: 1 }} name="invoice_date" label="Invoice Date" />
+							<DateField style={{ flex: 1 }} name="invoice_due_date" label="Invoice Due Date" />
 						</Row>
 
 						<FormField
@@ -191,7 +180,7 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 						<ItemsFieldList>
 							{fields.map((item, itemIndex) => (
 								<div key={item.id}>
-									<ItemField idx={itemIndex} remove={remove} shouldBeDisabled={shouldBeDisabled} />
+									<ItemField idx={itemIndex} remove={remove} />
 								</div>
 							))}
 							{!shouldBeDisabled && (
@@ -206,36 +195,46 @@ export const EditInvoiceForm: FC<EditInvoiceForm> = ({ setDrawerOpen, invoice })
 							)}
 						</ItemsFieldList>
 					</FormSection>
+
+					<FormButtonsContainer>
+						<Button onClick={() => setDrawerOpen(false)} type="button" variant="secondary">
+							Close
+						</Button>
+
+						{invoiceStatus === 'draft' && (
+							<>
+								<SaveDraftButton
+									type="button"
+									variant="tertiary"
+									onClick={() => (invoice ? handleSubmit('Update') : handleSubmit('Add'))}
+								>
+									Save as Draft
+								</SaveDraftButton>
+
+								<Button type="button" variant="primary" onClick={() => handleSubmit('Send')}>
+									Save & Send
+								</Button>
+							</>
+						)}
+					</FormButtonsContainer>
 				</FieldSet>
-				<FormButtonsContainer>
-					<Button onClick={() => setDrawerOpen(false)} type="button" variant="secondary">
-						Close
-					</Button>
-
-					{invoiceStatus === 'draft' && (
-						<>
-							<SaveDraftButton
-								type="button"
-								variant="tertiary"
-								onClick={() => (invoice ? handleSubmit('Update') : handleSubmit('Add'))}
-							>
-								Save as Draft
-							</SaveDraftButton>
-
-							<Button type="button" variant="primary" onClick={() => handleSubmit('Send')}>
-								Save & Send
-							</Button>
-						</>
-					)}
-				</FormButtonsContainer>
 			</StyledForm>
 		</FormProvider>
 	);
 };
 
+const BackButton = styled(PageLink)`
+	margin-top: 32px;
+	@media ${MEDIA_QUERIES.tabletAndUp} {
+		display: none;
+	}
+`;
+
 const FormHeader = styled.h2`
 	${formHeaderTextStyle};
 	padding-top: 24px;
+	padding-bottom: 10px;
+
 	span {
 		color: ${COLORS.grey[1]};
 	}
@@ -261,7 +260,7 @@ const StyledForm = styled.form`
 const FieldSet = styled.fieldset`
 	height: 100%;
 	width: 100%;
-	overflow: scroll !important;
+	overflow-y: scroll !important;
 	padding-right: 8px;
 	@media ${MEDIA_QUERIES.tabletAndUp} {
 		padding-right: 16px;

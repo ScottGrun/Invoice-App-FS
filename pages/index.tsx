@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { NextPage } from 'next';
 import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -36,6 +37,14 @@ const Home: NextPage = () => {
 		}
 	}, [filter, invoices]);
 
+	const item = {
+		visible: {
+			y: 0,
+			opacity: 1,
+		},
+		hidden: { opacity: 0, y: -50 },
+	};
+
 	return (
 		<>
 			<Drawer
@@ -69,10 +78,16 @@ const Home: NextPage = () => {
 						New&nbsp;<span>Invoice</span>
 					</NewInvoiceButton>
 				</Header>
-				<InvoiceListContainer>
+				<InvoiceListContainer shouldAnimateList={filteredInvoices.length > 0}>
 					{filteredInvoices.length > 0 ? (
-						filteredInvoices.map((invoice: Invoice) => (
-							<li key={invoice.id}>
+						filteredInvoices.map((invoice: Invoice, idx: number) => (
+							<motion.li
+								key={idx}
+								variants={item}
+								whileHover={{
+									x: 12,
+								}}
+							>
 								<InvoiceCard
 									id={invoice.id}
 									dueDate={invoice.invoice_date.toString()}
@@ -80,16 +95,16 @@ const Home: NextPage = () => {
 									status={invoice.status}
 									total={calculateInvoiceTotal(invoice.invoice_items)}
 								/>
-							</li>
+							</motion.li>
 						))
 					) : (
-						<li>
+						<motion.li>
 							<StyledEmptyState
 								heading="There is nothing here"
 								errorMessage="Create a new invoice by clicking the
 					New Invoice button and get started"
 							/>
-						</li>
+						</motion.li>
 					)}
 				</InvoiceListContainer>
 			</PageLayout>

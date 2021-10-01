@@ -32,11 +32,13 @@ const Wrapper = styled.main`
 	margin-top: 32px;
 	height: 100%;
 	width: 100%;
+	padding-top: 72px;
 
 	@media ${MEDIA_QUERIES.tabletAndUp} {
 		margin: 0 auto;
 		margin-top: 56px;
-		padding: 0;
+		padding-left: 0;
+		padding-right: 0;
 
 		max-width: 672px;
 	}
@@ -44,5 +46,6 @@ const Wrapper = styled.main`
 	@media ${MEDIA_QUERIES.laptopAndUp} {
 		max-width: 730px;
 		margin-top: 72px;
+		padding: 0;
 	}
 `;

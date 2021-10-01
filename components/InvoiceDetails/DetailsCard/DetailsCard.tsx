@@ -15,6 +15,14 @@ interface DetailsCardProps {
 	invoice: Invoice;
 }
 
+const pickTable = (size: Size) => {
+	if (size.width === undefined) {
+		return false;
+	} else {
+		return size.width > BREAKPOINTS.mobile;
+	}
+};
+
 export const DetailsCard: FC<DetailsCardProps> = ({ className, invoice }) => {
 	const size: Size = useWindowSize();
 	return (
@@ -36,8 +44,8 @@ export const DetailsCard: FC<DetailsCardProps> = ({ className, invoice }) => {
 						{invoice.user_country}
 					</address>
 				</UserAddress>
-				<InvoiceDate label="Invoice Date" value={invoice.invoice_date}></InvoiceDate>
-				<PaymentDue label="Payment Due" value={invoice.invoice_due_date}></PaymentDue>
+				<InvoiceDate label="Invoice Date" value={invoice.invoice_date.toString()}></InvoiceDate>
+				<PaymentDue label="Payment Due" value={invoice.invoice_due_date.toString()}></PaymentDue>
 				<ClientEmail label="Sent to" value={invoice.client_email}></ClientEmail>
 				<BillTo label="Bill to" value={invoice.client_name}>
 					<address>
@@ -49,7 +57,7 @@ export const DetailsCard: FC<DetailsCardProps> = ({ className, invoice }) => {
 					</address>
 				</BillTo>
 			</MetaData>
-			{size?.width ?? 0 > BREAKPOINTS.mobile ? (
+			{pickTable(size) ? (
 				<StyledDesktopTable items={invoice.invoice_items} />
 			) : (
 				<MobileTable items={invoice.invoice_items} />
@@ -59,6 +67,10 @@ export const DetailsCard: FC<DetailsCardProps> = ({ className, invoice }) => {
 };
 
 const Wrapper = styled.main`
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;
 	width: 100%;
 	padding: 32px;
 	background-color: ${(p) => p.theme.COLORS.invoiceDetails.bg};
@@ -68,19 +80,19 @@ const Wrapper = styled.main`
 
 const MetaData = styled.div`
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: max-content 1fr max-content;
 	grid-template-rows: repeat(5, max-content);
 	gap: 32px 0px;
 	grid-auto-flow: row;
 	grid-template-areas:
-		'id .'
-		'user-address .'
-		'invoice-date bill-to'
-		'payment-due bill-to'
-		'client-email .';
+		'id . user-address'
+		'invoice-date . bill-to'
+		'payment-due. bill-to'
+		'client-email  client-email  client-email';
+	width: 100%;
 
 	@media ${MEDIA_QUERIES.tabletAndUp} {
-		grid-template-columns: max-content 100px max-content 110px auto;
+		grid-template-columns: max-content 100px max-content auto max-content;
 		grid-template-rows: repeat(3, max-content);
 		gap: 21px 0px;
 
@@ -110,12 +122,16 @@ const Name = styled.h1`
 	${bodyTextStyle};
 	color: ${(p) => p.theme.COLORS.text.body2};
 	margin-top: 4px;
+	@media ${MEDIA_QUERIES.tabletAndUp} {
+		margin-top: 10px;
+	}
 `;
 
 const UserAddress = styled.div`
 	${body2TextStyle};
 	grid-area: user-address;
 	color: ${(p) => p.theme.COLORS.text.body2};
+	text-align: end;
 	@media ${MEDIA_QUERIES.tabletAndUp} {
 		justify-self: flex-end;
 	}
@@ -129,6 +145,7 @@ const PaymentDue = styled(InvoiceDetail)`
 `;
 const ClientEmail = styled(InvoiceDetail)`
 	grid-area: client-email;
+	word-break: break-word;
 `;
 const BillTo = styled(InvoiceDetail)`
 	grid-area: bill-to;

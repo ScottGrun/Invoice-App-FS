@@ -5,6 +5,7 @@ import { body2TextStyle, h4TextStyle, tableFooterTotalTextStyle } from '@/styles
 import { InvoiceItem } from '@/types/index';
 import { calculateItemTotal } from '@/utils/calculateItemTotal';
 import { calculateInvoiceTotal } from '@/utils/calculateTotal';
+import { formatCurrencyToString } from '@/utils/formatCurrencyToString';
 
 interface DesktopTableProps {
 	className?: string;
@@ -27,15 +28,19 @@ export const DesktopTable: FC<DesktopTableProps> = ({ className, items }) => {
 					<tr key={item.name + idx}>
 						<Name>{item.name}</Name>
 						<Quantity>{item.quantity}</Quantity>
-						<Price>${(item.price / 100).toFixed(2)}</Price>
-						<Total>${calculateItemTotal(item.quantity, item.price)}</Total>
+						<Price>{formatCurrencyToString(parseFloat((item.price / 100).toFixed(2)))}</Price>
+						<Total>
+							{formatCurrencyToString(parseFloat(calculateItemTotal(item.quantity, item.price)))}
+						</Total>
 					</tr>
 				))}
 			</Body>
 			<Footer>
 				<tr>
 					<TotalLabel>Grand Total</TotalLabel>
-					<InvoiceTotal colSpan={3}>${calculateInvoiceTotal(items)}</InvoiceTotal>
+					<InvoiceTotal colSpan={3}>
+						{formatCurrencyToString(calculateInvoiceTotal(items))}
+					</InvoiceTotal>
 				</tr>
 			</Footer>
 		</Table>

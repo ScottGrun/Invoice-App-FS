@@ -34,5 +34,4 @@ export const ThemeSwitcher: FC<ThemeSwitcherProps> = ({ className }) => {
 const IconWrapper = styled.button`
 	cursor: pointer;
 	background-color: transparent;
-	height: fit-content;
 `;

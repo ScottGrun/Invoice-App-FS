@@ -1,22 +1,23 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { ButtonHTMLAttributes, FC } from 'react';
 import styled from 'styled-components';
 
 import iconChevronSrc from '@/icons/icon-arrow-left.svg';
 import { COLORS } from '@/styles/constants';
 import { h4TextStyle } from '@/styles/typography';
 
-interface Props {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 	children?: string | React.ReactNode;
-	href: string;
+	href?: string;
 	icon?: 'back' | 'forward';
+	className?: string;
 }
 
-export const PageLink = ({ children, icon, href }: Props) => {
-	return (
+export const PageLink: FC<Props> = ({ children, icon, href, className, onClick }) => {
+	return href ? (
 		<Link href={href} passHref>
-			<InnerWrapper icon={icon}>
+			<InnerWrapper icon={icon} className={className}>
 				{icon && (
 					<IconWrapper icon={icon}>
 						<Image src={iconChevronSrc} alt="" />
@@ -25,6 +26,15 @@ export const PageLink = ({ children, icon, href }: Props) => {
 				{children}
 			</InnerWrapper>
 		</Link>
+	) : (
+		<InnerWrapper as="button" icon={icon} className={className} onClick={onClick}>
+			{icon && (
+				<IconWrapper icon={icon}>
+					<Image src={iconChevronSrc} alt="" />
+				</IconWrapper>
+			)}
+			{children}
+		</InnerWrapper>
 	);
 };
 
@@ -35,6 +45,8 @@ const InnerWrapper = styled.a<{ icon?: string }>`
 	flex-direction: ${({ icon }) =>
 		icon === 'back' ? 'row' : icon === 'forward' ? 'row-reverse' : null};
 	width: fit-content;
+	transition: color 200ms ease;
+	background-color: transparent;
 
 	&:hover {
 		color: ${COLORS.primary[3]};

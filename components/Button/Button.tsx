@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import React, { ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
@@ -22,6 +23,16 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 	className?: string;
 };
 
+const plusIconAnimation = {
+	reset: {},
+	hover: {
+		rotate: 90,
+		transition: {
+			duration: 0.2,
+		},
+	},
+};
+
 export const Button = ({
 	children,
 	icon,
@@ -31,8 +42,15 @@ export const Button = ({
 	type,
 }: ButtonProps) => {
 	return icon ? (
-		<IconButton type={type} onClick={onClick} variant={variant} className={className}>
-			<IconWrapper>
+		<IconButton
+			whileHover="hover"
+			animate="rest"
+			type={type}
+			onClick={onClick}
+			variant={variant}
+			className={className}
+		>
+			<IconWrapper variants={plusIconAnimation}>
 				<Image src={iconPlusSrc} alt="" />
 			</IconWrapper>
 			{children}
@@ -44,7 +62,7 @@ export const Button = ({
 	);
 };
 
-const ButtonBase = styled.button<{ variant: ButtonVariants }>`
+const ButtonBase = styled(motion.button)<{ variant: ButtonVariants }>`
 	${h4TextStyle};
 	display: flex;
 	align-items: center;
@@ -55,6 +73,7 @@ const ButtonBase = styled.button<{ variant: ButtonVariants }>`
 	background-color: ${({ variant, theme }) => theme.COLORS.button[variant].bg};
 	color: ${({ variant, theme }) => theme.COLORS.button[variant].color};
 	line-height: 0;
+	transition: background-color 200ms ease-in-out;
 	&:hover {
 		cursor: pointer;
 		background-color: ${({ variant, theme }) => theme.COLORS.button[variant].hover};
@@ -69,7 +88,7 @@ const ButtonBase = styled.button<{ variant: ButtonVariants }>`
 `;
 
 const TextButton = styled(ButtonBase)`
-	padding: 16px 24px;
+	padding: 16px 18px;
 	justify-content: center;
 `;
 
@@ -80,7 +99,7 @@ const IconButton = styled(ButtonBase)`
 	}
 `;
 
-const IconWrapper = styled.div`
+const IconWrapper = styled(motion.div)`
 	display: grid;
 	place-content: center;
 

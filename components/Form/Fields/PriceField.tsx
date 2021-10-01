@@ -23,7 +23,7 @@ export const PriceField: FC<PriceFieldProps> = ({ formPriceValue, name, defaultV
 	useEffect(() => {
 		// On mount convert the the saved value from value from cents as a INT to to dollars as string
 		setPrice(parseFloat((formPriceValue / 100).toFixed(2)).toString());
-	}, []);
+	}, [formPriceValue]);
 
 	return (
 		<Wrapper>

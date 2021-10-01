@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
@@ -44,73 +45,81 @@ const InvoiceDetails: NextPage = () => {
 			>
 				<EditInvoiceForm setDrawerOpen={setDrawerOpen} invoice={selectedInvoice} />
 			</Drawer>
-			{selectedInvoice && (
-				<PageLayout>
-					<DeleteModal ariaLabel="Confirm Invoice Delete" isOpen={isDeleteModalOpen}>
-						<DeleteHeader>Confirm Deletion</DeleteHeader>
-						<DeleteWarningMessage>
-							Are you sure you want to delete invoice:{' '}
-							<b>
-								{selectedInvoice?.id} - {selectedInvoice?.description}
-							</b>
-							? This action cannot be undone.
-						</DeleteWarningMessage>
-						<ModalButtonContainer>
-							<Button variant="secondary" onClick={() => setDeleteModalOpen(false)}>
-								Cancel
-							</Button>
-							<Button variant="warning" onClick={() => handleDeleteInvoice(selectedInvoice.id)}>
-								Delete
-							</Button>
-						</ModalButtonContainer>
-					</DeleteModal>
-					<PageLink href="/" icon="back">
-						Go back
-					</PageLink>
-
-					<>
-						<Header>
-							<StatusLabel>Status</StatusLabel>
-							<StyledStatusBadge status={selectedInvoice.status} />
-							<ButtonContainer>
+			<AnimatePresence>
+				{selectedInvoice && (
+					<PageLayout>
+						<DeleteModal ariaLabel="Confirm Invoice Delete" isOpen={isDeleteModalOpen}>
+							<DeleteHeader>Confirm Deletion</DeleteHeader>
+							<DeleteWarningMessage>
+								Are you sure you want to delete invoice:{' '}
+								<b>
+									{selectedInvoice?.id} - {selectedInvoice?.description}
+								</b>
+								? This action cannot be undone.
+							</DeleteWarningMessage>
+							<ModalButtonContainer>
+								<Button variant="secondary" onClick={() => setDeleteModalOpen(false)}>
+									Cancel
+								</Button>
+								<Button variant="warning" onClick={() => handleDeleteInvoice(selectedInvoice.id)}>
+									Delete
+								</Button>
+							</ModalButtonContainer>
+						</DeleteModal>
+						<PageLink href="/" icon="back">
+							Go back
+						</PageLink>
+						<Header
+							variants={headerAnimations}
+							initial="hidden"
+							animate={selectedInvoice ? 'visible' : 'hidden'}
+						>
+							<InnerHeaderWrapper initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+								<StatusLabel>Status</StatusLabel>
+								<StyledStatusBadge status={selectedInvoice.status} />
+								<ButtonContainer>
+									{selectedInvoice.status === 'draft' && (
+										<Button variant="secondary" onClick={() => setDrawerOpen(true)}>
+											Edit
+										</Button>
+									)}
+									<Button variant="warning" onClick={() => setDeleteModalOpen(true)}>
+										Delete
+									</Button>
+									{selectedInvoice.status !== 'paid' && (
+										<Button variant="primary" onClick={markInvoicePaid}>
+											Mark as Paid
+										</Button>
+									)}
+								</ButtonContainer>
+							</InnerHeaderWrapper>
+						</Header>
+						<InvoiceDetailsCard invoice={selectedInvoice} />
+						<MobileButtonsContainer>
+							{selectedInvoice.status === 'draft' && (
 								<Button variant="secondary" onClick={() => setDrawerOpen(true)}>
 									Edit
 								</Button>
-								<Button variant="warning" onClick={() => setDeleteModalOpen(true)}>
-									Delete
-								</Button>
-								{selectedInvoice.status !== 'paid' && (
-									<Button variant="primary" onClick={markInvoicePaid}>
-										Mark as Paid
-									</Button>
-								)}
-							</ButtonContainer>
-						</Header>
-						<InvoiceDetailsCard invoice={selectedInvoice} />{' '}
-					</>
-
-					<MobileButtonsContainer>
-						<Button variant="secondary" onClick={() => setDrawerOpen(true)}>
-							Edit
-						</Button>
-						<Button variant="warning" onClick={() => setDeleteModalOpen(true)}>
-							Delete
-						</Button>
-						{selectedInvoice?.status !== 'paid' && (
-							<Button variant="primary" onClick={markInvoicePaid}>
-								Mark as Paid
+							)}
+							<Button variant="warning" onClick={() => setDeleteModalOpen(true)}>
+								Delete
 							</Button>
-						)}
-					</MobileButtonsContainer>
-				</PageLayout>
-			)}
+							{selectedInvoice.status !== 'paid' && (
+								<Button variant="primary" onClick={markInvoicePaid}>
+									Mark as Paid
+								</Button>
+							)}
+						</MobileButtonsContainer>
+					</PageLayout>
+				)}
+			</AnimatePresence>
 		</>
 	);
 };
 
 export default InvoiceDetails;
 
-const Header = styled.header`
+const Header = styled(motion.header)`
 	display: flex;
 	align-items: center;
 	padding: 0 24px;
@@ -120,6 +129,13 @@ const Header = styled.header`
 	background-color: ${(p) => p.theme.COLORS.invoiceDetails.bg};
 	border-radius: 8px;
 	box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+`;
+
+const InnerHeaderWrapper = styled(motion.div)`
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 100%;
 `;
 
 const StatusLabel = styled.p`
@@ -165,7 +181,6 @@ const MobileButtonsContainer = styled.div`
 	width: 100%;
 	height: 91px;
 	background-color: ${(p) => p.theme.COLORS.invoiceDetails.bg};
-
 	@media ${MEDIA_QUERIES.tabletAndUp} {
 		display: none;
 	}
@@ -173,10 +188,13 @@ const MobileButtonsContainer = styled.div`
 
 // Modal
 const DeleteModal = styled(Modal)`
-	align-self: center;
 	width: 100%;
 	margin: 0 24px;
 	background-color: ${(p) => p.theme.COLORS.modal.bg};
+
+	@media ${MEDIA_QUERIES.tabletAndUp} {
+		width: 480px;
+	}
 `;
 
 const DeleteHeader = styled.h2`
@@ -200,3 +218,15 @@ const ModalButtonContainer = styled.div`
 	margin-top: 24px;
 	gap: 8px;
 `;
+
+// Animations - Header
+
+const headerAnimations = {
+	visible: {
+		height: 91,
+		transition: { type: 'spring', duration: 0.75, when: 'beforeChildren', staggerChildren: 42 },
+	},
+	hidden: {
+		height: 0,
+	},
+};
