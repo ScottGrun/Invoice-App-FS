@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { NextPage } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import styled from 'styled-components';
@@ -38,6 +39,10 @@ const InvoiceDetails: NextPage = () => {
 
 	return (
 		<>
+			<Head>
+				<title>Invoicely | {selectedInvoice?.description}</title>
+				<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+			</Head>
 			<Drawer
 				isDrawerOpen={isDrawerOpen}
 				setDrawerOpen={setDrawerOpen}
@@ -48,33 +53,29 @@ const InvoiceDetails: NextPage = () => {
 			<AnimatePresence>
 				{selectedInvoice && (
 					<PageLayout>
-						<DeleteModal ariaLabel="Confirm Invoice Delete" isOpen={isDeleteModalOpen}>
-							<DeleteHeader>Confirm Deletion</DeleteHeader>
-							<DeleteWarningMessage>
-								Are you sure you want to delete invoice:{' '}
-								<b>
-									{selectedInvoice?.id} - {selectedInvoice?.description}
-								</b>
-								? This action cannot be undone.
-							</DeleteWarningMessage>
-							<ModalButtonContainer>
-								<Button variant="secondary" onClick={() => setDeleteModalOpen(false)}>
-									Cancel
-								</Button>
-								<Button variant="warning" onClick={() => handleDeleteInvoice(selectedInvoice.id)}>
-									Delete
-								</Button>
-							</ModalButtonContainer>
-						</DeleteModal>
-						<PageLink href="/" icon="back">
-							Go back
-						</PageLink>
-						<Header
-							variants={headerAnimations}
-							initial="hidden"
-							animate={selectedInvoice ? 'visible' : 'hidden'}
-						>
-							<InnerHeaderWrapper initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+						<motion.div variants={pageAnimations} initial="initial" animate="animate">
+							<DeleteModal ariaLabel="Confirm Invoice Delete" isOpen={isDeleteModalOpen}>
+								<DeleteHeader>Confirm Deletion</DeleteHeader>
+								<DeleteWarningMessage>
+									Are you sure you want to delete invoice:{' '}
+									<b>
+										{selectedInvoice?.id} - {selectedInvoice?.description}
+									</b>
+									? This action cannot be undone.
+								</DeleteWarningMessage>
+								<ModalButtonContainer>
+									<Button variant="secondary" onClick={() => setDeleteModalOpen(false)}>
+										Cancel
+									</Button>
+									<Button variant="warning" onClick={() => handleDeleteInvoice(selectedInvoice.id)}>
+										Delete
+									</Button>
+								</ModalButtonContainer>
+							</DeleteModal>
+							<PageLink href="/" icon="back">
+								Go back
+							</PageLink>
+							<Header initial="hidden">
 								<StatusLabel>Status</StatusLabel>
 								<StyledStatusBadge status={selectedInvoice.status} />
 								<ButtonContainer>
@@ -92,24 +93,24 @@ const InvoiceDetails: NextPage = () => {
 										</Button>
 									)}
 								</ButtonContainer>
-							</InnerHeaderWrapper>
-						</Header>
-						<InvoiceDetailsCard invoice={selectedInvoice} />
-						<MobileButtonsContainer>
-							{selectedInvoice.status === 'draft' && (
-								<Button variant="secondary" onClick={() => setDrawerOpen(true)}>
-									Edit
+							</Header>
+							<InvoiceDetailsCard invoice={selectedInvoice} />
+							<MobileButtonsContainer>
+								{selectedInvoice.status === 'draft' && (
+									<Button variant="secondary" onClick={() => setDrawerOpen(true)}>
+										Edit
+									</Button>
+								)}
+								<Button variant="warning" onClick={() => setDeleteModalOpen(true)}>
+									Delete
 								</Button>
-							)}
-							<Button variant="warning" onClick={() => setDeleteModalOpen(true)}>
-								Delete
-							</Button>
-							{selectedInvoice.status !== 'paid' && (
-								<Button variant="primary" onClick={markInvoicePaid}>
-									Mark as Paid
-								</Button>
-							)}
-						</MobileButtonsContainer>
+								{selectedInvoice.status !== 'paid' && (
+									<Button variant="primary" onClick={markInvoicePaid}>
+										Mark as Paid
+									</Button>
+								)}
+							</MobileButtonsContainer>
+						</motion.div>
 					</PageLayout>
 				)}
 			</AnimatePresence>
@@ -129,13 +130,6 @@ const Header = styled(motion.header)`
 	background-color: ${(p) => p.theme.COLORS.invoiceDetails.bg};
 	border-radius: 8px;
 	box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
-`;
-
-const InnerHeaderWrapper = styled(motion.div)`
-	display: flex;
-	align-items: center;
-	width: 100%;
-	height: 100%;
 `;
 
 const StatusLabel = styled.p`
@@ -219,14 +213,16 @@ const ModalButtonContainer = styled.div`
 	gap: 8px;
 `;
 
-// Animations - Header
-
-const headerAnimations = {
-	visible: {
-		height: 91,
-		transition: { type: 'spring', duration: 0.75, when: 'beforeChildren', staggerChildren: 42 },
+// Animations - Page
+const pageAnimations = {
+	initial: {
+		y: 100,
+		opacity: 0,
+		transition: { type: 'spring', duration: 0.75 },
 	},
-	hidden: {
-		height: 0,
+	animate: {
+		y: 0,
+		opacity: 1,
+		transition: { type: 'spring', duration: 0.75 },
 	},
 };

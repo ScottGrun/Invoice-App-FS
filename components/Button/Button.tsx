@@ -3,8 +3,7 @@ import Image from 'next/image';
 import React, { ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-import iconPlusSrc from 'public/icons/icon-plus.svg';
-
+import iconPlusSrc from '@/icons/icon-plus.svg';
 import { COLORS, MEDIA_QUERIES } from '@/styles/constants';
 import { h4TextStyle } from '@/styles/typography';
 

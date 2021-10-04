@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { NextPage } from 'next';
+import Head from 'next/head';
 import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
@@ -47,6 +48,10 @@ const Home: NextPage = () => {
 
 	return (
 		<>
+			<Head>
+				<title>Invoicely | Invoice Management</title>
+				<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+			</Head>
 			<Drawer
 				isDrawerOpen={isDrawerOpen}
 				setDrawerOpen={setDrawerOpen}

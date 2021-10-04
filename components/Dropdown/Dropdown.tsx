@@ -11,8 +11,7 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import styled from 'styled-components';
 
 import '@reach/listbox/styles.css';
-import iconChevronDownSrc from '/public/icons/icon-arrow-down.svg';
-
+import iconChevronDownSrc from '@/icons/icon-arrow-down.svg';
 import { MEDIA_QUERIES } from '@/styles/constants';
 import { h4TextStyle } from '@/styles/typography';
 import { PossibleStatus } from '@/types/index';
