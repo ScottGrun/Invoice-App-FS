@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { InvoicesProvider } from 'context/InvoicesContext';
 
 import GlobalStyle from '../styles/globalStyle';
-import { lightTheme } from '../styles/theme';
+import { lightTheme, darkTheme } from '../styles/theme';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -22,10 +22,9 @@ interface CustomAppProps extends AppProps {
 }
 
 function MyApp({ Component, pageProps, darkMode }: CustomAppProps) {
-	console.log(darkMode);
 	return (
 		<>
-			<ThemeProvider theme={lightTheme}>
+			<ThemeProvider theme={darkMode.darkModeActive ? darkTheme : lightTheme}>
 				<GlobalStyle />
 				<InvoicesProvider>
 					<Component {...pageProps} />
