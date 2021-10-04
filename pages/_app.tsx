@@ -1,4 +1,3 @@
-import { AnimatePresence } from 'framer-motion';
 import withDarkMode from 'next-dark-mode';
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
@@ -28,9 +27,7 @@ function MyApp({ Component, pageProps, router, darkMode }: CustomAppProps) {
 			<ThemeProvider theme={darkMode.darkModeActive ? darkTheme : lightTheme}>
 				<GlobalStyle />
 				<InvoicesProvider>
-					<AnimatePresence exitBeforeEnter>
-						<Component {...pageProps} key={router.route} />
-					</AnimatePresence>
+					<Component {...pageProps} key={router.route} />
 				</InvoicesProvider>
 			</ThemeProvider>
 		</>

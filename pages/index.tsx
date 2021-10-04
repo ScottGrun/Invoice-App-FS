@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useContext, useEffect, useState } from 'react';
@@ -9,15 +8,12 @@ import { InvoicesContext } from 'context/InvoicesContext';
 import { Button } from '@/components/Button';
 import { Drawer } from '@/components/Drawer';
 import { Dropdown, DropdownOption } from '@/components/Dropdown';
-import { EmptyState } from '@/components/EmptyState';
 import { EditInvoiceForm } from '@/components/Form/EditInvoiceForm';
-import { InvoiceCard } from '@/components/InvoiceCard/InvoiceCard';
 import { InvoiceListContainer } from '@/components/InvoiceListContainer/InvoiceListContainer';
 import PageLayout from '@/layouts/PageLayout';
 import { MEDIA_QUERIES } from '@/styles/constants';
 import { bodyTextStyle, h1TextStyle, h2TextStyle } from '@/styles/typography';
-import { Invoice, PossibleStatus } from '@/types/index';
-import { calculateInvoiceTotal } from '@/utils/calculateTotal';
+import { PossibleStatus } from '@/types/index';
 import { getInvoiceCountText } from '@/utils/getInvoiceCountText';
 
 const Home: NextPage = () => {
@@ -37,14 +33,6 @@ const Home: NextPage = () => {
 			setFilteredInvoices(invoices);
 		}
 	}, [filter, invoices]);
-
-	const item = {
-		visible: {
-			y: 0,
-			opacity: 1,
-		},
-		hidden: { opacity: 0, y: -50 },
-	};
 
 	return (
 		<>
@@ -83,35 +71,10 @@ const Home: NextPage = () => {
 						New&nbsp;<span>Invoice</span>
 					</NewInvoiceButton>
 				</Header>
-				<InvoiceListContainer shouldAnimateList={filteredInvoices.length > 0}>
-					{filteredInvoices.length > 0 ? (
-						filteredInvoices.map((invoice: Invoice, idx: number) => (
-							<motion.li
-								key={idx}
-								variants={item}
-								whileHover={{
-									x: 12,
-								}}
-							>
-								<InvoiceCard
-									id={invoice.id}
-									dueDate={invoice.invoice_date.toString()}
-									clientName={invoice.client_name}
-									status={invoice.status}
-									total={calculateInvoiceTotal(invoice.invoice_items)}
-								/>
-							</motion.li>
-						))
-					) : (
-						<motion.li>
-							<StyledEmptyState
-								heading="There is nothing here"
-								errorMessage="Create a new invoice by clicking the
-					New Invoice button and get started"
-							/>
-						</motion.li>
-					)}
-				</InvoiceListContainer>
+				<InvoiceListContainer
+					shouldAnimateList={filteredInvoices.length > 0}
+					filteredInvoices={filteredInvoices}
+				></InvoiceListContainer>
 			</PageLayout>
 		</>
 	);
@@ -164,18 +127,6 @@ const NewInvoiceButton = styled(Button)`
 		span {
 			display: revert;
 		}
-	}
-`;
-
-const StyledEmptyState = styled(EmptyState)`
-	margin-top: 71px;
-
-	@media ${MEDIA_QUERIES.tabletAndUp} {
-		margin-top: 154px;
-	}
-
-	@media ${MEDIA_QUERIES.laptopAndUp} {
-		margin-top: 76px;
 	}
 `;
 
