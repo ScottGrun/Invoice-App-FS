@@ -1,4 +1,4 @@
-# Frontend Mentor - Invoice app solution
+# Paymento - Invoice Management for Freelance (Portfolio Project)
 
 This is a solution to the [Invoice app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/invoice-app-i7KaLTQjl). I started this project to learn more about how to effectively leverage Typescript and manage complex state. At the moment, it only uses local storage as a database but I am planning on leveraging Postgres and Prisma to make this truly full-stack, I may also attempt to use stripe and SendGrid to make this properly functional.
 
