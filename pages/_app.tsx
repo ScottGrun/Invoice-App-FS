@@ -1,11 +1,10 @@
-import withDarkMode from 'next-dark-mode';
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
 
 import { InvoicesProvider } from 'context/InvoicesContext';
 
 import GlobalStyle from '../styles/globalStyle';
-import { lightTheme, darkTheme } from '../styles/theme';
+import { lightTheme } from '../styles/theme';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
