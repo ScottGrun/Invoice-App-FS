@@ -34,6 +34,7 @@ const Home: NextPage = () => {
 		}
 	}, [filter, invoices]);
 
+	console.log(invoices);
 	return (
 		<>
 			<Head>
@@ -71,7 +72,9 @@ const Home: NextPage = () => {
 						New&nbsp;<span>Invoice</span>
 					</NewInvoiceButton>
 				</Header>
-				{filteredInvoices && <InvoiceListContainer filteredInvoices={filteredInvoices} />}
+				{filteredInvoices.length > 0 && (
+					<InvoiceListContainer filteredInvoices={filteredInvoices} />
+				)}
 			</PageLayout>
 		</>
 	);
