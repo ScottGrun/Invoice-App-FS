@@ -60,7 +60,7 @@ export const demoInvoicesData = [
 	{
 		id: 'A0987',
 		invoice_date: 'Nov 11 2021',
-		invoice_due_date: 'Aug 21 2021',
+		invoice_due_date: 'Aug 21 2022',
 		description: 'Falcon 9 Launch',
 		client_name: 'Scott Grunerud',
 		client_email: 'spacenerd@example.com',
