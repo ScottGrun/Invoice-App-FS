@@ -1,4 +1,4 @@
-import withDarkMode, { MODE } from 'next-dark-mode';
+import withDarkMode from 'next-dark-mode';
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
 
