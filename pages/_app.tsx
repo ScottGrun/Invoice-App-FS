@@ -1,4 +1,4 @@
-import withDarkMode from 'next-dark-mode';
+import withDarkMode, { MODE } from 'next-dark-mode';
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
 
@@ -22,9 +22,10 @@ interface CustomAppProps extends AppProps {
 }
 
 function MyApp({ Component, pageProps, darkMode }: CustomAppProps) {
+	const { darkModeActive } = darkMode;
 	return (
 		<>
-			<ThemeProvider theme={darkMode.darkModeActive ? darkTheme : lightTheme}>
+			<ThemeProvider theme={darkModeActive ? darkTheme : lightTheme}>
 				<GlobalStyle />
 				<InvoicesProvider>
 					<Component {...pageProps} />

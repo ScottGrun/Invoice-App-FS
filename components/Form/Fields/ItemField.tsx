@@ -60,7 +60,6 @@ export const ItemField: FC<ItemFieldProps> = ({ idx, remove }) => {
 					/>
 				</svg>
 			</DeleteButton>
-			x
 		</Wrapper>
 	);
 };

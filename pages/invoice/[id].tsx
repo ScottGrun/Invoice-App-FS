@@ -40,7 +40,7 @@ const InvoiceDetails: NextPage = () => {
 	return (
 		<>
 			<Head>
-				<title>Invoicely | {selectedInvoice?.description}</title>
+				<title>Paymento | {selectedInvoice?.description}</title>
 				<meta name="viewport" content="initial-scale=1.0, width=device-width" />
 			</Head>
 			<Drawer

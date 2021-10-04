@@ -40,11 +40,10 @@ const Home: NextPage = () => {
 		}
 	}, [filter, invoices]);
 
-	console.log(invoices);
 	return (
 		<>
 			<Head>
-				<title>Invoicely | Invoice Management</title>
+				<title>Paymento | Invoice Management</title>
 				<meta name="viewport" content="initial-scale=1.0, width=device-width" />
 			</Head>
 			<Drawer
