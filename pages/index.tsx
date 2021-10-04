@@ -71,10 +71,7 @@ const Home: NextPage = () => {
 						New&nbsp;<span>Invoice</span>
 					</NewInvoiceButton>
 				</Header>
-				<InvoiceListContainer
-					shouldAnimateList={filteredInvoices.length > 0}
-					filteredInvoices={filteredInvoices}
-				></InvoiceListContainer>
+				{filteredInvoices && <InvoiceListContainer filteredInvoices={filteredInvoices} />}
 			</PageLayout>
 		</>
 	);

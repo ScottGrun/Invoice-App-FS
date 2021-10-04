@@ -10,14 +10,13 @@ import { Invoice } from '@/types/index';
 import { calculateInvoiceTotal } from '@/utils/calculateTotal';
 
 interface ListContainerProps {
-	shouldAnimateList: boolean;
 	filteredInvoices: Invoice[];
 }
 
 export const InvoiceListContainer: FC<ListContainerProps> = ({ filteredInvoices }) => {
 	return (
 		<Wrapper>
-			{filteredInvoices && filteredInvoices.length > 0 ? (
+			{filteredInvoices.length > 0 ? (
 				<List initial="hidden" animate="visible" variants={list}>
 					{filteredInvoices.map((invoice: Invoice, idx: number) => (
 						<motion.li
