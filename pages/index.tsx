@@ -13,14 +13,20 @@ import { InvoiceListContainer } from '@/components/InvoiceListContainer/InvoiceL
 import PageLayout from '@/layouts/PageLayout';
 import { MEDIA_QUERIES } from '@/styles/constants';
 import { bodyTextStyle, h1TextStyle, h2TextStyle } from '@/styles/typography';
-import { PossibleStatus } from '@/types/index';
+import { Invoice, PossibleStatus } from '@/types/index';
 import { getInvoiceCountText } from '@/utils/getInvoiceCountText';
 
 const Home: NextPage = () => {
 	const { invoices } = useContext(InvoicesContext);
 	const [filter, setFilter] = useState<PossibleStatus | 'all'>('all');
-	const [filteredInvoices, setFilteredInvoices] = useState(invoices);
+	const [filteredInvoices, setFilteredInvoices] = useState<Invoice[] | null>(null);
 	const [isDrawerOpen, setDrawerOpen] = useState(false);
+
+	useEffect(() => {
+		if (invoices) {
+			setFilteredInvoices(invoices);
+		}
+	}, [invoices]);
 
 	useEffect(() => {
 		if (filter === 'draft' && invoices.length > 0) {
@@ -52,7 +58,9 @@ const Home: NextPage = () => {
 				<Header>
 					<HeadingWrapper>
 						<Heading>Invoices</Heading>
-						<SubHeading>{getInvoiceCountText(filteredInvoices.length)}</SubHeading>
+						<SubHeading>
+							{getInvoiceCountText(filteredInvoices ? filteredInvoices.length : 0)}
+						</SubHeading>
 					</HeadingWrapper>
 					<StyledDropdown setDropdownValue={setFilter} filter={filter} defaultValue="all">
 						<DropdownOption label="All" value="all">
@@ -72,9 +80,7 @@ const Home: NextPage = () => {
 						New&nbsp;<span>Invoice</span>
 					</NewInvoiceButton>
 				</Header>
-				{filteredInvoices.length > 0 && (
-					<InvoiceListContainer filteredInvoices={filteredInvoices} />
-				)}
+				{filteredInvoices && <InvoiceListContainer filteredInvoices={filteredInvoices} />}
 			</PageLayout>
 		</>
 	);
