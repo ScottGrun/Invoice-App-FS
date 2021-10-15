@@ -37,8 +37,7 @@ Extended Features - Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://www.frontendmentor.io/solutions/ssr-invoice-app-CN8rae-Gb)
-- Live Site URL: [Add live site URL here](https://paymento.vercel.app)
+- Live Site URL: [Paymento](https://paymento.vercel.app)
 
 ## My process
 
